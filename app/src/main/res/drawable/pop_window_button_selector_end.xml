@@ -4,16 +4,16 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
             <solid android:color="@color/pop_window_pressed_false" />
             <corners
-                android:bottomRightRadius="10dp"
-                android:bottomLeftRadius="10dp"/>
+                android:bottomRightRadius="@dimen/pop_windows_radius"
+                android:bottomLeftRadius="@dimen/pop_windows_radius"/>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
             <solid android:color="@color/pop_window_pressed_true" />
             <corners
-                android:bottomRightRadius="10dp"
-                android:bottomLeftRadius="10dp"/>
+                android:bottomRightRadius="@dimen/pop_windows_radius"
+                android:bottomLeftRadius="@dimen/pop_windows_radius"/>
         </shape>
     </item>
 </selector>

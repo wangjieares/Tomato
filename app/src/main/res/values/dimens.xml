@@ -11,4 +11,7 @@
     <dimen name="activity_add_title_size">20dp</dimen>
     <dimen name="activity_add_title_padding">10dp</dimen>
     <dimen name="custrom_linearlayout_padding">8dp</dimen>
+    <dimen name="pop_windows_radius">5dp</dimen>
+    <dimen name="activity_count_main_layout_padding">10dp</dimen>
+    <dimen name="activity_count_timer_font_size">25sp</dimen>
 </resources>

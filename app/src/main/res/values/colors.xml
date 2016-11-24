@@ -15,6 +15,8 @@
     <color name="pop_window_pressed_true">#E6DFDF</color>
     <color name="pop_window_pressed_false">#FFFFFF</color>
     <color name="custrom_button_color">#1F213A</color>
+    <color name="activity_count_timer_background">#D34F42</color>
+    <color name="activity_count_timer_progress">#FFFFFF</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->

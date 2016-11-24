@@ -1,5 +1,6 @@
 package www.atomato.com.tomato.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.activity.CountProgressActivity;
 import www.atomato.com.tomato.adapter.ItemListener;
 import www.atomato.com.tomato.adapter.MyRecyclerViewAdapter;
 import www.atomato.com.tomato.constants.Constants;
@@ -116,6 +118,8 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     @Override
     public void onLeftItemClick(View view, int position) {
         LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
+        Intent intent = new Intent(getContext(), CountProgressActivity.class);
+        startActivityForResult(intent,Constants.REQUEST_CODE_PROGRESS);
     }
 
     @Override

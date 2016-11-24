@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ToDo">
+        <!--标题-->
         <attr name="todo_title" format="string" />
-        <attr name="todo_time" format="integer"/>
-        <attr name="todo_start" format="string"/>
-        <attr name="todo_color" format="integer"/>
-        <attr name="todo_background" format="reference"/>
+        <!--todo执行的时间-->
+        <attr name="todo_time" format="integer" />
+        <attr name="todo_start" format="string" />
+        <attr name="todo_color" format="integer" />
+        <attr name="todo_background" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CountDownView">
+        <!-- 默认圆实心的颜色 -->
+        <attr name="default_circle_solide_color" format="color" />
+        <!-- 默认圆边框的颜色 -->
+        <attr name="default_circle_stroke_color" format="color" />
+        <!-- 默认圆边框的宽度 -->
+        <attr name="default_circle_stroke_width" format="dimension" />
+        <!-- 默认圆的半径 -->
+        <attr name="default_circle_radius" format="dimension" />
+        <!-- 进度条的颜色 -->
+        <attr name="progress_color" format="color" />
+        <!-- 进度条的宽度 -->
+        <attr name="progress_width" format="dimension" />
+        <!-- 小圆的实心颜色 -->
+        <attr name="small_circle_solide_color" format="color" />
+        <!-- 小圆的边框颜色 -->
+        <attr name="small_circle_stroke_color" format="color" />
+        <!-- 小圆的边框宽度 -->
+        <attr name="small_circle_stroke_width" format="dimension" />
+        <!-- 小圆的半径 -->
+        <attr name="small_circle_radius" format="dimension" />
+        <!-- 文字的颜色 -->
+        <attr name="text_color" format="color" />
+        <!-- 文字的字体大小 -->
+        <attr name="text_size" format="dimension" />
     </declare-styleable>
 </resources>

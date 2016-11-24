@@ -1,7 +1,10 @@
 package www.atomato.com.tomato.constants;
 
+import android.graphics.Color;
+
 public class Constants {
     public static final int REQUEST_CODE_ADD = 0;
+    public static final int REQUEST_CODE_PROGRESS = 1;
     //返回用户选择todo状态码---------------------
     public static final int LONG_RADIO = 106;
     public static final int SHORT_RADIO = 105;
@@ -25,5 +28,21 @@ public class Constants {
     public static final int DELETE_TODO = 111;
     public static final int UPDATE_TODO = 112;
 
+    //定义一些常量(大小写字母切换快捷键 Ctrl + Shift + U)
+    public static final int DEFAULT_CIRCLE_SOLIDE_COLOR = Color.parseColor("#FFFFFF");
+    public static final int DEFAULT_CIRCLE_STROKE_COLOR = Color.parseColor("#D1D1D1");
+    public static final int DEFAULT_CIRCLE_STROKE_WIDTH = 5;
+    public static  int DEFAULT_CIRCLE_RADIUS = 100;
+
+    public static final int PROGRESS_COLOR = Color.parseColor("#F76E6B");
+    public static final int PROGRESS_WIDTH = 5;
+
+    public static final int SMALL_CIRCLE_SOLIDE_COLOR = Color.parseColor("#FFFFFF");
+    public static final int SMALL_CIRCLE_STROKE_COLOR = Color.parseColor("#F76E6B");
+    public static final int SMALL_CIRCLE_STROKE_WIDTH = 2;
+    public static final int SMALL_CIRCLE_RADIUS = 6;
+
+    public static final int TEXT_COLOR = Color.parseColor("#F76E6B");
+    public static final int TEXT_SIZE = 40;
 
 }
