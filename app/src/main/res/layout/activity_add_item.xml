@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/toolBar"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_add_title_padding"
+            android:text="@string/activity_add_title"
+            android:textSize="@dimen/activity_add_title_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        android:background="@color/activity_add_content_color"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/activity_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/activity_add_hint" />
+
+        <RadioGroup
+            android:id="@+id/dayRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/everyDayRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_everyday"
+                android:checked="true"
+                android:textColor="@color/activity_add_content_color_radio" />
+
+            <RadioButton
+                android:id="@+id/oneDayRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_oneday"
+                android:textColor="@color/activity_add_content_color_radio" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/timeRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/defaultDayRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_default_time"
+                android:textColor="@color/activity_add_content_color_radio" />
+
+            <RadioButton
+                android:id="@+id/timeRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_time"
+                android:checked="true"
+                android:textColor="@color/activity_add_content_color_radio" />
+
+            <RadioButton
+                android:id="@+id/customRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_custrom_time"
+                android:textColor="@color/activity_add_content_color_radio" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/planRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/shortRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_short_plan"
+                android:checked="true"
+                android:textColor="@color/activity_add_content_color_radio" />
+
+            <RadioButton
+                android:id="@+id/longRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_radio_long_plan"
+                android:textColor="@color/activity_add_content_color_radio" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/main_activity_add_item_commit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_add_button" />
+    </LinearLayout>
+</LinearLayout>

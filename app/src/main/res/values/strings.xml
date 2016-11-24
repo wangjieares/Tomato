@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Tomato</string>
+    <string name="username">admin</string>
+    <string name="dictum">A fall into th pit, a gain in your wit.</string>
+    <string name="statistice">统计数据</string>
+    <string name="relax">休息</string>
+    <string name="menu">菜单</string>
+    <string name="main_activity_add_item">Add</string>
+    <string name="activity_add_title">增加一个ToDo</string>
+    <string name="activity_add_hint">请输入事件名称</string>
+    <string name="activity_add_button">确定</string>
+    <string name="activity_add_radio_everyday">每天</string>
+    <string name="activity_add_radio_oneday">仅今天</string>
+    <string name="activity_add_radio_time">35</string>
+    <string name="activity_add_radio_default_time">45</string>
+    <string name="activity_add_radio_custrom_time">自定义</string>
+    <string name="activity_add_radio_short_plan">短期计划</string>
+    <string name="activity_add_radio_long_plan">长期计划</string>
+    <!--popwindows-->
+    <string name="pop_cancle">取消</string>
+    <string name="pop_stick">置顶</string>
+    <string name="pop_remind">提醒</string>
+    <string name="pop_edit">修改</string>
+    <string name="pop_delete">删除</string>
+    <string name="pop_mark">标记已完成</string>
+    <string name="custrom_time">确定</string>
+    <string name="edit_custrom_time">45</string>
+</resources>

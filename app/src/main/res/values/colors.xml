@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#5BCEE3</color>
+    <!--工具栏颜色-->
+    <color name="toolBar">#1F213A</color>
+    <color name="content_line">#F1F1F1</color>
+    <!--Item 点击开始颜色-->
+    <color name="itemClick">#607377</color>
+    <!--主题颜色-->
+    <color name="activity_add_content_color">#FFFFFF</color>
+    <color name="activity_add_content_color_radio">#1F213A</color>
+    <!--popwindow-->
+    <color name="pop_window_pressed_true">#E6DFDF</color>
+    <color name="pop_window_pressed_false">#FFFFFF</color>
+    <color name="custrom_button_color">#1F213A</color>
+    <!--网站寻找APP配色方案-->
+
+    <!--网站寻找APP配色方案-->
+</resources>
