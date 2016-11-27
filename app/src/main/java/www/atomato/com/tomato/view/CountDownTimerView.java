@@ -293,7 +293,7 @@ public class CountDownTimerView extends View {
             public void onAnimationEnd(Animator animation) {
                 //倒计时结束的时候，需要通过自定义接口通知UI去处理其他业务逻辑
                 if (countdownFinishListener != null) {
-                    countdownFinishListener.countdownFinished();
+                    countdownFinishListener.performFinished();
                 }
 //                if (countdownTime > 0) {
 //                    setClickable(true);
@@ -348,7 +348,7 @@ public class CountDownTimerView extends View {
 
     //通过自定义接口通知UI去处理其他业务逻辑
     public interface OnCountdownFinishListener {
-        void countdownFinished();
+        void performFinished();
     }
 
 }

@@ -39,7 +39,7 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     private RecyclerView mRecyclerView;
     private List<ToDoData> mList;
     private MyRecyclerViewAdapter mAdapter;
-    public ViewHandler handler;
+    public static ViewHandler handler;
 
     @Nullable
     @Override
@@ -120,12 +120,15 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
         Intent intent = new Intent(getContext(), CountProgressActivity.class);
 
-        startActivityForResult(intent,Constants.REQUEST_CODE_PROGRESS);
+        startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
     }
 
     @Override
     public void onRightItemClick(View view, int position) {
         LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
+    }
+
+    public static void test() {
     }
 
     public class ViewHandler extends Handler {
@@ -137,9 +140,9 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
                     Bundle bundle = msg.getData();
 //                    String title = bundle.getString("title");
                     String title = bundle.getString("title");//------------
-                    int time = bundle.getInt("time",35);
-                    int state = bundle.getInt("state",0);
-                    int progress = bundle.getInt("progress",0);
+                    int time = bundle.getInt("time", 35);
+                    int state = bundle.getInt("state", 0);
+                    int progress = bundle.getInt("progress", 0);
                     int drawColor = bundle.getInt("drawColor");
                     int day = bundle.getInt("day");
                     int plan = bundle.getInt("plan");

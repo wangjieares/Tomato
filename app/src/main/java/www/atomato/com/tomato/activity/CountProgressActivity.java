@@ -34,6 +34,7 @@ public class CountProgressActivity extends Activity {
     @BindView(R.id.activity_count_timer_linear)
     LinearLayout activityCountTimerLinear;
     private String tag = getClass().getSimpleName();
+    private boolean mIsNext = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,13 @@ public class CountProgressActivity extends Activity {
             activityCountTimerLinear.setBackground(getResources().getDrawable(R.drawable.activity_count_timer_background));
         }
     }
-
     @OnClick({R.id.activity_count_timer_show, R.id.CountDownTimerView, R.id.activity_count_timer_image_button_restart, R.id.activity_count_timer_image_button_stop, R.id.activity_count_timer_image_button_computer})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.CountDownTimerView:
                 CountDownTimerView.startCountDownTime(new CountDownTimerView.OnCountdownFinishListener() {
                     @Override
-                    public void countdownFinished() {
+                    public void performFinished() {
                         LogUtils.e(tag, "countdownFinished === done");
 
                     }
@@ -66,8 +66,10 @@ public class CountProgressActivity extends Activity {
             case R.id.activity_count_timer_image_button_restart:
                 if (view.isSelected()) {
                     LogUtils.e(tag,view.isSelected()+"");
+                    mIsNext = true;
                     view.setSelected(false);
                 } else {
+                    mIsNext=false;
                     view.setSelected(true);
                 }
                 break;
