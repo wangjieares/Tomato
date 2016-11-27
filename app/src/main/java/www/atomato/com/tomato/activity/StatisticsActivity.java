@@ -30,27 +30,7 @@ public class StatisticsActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.statistics_toolbar);
         setSupportActionBar(toolbar);
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.statistics_linear_layout);
-        LineChartView chart = new LineChartView(this);
-
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 2));
-        values.add(new PointValue(1, 4));
-        values.add(new PointValue(2, 3));
-        values.add(new PointValue(3, 4));
-
-        //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
-        List<Line> lines = new ArrayList<Line>();
-        lines.add(line);
-
-        LineChartData data = new LineChartData();
-        data.setLines(lines);
-
-        chart.setLineChartData(data);
-
-
-//        linearLayout.addView(new TextView(this));
+        LineChartView chart = (LineChartView)findViewById(R.id.statistics_lineChartView);
     }
 
     @Override

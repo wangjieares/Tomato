@@ -3,5 +3,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/statistics_linear_layout"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </LinearLayout>
 
+            <lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/statistics_lineChartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
