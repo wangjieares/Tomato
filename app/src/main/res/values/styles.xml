@@ -14,9 +14,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="linearlayout_activity_main">
         <item name="android:background">#FFFFFF</item>
@@ -24,14 +24,15 @@
 
     <style name="left_button_activity_main">
         <item name="android:src">@drawable/todo_one</item>
-        <item name="android:scaleType">centerInside</item>
+        <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:background">#FFFFFF</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <style name="right_button_activity_main">
-        <item name="android:src">@drawable/todo_one</item>
-        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/todo_more</item>
+        <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:background">#FFFFFF</item>
     </style>
@@ -53,18 +54,25 @@
         <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
     </style>
+
     <style name="pop_window_button" parent="android:DeviceDefault.Light.ButtonBar">
-            <item name="android:background">@drawable/pop_window_button_selector</item>
+        <item name="android:background">@drawable/pop_window_button_selector</item>
     </style>
+
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
-            <item name="android:windowIsFloating">true</item>
-            <item name="android:windowIsTranslucent">false</item>
-            <item name="android:windowNoTitle">true</item>
-            <item name="android:background">@drawable/linear_radius</item>
-            <item name="android:backgroundDimEnabled">true</item>
-            <item name="android:windowBackground"> @android:color/transparent </item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@drawable/linear_radius</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-    <style name="activity_add_item_button">
-            <!--<item name="android:background">@drawable/activity_add_item_button_selector</item>-->
+
+    <style name="activity_add_item_button"/>
+
+    <style name="activity_add_item_radio_button" parent="FRadioButton">
+        <item name="android:layout_marginStart">3dp</item>
     </style>
+
+    <style name="activity_add_item_edit_text" parent="FEditText"/>
 </resources>

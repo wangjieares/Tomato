@@ -151,7 +151,6 @@ public class ToDoView extends View {
         mPaint.setColor(Color.rgb(255, 255, 255));
         mPaint.setTextSize(48);
 //        LogUtils.e(tag, "mScreenHeight=>" + mScreenHeight + "---mScreenWidth=>" + mScreenWidth);
-
         canvas.drawText(mTodoTitle,50, 70, mPaint);
         mPaint.setTextSize(30);
         canvas.drawText(mTodoTime + "分钟", 55, 128, mPaint);
@@ -161,6 +160,13 @@ public class ToDoView extends View {
             //触摸点宽度 左上角开始,右下角结束
             canvas.drawRect(mTouchXPostion, 0, mDrawWidth, mDrawWidth, mPaint);
         }
+        //绘制文字状态
+        drawTextState(canvas);
+        //默认进度
+        drawProgress(canvas);
+    }
+
+    private void drawTextState(Canvas canvas) {
         //如果状态为假，说明该代办未完成
         if (ITEM_STATUS==1) {
             mPaint.setColor(Color.rgb(255, 255, 255));
@@ -173,7 +179,6 @@ public class ToDoView extends View {
             mPaint.setTextSize(40);
             canvas.drawText(mTodoStart, (float) (mScreenWidth / 1.38), 96, mPaint);
         }
-        drawProgress(canvas);
     }
 
     @Override

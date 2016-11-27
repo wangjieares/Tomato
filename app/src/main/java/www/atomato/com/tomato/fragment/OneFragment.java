@@ -119,6 +119,7 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     public void onLeftItemClick(View view, int position) {
         LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
         Intent intent = new Intent(getContext(), CountProgressActivity.class);
+
         startActivityForResult(intent,Constants.REQUEST_CODE_PROGRESS);
     }
 

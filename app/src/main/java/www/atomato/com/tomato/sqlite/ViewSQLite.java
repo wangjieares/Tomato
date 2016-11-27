@@ -15,13 +15,14 @@ import www.atomato.com.tomato.data.ToDoData;
 public class ViewSQLite {
     private Context mContext;
     private SQLiteDatabase mSQLDatabase;
+    private ViewDAOHelper viewDAO;
 
     public ViewSQLite(Context context) {
         this.mContext = context;
+        viewDAO = new ViewDAOHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
-    private void openDataBase(Context context) {
-        ViewDAOHelper viewDAO = new ViewDAOHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
+    private void openDataBase() {
         mSQLDatabase = viewDAO.getWritableDatabase();
     }
 
@@ -33,7 +34,7 @@ public class ViewSQLite {
 
     public long insert(ToDoData toDoData) {
         long state;
-        openDataBase(mContext);
+        openDataBase();
         ContentValues values = new ContentValues();
         values.put("todo_title", toDoData.getTitle());
         values.put("todo_time", toDoData.getTime());
@@ -52,7 +53,7 @@ public class ViewSQLite {
     }
 
     public void update(ToDoData toDoData) {
-        openDataBase(mContext);
+        openDataBase();
         ContentValues values = new ContentValues();
         values.put("todo_title", toDoData.getTitle());
         values.put("todo_time", toDoData.getTime());
@@ -69,8 +70,17 @@ public class ViewSQLite {
         }
     }
 
+    public void update(String tableName, ContentValues contentValues, String whereClause, String[] whereArgs) {
+        openDataBase();
+        try {
+            mSQLDatabase.update(tableName, contentValues, whereClause, whereArgs);
+        } finally {
+            closedb();
+        }
+    }
+
     public void delete(String name) {
-        openDataBase(mContext);
+        openDataBase();
         try {
             mSQLDatabase.delete(Constants.TABLE_NAME, "todo_title = ?", new String[]{name});
         } finally {
@@ -79,8 +89,13 @@ public class ViewSQLite {
     }
 
     public Cursor query() {
-        openDataBase(mContext);
+        openDataBase();
         return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, null);
+    }
+
+    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
+        openDataBase();
+        return mSQLDatabase.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
     }
 
 }

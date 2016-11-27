@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HeaderMenu">
+        <attr name="left_drawable" format="reference"></attr>
+        <attr name="right_drawable" format="reference"></attr>
+        <attr name="text" format="string|reference"></attr>
+    </declare-styleable>
+    <declare-styleable name="TabButton">
+        <attr name="drawable" format="reference"></attr>
+        <attr name="buttonText" format="reference|string"></attr>
+    </declare-styleable>
+    <declare-styleable name="Indicator">
+        <attr name="childSum" format="integer"></attr>
+        <attr name="aniDuration" format="integer"></attr>
+    </declare-styleable>
+</resources>

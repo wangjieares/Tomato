@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_spinner.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_spinner.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_button.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_button.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_tabbar_bg_tabbtn.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_tabbar_bg_tabbtn.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_checkbox.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_checkbox.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_edittext_normal.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_edittext_normal.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_edittext.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_edittext.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_edittext_focus.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_edittext_focus.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_headermenu_button_bg.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_headermenu_button_bg.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_spinner_checkbox.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_spinner_checkbox.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_radiobutton.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_radiobutton.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_togglebutton.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_togglebutton.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_round_corner_pressed.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_round_corner_pressed.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_progressbar_default.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_progressbar_default.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_progressbar_horizontal.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_progressbar_horizontal.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\fui_bg_round_corner_normal.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\drawable\\fui_bg_round_corner_normal.xml"
+    }
+]

@@ -40,19 +40,23 @@
         android:orientation="horizontal">
         <!--android:background="@android:color/transparent"-->
         <ImageButton
+            android:id="@+id/activity_count_timer_image_button_computer"
             android:layout_width="@dimen/activity_count_timer_image_button_size"
             android:layout_height="@dimen/activity_count_timer_image_button_size"
-            android:background="@drawable/activity_count_timer_image_buttom_computer_selector"
+            android:background="@drawable/activity_count_timer_image_button_computer_selector"
             android:scaleType="centerCrop"/>
 
         <ImageButton
+            android:id="@+id/activity_count_timer_image_button_restart"
+
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="40dp"
-            android:background="@drawable/activity_count_timer_image_buttom_restart_selector"
+            android:background="@drawable/activity_count_timer_image_button_restart_selector"
             android:scaleType="centerCrop"/>
 
         <ImageButton
+            android:id="@+id/activity_count_timer_image_button_stop"
             android:layout_width="@dimen/activity_count_timer_image_button_size"
             android:layout_height="@dimen/activity_count_timer_image_button_size"
             android:layout_marginStart="40dp"

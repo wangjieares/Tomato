@@ -11,8 +11,8 @@
     <string name="activity_add_button">确定</string>
     <string name="activity_add_radio_everyday">每天</string>
     <string name="activity_add_radio_oneday">仅今天</string>
-    <string name="activity_add_radio_time">35</string>
-    <string name="activity_add_radio_default_time">45</string>
+    <string name="activity_add_radio_time">45</string>
+    <string name="activity_add_radio_default_time">35</string>
     <string name="activity_add_radio_custrom_time">自定义</string>
     <string name="activity_add_radio_short_plan">短期计划</string>
     <string name="activity_add_radio_long_plan">长期计划</string>

@@ -1,0 +1,75 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="FTextView" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+
+    <style name="FEditText" parent="@android:style/Widget.Holo.EditText">
+        <item name="android:paddingLeft">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingRight">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingTop">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:paddingBottom">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+        <item name="android:drawablePadding">@dimen/content_paddingLeftRight</item>
+        <item name="android:background">@drawable/fui_bg_edittext</item>
+    </style>
+
+    <style name="FButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/fui_bg_button</item>
+        <item name="android:paddingLeft">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingRight">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingTop">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:paddingBottom">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:textColor">@color/f_white</item>
+    </style>
+
+    <style name="FSpinnerCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/fui_spinner_checkbox</item>
+    </style>
+
+    <style name="FSpinner" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/fui_bg_spinner</item>
+    </style>
+
+    <style name="FDropDownListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">@color/f_spinner_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:minHeight">@dimen/fspinner_miniHeight</item>
+    </style>
+
+    <style name="FProgressBarHorizontal" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/fui_progressbar_horizontal</item>
+    </style>
+
+    <style name="FProgressBar" parent="@android:style/Widget.Holo.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/fui_progressbar_default</item>
+    </style>
+
+    <style name="FRadioButton" parent="@android:style/Widget.Holo.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/fui_radiobutton</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+
+    <style name="FCheckBox" parent="@android:style/Widget.Holo.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/fui_checkbox</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+
+    <style name="FToggleButton" parent="@android:style/Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/fui_bg_togglebutton</item>
+        <item name="android:textOn"></item>
+        <item name="android:textOff"></item>
+        <item name="android:minHeight">16dp</item>
+    </style>
+
+    <style name="FDialog" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+        <item name="android:buttonBarStyle">@null</item>
+    </style>
+
+    <style name="FListView" parent="@android:style/Widget.Holo.ListView">
+        <item name="android:divider">@color/f_list_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">?android:attr/listChoiceBackgroundIndicator</item>
+    </style>
+
+</resources>

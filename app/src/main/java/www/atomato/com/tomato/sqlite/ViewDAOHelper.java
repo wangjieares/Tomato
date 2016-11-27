@@ -20,7 +20,8 @@ public class ViewDAOHelper extends SQLiteOpenHelper {
             "todo_color INTEGER,"+
             "todo_type INTEGER,"+
             "todo_plan INTEGER,"+
-            "todo_day INTEGER)";
+            "todo_day INTEGER,"+
+            "todo_day_index)";//执行次数
 
     public ViewDAOHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

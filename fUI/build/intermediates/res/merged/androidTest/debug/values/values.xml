@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="f_dark_blue">#4d8693</color>
+    <color name="f_default_textColor">#6d6e76</color>
+    <color name="f_edittext_border_focus_color">#5a9aa8</color>
+    <color name="f_light_blue">#5a9aa8</color>
+    <color name="f_light_blue_1">#a05a9aa8</color>
+    <color name="f_list_divider">#c2c0c0</color>
+    <color name="f_main_bg">#d9d9d9</color>
+    <color name="f_progress">#b5d3d9</color>
+    <color name="f_progressbar_bg">#808085</color>
+    <color name="f_spinner_divider">#e1e1e1</color>
+    <color name="f_white">#ffffff</color>
+    <declare-styleable name="HeaderMenu"><attr format="reference" name="left_drawable"/><attr format="reference" name="right_drawable"/><attr format="string|reference" name="text"/></declare-styleable>
+    <declare-styleable name="Indicator"><attr format="integer" name="childSum"/><attr format="integer" name="aniDuration"/></declare-styleable>
+    <declare-styleable name="TabButton"><attr format="reference" name="drawable"/><attr format="reference|string" name="buttonText"/></declare-styleable>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="content_paddingLeftRight">10dp</dimen>
+    <dimen name="content_paddingTopBottom">10dp</dimen>
+    <dimen name="fbutton_paddingTopBottom">36dp</dimen>
+    <dimen name="fdialog_buttonHeight">50dp</dimen>
+    <dimen name="fdialog_buttonTextSize">16sp</dimen>
+    <dimen name="fdialog_messageTextSize">16sp</dimen>
+    <dimen name="fedit_drawablePadding">12dp</dimen>
+    <dimen name="fedit_paddingTopBottom">6dp</dimen>
+    <dimen name="fheader_height">50dp</dimen>
+    <dimen name="fheader_textSize">22sp</dimen>
+    <dimen name="fspinner_miniHeight">40dp</dimen>
+    <dimen name="fspinner_right_button_width">50dp</dimen>
+    <dimen name="fspinner_textSize">18sp</dimen>
+    <dimen name="fspinner_width">200dp</dimen>
+    <dimen name="tabbar_buttonTextsize">18sp</dimen>
+    <string name="fui_search">Search</string>
+    <style name="FButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/fui_bg_button</item>
+        <item name="android:paddingLeft">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingRight">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingTop">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:paddingBottom">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:textColor">@color/f_white</item>
+    </style>
+    <style name="FCheckBox" parent="@android:style/Widget.Holo.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/fui_checkbox</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+    <style name="FDialog" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+        <item name="android:buttonBarStyle">@null</item>
+    </style>
+    <style name="FDropDownListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">@color/f_spinner_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:minHeight">@dimen/fspinner_miniHeight</item>
+    </style>
+    <style name="FEditText" parent="@android:style/Widget.Holo.EditText">
+        <item name="android:paddingLeft">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingRight">@dimen/content_paddingLeftRight</item>
+        <item name="android:paddingTop">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:paddingBottom">@dimen/fedit_paddingTopBottom</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+        <item name="android:drawablePadding">@dimen/content_paddingLeftRight</item>
+        <item name="android:background">@drawable/fui_bg_edittext</item>
+    </style>
+    <style name="FListView" parent="@android:style/Widget.Holo.ListView">
+        <item name="android:divider">@color/f_list_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">?android:attr/listChoiceBackgroundIndicator</item>
+    </style>
+    <style name="FProgressBar" parent="@android:style/Widget.Holo.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/fui_progressbar_default</item>
+    </style>
+    <style name="FProgressBarHorizontal" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/fui_progressbar_horizontal</item>
+    </style>
+    <style name="FRadioButton" parent="@android:style/Widget.Holo.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/fui_radiobutton</item>
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+    <style name="FSpinner" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/fui_bg_spinner</item>
+    </style>
+    <style name="FSpinnerCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/fui_spinner_checkbox</item>
+    </style>
+    <style name="FTextView" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:textColor">@color/f_default_textColor</item>
+    </style>
+    <style name="FTheme" parent="@android:style/Theme.Holo">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@color/f_main_bg</item>
+        <item name="android:editTextStyle">@style/FEditText</item>
+        <item name="android:buttonStyle">@style/FButton</item>
+        <item name="android:spinnerStyle">@style/FSpinner</item>
+        <item name="android:dropDownListViewStyle">@style/FDropDownListView</item>
+        <item name="android:progressBarStyleHorizontal">@style/FProgressBarHorizontal</item>
+        <item name="android:progressBarStyle">@style/FProgressBar</item>
+        <item name="android:radioButtonStyle">@style/FRadioButton</item>
+        <item name="android:checkboxStyle">@style/FCheckBox</item>
+        <item name="android:buttonStyleToggle">@style/FToggleButton</item>
+        <item name="android:textViewStyle">@style/FTextView</item>
+        <item name="android:autoCompleteTextViewStyle">@style/FEditText</item>
+        <item name="android:dialogTheme">@style/FDialog</item>
+        <item name="android:listViewStyle">@style/FListView</item>
+    </style>
+    <style name="FToggleButton" parent="@android:style/Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/fui_bg_togglebutton</item>
+        <item name="android:textOn"/>
+        <item name="android:textOff"/>
+        <item name="android:minHeight">16dp</item>
+    </style>
+</resources>

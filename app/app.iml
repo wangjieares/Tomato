@@ -160,6 +160,8 @@
     <orderEntry type="library" exported="" name="support-vector-drawable-25.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-25.0.0" level="project" />
+    <orderEntry type="module" module-name="fUI" exported="" />
     <orderEntry type="library" exported="" name="android-android-24" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
   </component>
 </module>

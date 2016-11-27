@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="f_main_bg">#d9d9d9</color>
+    <color name="f_white">#ffffff</color>
+    <color name="f_default_textColor">#6d6e76</color>
+    <color name="f_edittext_border_focus_color">#5a9aa8</color>
+    <color name="f_light_blue">#5a9aa8</color>
+    <color name="f_light_blue_1">#a05a9aa8</color>
+    <color name="f_dark_blue">#4d8693</color>
+    <color name="f_spinner_divider">#e1e1e1</color>
+    <color name="f_progressbar_bg">#808085</color>
+    <color name="f_progress">#b5d3d9</color>
+    
+    <color name="f_list_divider">#c2c0c0</color>
+    
+</resources>

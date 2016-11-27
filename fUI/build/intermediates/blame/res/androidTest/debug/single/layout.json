@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_view_falertdialog.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_view_falertdialog.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_item_spinner_dropdown.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_item_spinner_dropdown.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_item_spinner.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_item_spinner.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_view_searchbar.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_view_searchbar.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_item_autocompletetextview.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_item_autocompletetextview.xml"
+    },
+    {
+        "merged": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fui_view_headermenu.xml",
+        "source": "D:\\SoftwareDirect\\Android\\Source\\Tomato\\fUI\\build\\intermediates\\bundles\\debug\\res\\layout\\fui_view_headermenu.xml"
+    }
+]

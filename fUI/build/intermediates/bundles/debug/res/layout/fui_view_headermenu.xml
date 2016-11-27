@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fheader_height" >
+    <ImageView
+        android:id="@+id/btn_left"
+        android:layout_width="@dimen/fheader_height"
+        android:layout_height="@dimen/fheader_height"
+        android:background="@drawable/fui_headermenu_button_bg"
+        android:scaleType="center"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/btn_right"
+        android:layout_width="@dimen/fheader_height"
+        android:layout_height="@dimen/fheader_height"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/fui_headermenu_button_bg"
+        android:scaleType="center"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/btn_right"
+        android:layout_toRightOf="@id/btn_left"
+        android:gravity="center_horizontal"
+        android:text="header"
+        android:textColor="@color/f_white"
+        android:textSize="@dimen/fheader_textSize" />
+
+</merge>
