@@ -17,6 +17,8 @@
     <color name="custrom_button_color">#1F213A</color>
     <color name="activity_count_timer_background">#D34F42</color>
     <color name="activity_count_timer_progress">#FFFFFF</color>
+    <color name="activity_add_button_pressed_false">#606366</color>
+    <color name="activity_add_button_pressed_true">#1F213A</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->

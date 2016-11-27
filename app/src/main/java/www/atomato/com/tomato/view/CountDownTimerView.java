@@ -56,7 +56,7 @@ public class CountDownTimerView extends View {
     private long countdownTime;
     //中间文字描述
     private String textDesc;
-//    private String textDesc;
+    //    private String textDesc;
     //小圆运动路径Path
     private Path mPath;
     //圆外边的矩形
@@ -64,6 +64,8 @@ public class CountDownTimerView extends View {
     //额外距离
     private float extraDistance = 0.7F;
 
+    private long mSecord;
+    private long mMintue;
 
     public CountDownTimerView(Context context) {
         this(context, null);
@@ -122,7 +124,7 @@ public class CountDownTimerView extends View {
         //回收typedArray对象
         typedArray.recycle();
         //设置画笔
-        defaultCircleRadius= (int) (ScreenUtils.getScreenWidth(context)/3.8);
+        defaultCircleRadius = (int) (ScreenUtils.getScreenWidth(context) / 3);
         setPaint();
     }
 
@@ -248,7 +250,10 @@ public class CountDownTimerView extends View {
     //提供一个外界可以设置的倒计时数值
     public void setCountdownTime(long countdownTime) {
         this.countdownTime = countdownTime;
-        textDesc = countdownTime  / 1000 + "″";
+        mMintue = countdownTime / 1000 / 60;//分钟
+        //2*60*1000=119000
+        mSecord = countdownTime / 1000  % 60;//秒
+        textDesc = mMintue + ":" + mSecord;
     }
 
     //属性动画
@@ -316,7 +321,12 @@ public class CountDownTimerView extends View {
             public void onTick(long millisUntilFinished) {
                 //         Log.e("time",countdownTime+"");
                 countdownTime = countdownTime - 1000;
-                textDesc = countdownTime / 1000 + "″";
+//                textDesc = countdownTime / 1000 + "″";
+                //2*60*1000=120000
+                mMintue = countdownTime / 1000 / 60;//分钟
+                //2*60*1000=119000
+                mSecord = countdownTime / 1000  % 60;//秒
+                textDesc = mMintue + ":" + mSecord;
                 //countdownTime = countdownTime-1000;
 //                Log.e("time", countdownTime + "");
                 //刷新view

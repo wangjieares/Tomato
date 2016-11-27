@@ -20,13 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/activity_add_title_padding"
+            android:paddingRight="@dimen/activity_add_title_padding"
             android:text="@string/activity_add_title"
             android:textSize="@dimen/activity_add_title_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/activity_add_content_color"
         android:gravity="center"
@@ -120,8 +121,10 @@
         </RadioGroup>
 
         <Button
+            style="@style/activity_add_item_button"
             android:id="@+id/main_activity_add_item_commit"
             android:layout_width="match_parent"
+            android:padding="15dp"
             android:layout_height="wrap_content"
             android:text="@string/activity_add_button" />
     </LinearLayout>

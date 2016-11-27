@@ -8,10 +8,11 @@
     <dimen name="nav_header_text_margin">12px</dimen>
     <dimen name="todo_margin_left_right">16dp</dimen>
     <dimen name="todo_margin_top_bottom">16dp</dimen>
-    <dimen name="activity_add_title_size">20dp</dimen>
+    <dimen name="activity_add_title_size">20sp</dimen>
     <dimen name="activity_add_title_padding">10dp</dimen>
     <dimen name="custrom_linearlayout_padding">8dp</dimen>
     <dimen name="pop_windows_radius">5dp</dimen>
     <dimen name="activity_count_main_layout_padding">10dp</dimen>
-    <dimen name="activity_count_timer_font_size">25sp</dimen>
+    <dimen name="activity_count_timer_font_size">22sp</dimen>
+    <dimen name="activity_count_timer_image_button_size">35dp</dimen>
 </resources>

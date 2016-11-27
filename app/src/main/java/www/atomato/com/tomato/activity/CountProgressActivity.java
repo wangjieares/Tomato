@@ -28,7 +28,7 @@ public class CountProgressActivity extends Activity {
         setContentView(R.layout.activity_count_timer);
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_count_timer_linear) ;
         mCountDownTimerView = (CountDownTimerView) findViewById(R.id.CountDownTimerView);
-        mCountDownTimerView.setCountdownTime(10*1000);
+        mCountDownTimerView.setCountdownTime(1000*60*2);
         mCountDownTimerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
