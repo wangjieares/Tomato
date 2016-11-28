@@ -24,7 +24,6 @@ public class LaunchActivity extends Activity{
                 finish();
             }
         };
-
         timer.schedule(timerTask,1000);
     }
 }
