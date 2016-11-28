@@ -15,8 +15,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:textColor="@color/activity_detail_title_color"
-        android:textSize="@dimen/activity_detail_title_text_size"
-        />
+        android:textSize="@dimen/activity_detail_title_text_size"/>
 
     <TextView
         android:id="@+id/activity_detail_num"
