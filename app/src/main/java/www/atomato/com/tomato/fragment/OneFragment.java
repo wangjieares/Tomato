@@ -17,6 +17,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.activity.CountProgressActivity;
 import www.atomato.com.tomato.activity.DetailActivity;
@@ -41,6 +46,8 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     private List<ToDoData> mList;
     private MyRecyclerViewAdapter mAdapter;
     public static ViewHandler handler;
+    private Subscriber<ToDoData> mTodoDataObserver;
+    private Observable<ToDoData> mObservable;
 
     @Nullable
     @Override
@@ -57,9 +64,6 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.fragment_recyclerView);
         mList = new ArrayList<>();
         mAdapter = new MyRecyclerViewAdapter(getActivity(), mList);
-//        mAdapter.addData(1,"背单词",35,true,100,Color.RED);
-//        mAdapter.addData(1,"读课文",35,false,50,Color.BLUE);
-//        mAdapter.addData(1,"android开发",35,true,5,Color.BLACK);
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
@@ -67,15 +71,28 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new ItemListener(getActivity(), this));
         //end RecyclerView
-//        ViewSQLite viewSQLite = new ViewSQLite(getContext());
-//        viewSQLite.insert(new ToDoData("android开发", 35, 1, 5, Color.BLACK));
-        initToDo();
+        initTodo();
     }
 
-    public void initToDo() {
-        new Thread(new Runnable() {
+    private void initTodo() {
+        mTodoDataObserver = new Subscriber<ToDoData>() {
             @Override
-            public void run() {
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(ToDoData toDoData) {
+                        mAdapter.addData(toDoData);
+            }
+        };
+
+        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
+            @Override
+            public void call(Subscriber<? super ToDoData> subscriber) {
                 ViewSQLite viewSQLite = new ViewSQLite(getContext());
                 try (Cursor cursor = viewSQLite.query()) {
                     while (cursor.moveToNext()) {
@@ -85,20 +102,30 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
                         int state = cursor.getInt(cursor.getColumnIndex("todo_state"));
                         int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
                         int color = cursor.getInt(cursor.getColumnIndex("todo_color"));
-//                        Bundle bundle = new Bundle();
-//                        bundle.putInt("id", id);
-//                        bundle.putString("title", title);
-//                        bundle.putInt("time", time);
-//                        bundle.putInt("state", state);
-//                        bundle.putInt("progress", progress);
-//                        bundle.putInt("color", color);
-                        mAdapter.addData(new ToDoData(title, time, state, progress, color));
+                        subscriber.onNext(new ToDoData(title, time, state, progress, color));
                     }
                 }
             }
-        }).start();
+        });
+        mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
+        mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
+        mObservable.subscribe(mTodoDataObserver);
     }
 
+    /**
+     * 1.onStart(): 这是 Subscriber 增加的方法。它会在 subscribe 刚开始，而事件还未发送之前被调用，
+     * 可以用于做一些准备工作，例如数据的清零或重置。这是一个可选方法，默认情况下它的实现为空。
+     * 需要注意的是，如果对准备工作的线程有要求（例如弹出一个显示进度的对话框，这必须在主线程
+     * 执行）， onStart() 就不适用了，因为它总是在 subscribe 所发生的线程被调用，而不能指定线程。
+     * 要在指定的线程来做准备工作，可以使用 doOnSubscribe() 方法，具体可以在后面的文中看到。
+     * -------------------------------------------------------------------------------------------------
+     * 2.unsubscribe(): 这是 Subscriber 所实现的另一个接口 Subscription 的方法，用于取消订阅。在这
+     * 个方法被调用后，Subscriber 将不再接收事件。一般在这个方法调用前，可以使用 isUnsubscribed()
+     * 先判断一下状态。 unsubscribe() 这个方法很重要，因为在 subscribe() 之后， Observable 会持有 Su
+     * bscriber 的引用，这个引用如果不能及时被释放，将有内存泄露的风险。所以最好保持一个原则：要在
+     * 不再使用的时候尽快在合适的地方（例如 onPause() onStop() 等方法中）调用 unsubscribe() 来解
+     * 除引用关系，以避免内存泄露的发生。
+     */
     public MyRecyclerViewAdapter getAdapter() {
         return mAdapter;
     }
@@ -122,8 +149,8 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
 //        LogUtils.e(tag,"todo_title==="+todo_title);
-        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME,null,"todo_title = ?",new String[]{todo_title},null,null,null);
-        if(cursor.moveToNext()){
+        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
+        if (cursor.moveToNext()) {
 //            LogUtils.e(tag,"time==="+time);
             Intent intent = new Intent(getContext(), CountProgressActivity.class);
             intent.putExtra("todo_title", todo_title);
@@ -137,8 +164,8 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME,new String[]{"todo_time"},"todo_title = ?",new String[]{todo_title},null,null,null);
-        if(cursor.moveToNext()){
+        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_time"}, "todo_title = ?", new String[]{todo_title}, null, null, null);
+        if (cursor.moveToNext()) {
             int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
 //            LogUtils.e(tag,"time==="+time);
             Intent intent = new Intent(getContext(), DetailActivity.class);
@@ -147,7 +174,12 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
         }
     }
 
-    public static void test() {
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mTodoDataObserver.isUnsubscribed()) {
+            mTodoDataObserver.unsubscribe();
+        }
     }
 
     public class ViewHandler extends Handler {

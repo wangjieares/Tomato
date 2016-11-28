@@ -28,10 +28,10 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
     private int mCounter;
     private boolean mReleased;
     private boolean mMoved;
-    private Handler mHandler;
+//    private Handler mHandler;
     private final long mLongDownTime = 500;
     private boolean isLongPress;//一次Down只能一次长按执行
-    private Runnable mLongPressRunnable; //
+//    private Runnable mLongPressRunnable; //
 
     //内部接口，定义点击方法以及长按方法
     public interface OnItemClickListener {
@@ -45,21 +45,21 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
     public ItemListener(Context context, OnItemClickListener listener) {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mListener = listener;
-        mHandler = new Handler();
-        mLongPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                LogUtils.i(tag, "thread");
-                LogUtils.i(tag, "mCounter--->>>" + mCounter);
-                LogUtils.i(tag, "isReleased--->>>" + mReleased);
-                LogUtils.i(tag, "isMoved--->>>" + mMoved);
-                mCounter--;
-                // 计数器大于0，说明当前执行的Runnable不是最后一次down产生的。
-                if (mCounter > 0 || mReleased || mMoved)
-                    return;
-//                mListener.onLongRightItenClick();
-            }
-        };
+//        mHandler = new Handler();
+//        mLongPressRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                LogUtils.i(tag, "thread");
+//                LogUtils.i(tag, "mCounter--->>>" + mCounter);
+//                LogUtils.i(tag, "isReleased--->>>" + mReleased);
+//                LogUtils.i(tag, "isMoved--->>>" + mMoved);
+//                mCounter--;
+//                // 计数器大于0，说明当前执行的Runnable不是最后一次down产生的。
+//                if (mCounter > 0 || mReleased || mMoved)
+//                    return;
+////                mListener.onLongRightItenClick();
+//            }
+//        };
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
                 mCounter++;
                 mMoved = false;
                 mReleased = false;
-                mHandler.postDelayed(mLongPressRunnable, 3000);
+//                mHandler.postDelayed(mLongPressRunnable, 3000);
                 break;
 
             case MotionEvent.ACTION_MOVE:
