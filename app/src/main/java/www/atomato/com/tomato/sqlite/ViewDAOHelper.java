@@ -10,20 +10,9 @@ import www.atomato.com.tomato.constants.Constants;
  * Created by wangj on 2016-11-23.
  */
 
-public class ViewDAOHelper extends SQLiteOpenHelper {
-    String sql = "create table " + Constants.TABLE_NAME + " (" +
-            "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "todo_title TEXT NOT NULL," +
-            "todo_time INTEGER," +
-            "todo_state INTEGER," +
-            "todo_progress INTEGER,"+
-            "todo_color INTEGER,"+
-            "todo_type INTEGER,"+
-            "todo_plan INTEGER,"+
-            "todo_day INTEGER,"+
-            "todo_day_index)";//执行次数
+class ViewDAOHelper extends SQLiteOpenHelper {
 
-    public ViewDAOHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    ViewDAOHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -35,6 +24,18 @@ public class ViewDAOHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String sql = "create table " + Constants.TABLE_NAME + " (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "todo_title TEXT NOT NULL," +
+                "todo_time INTEGER," +
+                "todo_state INTEGER," +
+                "todo_progress INTEGER," +
+                "todo_color INTEGER," +
+                "todo_type INTEGER," +
+                "todo_plan INTEGER," +
+                "todo_day INTEGER," +
+                "todo_day_index INTEGER," +//执行次数
+                "todo_day_total_time INTEGER)";
         db.execSQL(sql);
     }
 

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +30,7 @@ import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.viewpager.MyViewPager;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private String tag = getClass().getSimpleName();
     private MyViewPagerAdapter mAdapter;
     private List<Fragment> mFragmentList;
@@ -67,30 +68,33 @@ public class MainActivity extends BaseActivity
         mAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(0);
+        mViewPager.addOnPageChangeListener(this);
         //end   VIewPager初始化
+//        mViewPager.setOnDragListener();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemTextAppearance(R.style.MenuTextStyle);
 
-        if (mViewPager.getCurrentItem() == 0) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-            setSupportActionBar(toolbar);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (0 == mViewPager.getCurrentItem()) {
+            menu.getItem(0).setIcon(R.drawable.activity_main_add_one);
         }
-        if (mViewPager.getCurrentItem() == 1) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-            setSupportActionBar(toolbar);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+        if (1 == mViewPager.getCurrentItem()) {
+            menu.getItem(0).setIcon(R.drawable.activity_main_add_more);
+
         }
+        return true;
+//        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -216,17 +220,38 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onClick(View view) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         int id = view.getId();
         switch (id) {
             case R.id.oneButton:
                 LogUtils.d(tag, tag + "===oneButton Click");
                 mViewPager.setCurrentItem(0);
+                invalidateOptionsMenu();
                 break;
             case R.id.moreButton:
                 LogUtils.d(tag, tag + "===moreButton Click");
                 mViewPager.setCurrentItem(1);
+                invalidateOptionsMenu();
                 break;
         }
+    }
+
+    //mViewPager监听
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                invalidateOptionsMenu();
+                break;
+            case 1:
+                invalidateOptionsMenu();
+                break;
+        }
+    }
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 }

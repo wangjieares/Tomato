@@ -22,16 +22,4 @@ public class MoreFragment extends BaseFragment {
         return view;
     }
 
-    public static MoreFragment newInstance(String s) {
-        MoreFragment newFragment = new MoreFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("hello", s);
-        newFragment.setArguments(bundle);
-
-        //bundle还可以在每个标签里传送数据
-
-
-        return newFragment;
-
-    }
 }

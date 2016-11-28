@@ -66,7 +66,6 @@ int drawable fui_progressbar_horizontal 0x7f02001d
 int drawable fui_radiobutton 0x7f02001e
 int drawable fui_spinner_checkbox 0x7f02001f
 int drawable fui_tabbar_bg_tabbtn 0x7f020020
-int drawable ic_launcher 0x7f020021
 int id btn_left 0x7f080008
 int id btn_negative 0x7f080006
 int id btn_positve 0x7f080007
