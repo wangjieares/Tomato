@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:title="@string/menu">
+        <item android:title="@string/activity_main_drawer_menu">
             <menu>
                 <item
                     android:id="@+id/nav_camera"
-                    android:icon="@drawable/ic_menu_camera"
-                    android:title="@string/statistice" />
+                    android:icon="@mipmap/activity_main_drawer_statistics"
+                    android:title="@string/activity_main_drawer_statistice"/>
                 <item
                     android:id="@+id/nav_gallery"
-                    android:icon="@drawable/ic_menu_gallery"
-                    android:title="@string/relax" />
+                    android:icon="@mipmap/activity_main_drawer_relax"
+                    android:title="@string/activity_main_drawer_relax"/>
                 <item
                     android:id="@+id/nav_slideshow"
-                    android:icon="@drawable/ic_menu_slideshow"
-                    android:title="Slideshow" />
+                    android:icon="@mipmap/activity_main_drawer_future"
+                    android:title="@string/activity_main_drawer_future"/>
                 <item
                     android:id="@+id/nav_manage"
                     android:icon="@drawable/ic_menu_manage"
-                    android:title="Tools" />
+                    android:title="Tools"/>
             </menu>
         </item>
     </group>
@@ -27,10 +27,10 @@
     <item
         android:id="@+id/nav_share"
         android:icon="@drawable/ic_menu_share"
-        android:title="Share" />
+        android:title="Share"/>
     <item
         android:id="@+id/nav_send"
         android:icon="@drawable/ic_menu_send"
-        android:title="Send" />
+        android:title="Send"/>
 
 </menu>

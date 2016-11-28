@@ -2,9 +2,10 @@
     <string name="app_name">番茄工作法</string>
     <string name="username">admin</string>
     <string name="dictum">A fall into th pit, a gain in your wit.</string>
-    <string name="statistice">统计数据</string>
-    <string name="relax">休息</string>
-    <string name="menu">菜单</string>
+    <string name="activity_main_drawer_statistice">统计数据</string>
+    <string name="activity_main_drawer_relax">休息</string>
+    <string name="activity_main_drawer_menu">菜单</string>
+    <string name="activity_main_drawer_future">以后计划表</string>
     <string name="main_activity_add_item">Add</string>
     <string name="activity_add_title">增加一个ToDo</string>
     <string name="activity_add_hint">请输入事件名称</string>

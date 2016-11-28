@@ -37,18 +37,16 @@
                 android:id="@+id/oneButton"
                 style="@style/left_button_activity_main"
                 android:layout_width="0dp"
-                android:layout_height="29dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:layout_weight="1"/>
 
             <ImageButton
                 android:id="@+id/moreButton"
                 style="@style/right_button_activity_main"
                 android:layout_width="0dp"
-                android:layout_height="29dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>

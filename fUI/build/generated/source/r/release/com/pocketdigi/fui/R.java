@@ -114,6 +114,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int fui_radiobutton=0x7f02001e;
         public static int fui_spinner_checkbox=0x7f02001f;
         public static int fui_tabbar_bg_tabbtn=0x7f020020;
+        public static int ic_launcher=0x7f020021;
     }
     public static final class id {
         public static int btn_left=0x7f080008;
