@@ -2,6 +2,7 @@ package www.atomato.com.tomato.data;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.SystemClock;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
@@ -18,6 +19,11 @@ public class ToDoData {
     private int mDay = Constants.EVERY_DAY_RADIO;
     private int mPlan = Constants.TIME_RADIO;
     private int mType = Constants.LONG_RADIO;
+    private long mCreate;
+
+    private int mDestory;
+
+
     private ViewSQLite viewSQLite;
 
     public ToDoData(Context context, String title, int time, int state, float progress, int drawColor, int day, int plan, int type) {
@@ -29,10 +35,11 @@ public class ToDoData {
         this.mDay = day;
         this.mPlan = plan;
         this.mType = type;
+        mCreate = System.currentTimeMillis();
         try {
             viewSQLite = new ViewSQLite(context);
             viewSQLite.insert(this);
-        }finally {
+        } finally {
             viewSQLite.closedb();
         }
     }
@@ -109,4 +116,13 @@ public class ToDoData {
     public void setProgress(float mProgress) {
         this.mProgress = mProgress;
     }
+
+    public int getDestory() {
+        return mDestory;
+    }
+
+    public void setDestory(int destory) {
+        mDestory = destory;
+    }
+
 }

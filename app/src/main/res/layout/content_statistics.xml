@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:id="@+id/statistics_linear_layout"
-    android:layout_height="match_parent">
+              android:id="@+id/statistics_linear_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </LinearLayout>
 
-            <lecho.lib.hellocharts.view.LineChartView
-                android:id="@+id/statistics_lineChartView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/content_statistics_padding">
+
+            <include
+                style="@style/content_statistics_item_margin"
+                layout="@layout/content_statistics_item"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                />
+
+            <include
+                layout="@layout/content_statistics_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

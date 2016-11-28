@@ -13,13 +13,11 @@ import www.atomato.com.tomato.data.ToDoData;
  */
 
 public class ViewSQLite {
-    private Context mContext;
     private SQLiteDatabase mSQLDatabase;
     private ViewDAOHelper viewDAO;
 
     public ViewSQLite(Context context) {
-        this.mContext = context;
-        viewDAO = new ViewDAOHelper(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
+        viewDAO = ViewDAOHelper.getInstance(context);
     }
 
     private void openDataBase() {
@@ -44,6 +42,10 @@ public class ViewSQLite {
         values.put("todo_type", toDoData.getType());//必须修改
         values.put("todo_plan", toDoData.getPlan());
         values.put("todo_day", toDoData.getDay());
+        values.put("todo_create", toDoData.getDay());
+        values.put("todo_destory", toDoData.getDay());
+        values.put("todo_day_index", toDoData.getDay());
+        values.put("todo_day_total_time", toDoData.getDay());
         try {
             state = mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
         } finally {

@@ -19,6 +19,7 @@ import java.util.List;
 
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.activity.CountProgressActivity;
+import www.atomato.com.tomato.activity.DetailActivity;
 import www.atomato.com.tomato.adapter.ItemListener;
 import www.atomato.com.tomato.adapter.MyRecyclerViewAdapter;
 import www.atomato.com.tomato.constants.Constants;
@@ -28,7 +29,7 @@ import www.atomato.com.tomato.pop.ButtomWindow;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.utils.LogUtils;
-import www.atomato.com.tomato.utils.ToastUtils;
+import www.atomato.com.tomato.view.ToDoView;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -105,11 +106,11 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     @Override
     public void onLongRightItenClick(View view, int position) {
         LogUtils.e(tag, tag + "===onLongRightItenClick===>" + position);
-        showPopFormBottom(view);
+        showPopFormBottom();
 //        ButtomAlertDialog.showDialog(getContext());
     }
 
-    public void showPopFormBottom(View view) {
+    public void showPopFormBottom() {
         ButtomWindow buttomWindow = new ButtomWindow(getActivity());
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
@@ -118,14 +119,32 @@ public class OneFragment extends BaseFragment implements ItemListener.OnItemClic
     @Override
     public void onLeftItemClick(View view, int position) {
         LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
-        Intent intent = new Intent(getContext(), CountProgressActivity.class);
+        String todo_title = ((ToDoView) view).getTodoTitle();
+        ViewSQLite viewSQLite = new ViewSQLite(getContext());
+//        LogUtils.e(tag,"todo_title==="+todo_title);
+        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME,null,"todo_title = ?",new String[]{todo_title},null,null,null);
+        if(cursor.moveToNext()){
+//            LogUtils.e(tag,"time==="+time);
+            Intent intent = new Intent(getContext(), CountProgressActivity.class);
+            intent.putExtra("todo_title", todo_title);
+            startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
+        }
 
-        startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
     }
 
     @Override
     public void onRightItemClick(View view, int position) {
         LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
+        String todo_title = ((ToDoView) view).getTodoTitle();
+        ViewSQLite viewSQLite = new ViewSQLite(getContext());
+        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME,new String[]{"todo_time"},"todo_title = ?",new String[]{todo_title},null,null,null);
+        if(cursor.moveToNext()){
+            int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
+//            LogUtils.e(tag,"time==="+time);
+            Intent intent = new Intent(getContext(), DetailActivity.class);
+            intent.putExtra("todo_time", time);
+            startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
+        }
     }
 
     public static void test() {

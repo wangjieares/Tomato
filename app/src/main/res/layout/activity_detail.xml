@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="300dp"
+              android:layout_height="200dp"
+              android:layout_gravity="center"
+              android:background="@drawable/linear_radius"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:weightSum="1">
+
+    <TextView
+        android:id="@+id/activity_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/activity_detail_title_color"
+        android:textSize="@dimen/activity_detail_title_text_size"
+        />
+
+    <TextView
+        android:id="@+id/activity_detail_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_detail_content_text_margin"
+        android:textAlignment="viewStart"
+        android:textColor="@color/activity_detail_title_color"
+        android:textSize="@dimen/activity_detail_content_text_size"/>
+
+    <TextView
+        android:id="@+id/activity_detail_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_detail_content_text_margin"
+        android:textAlignment="viewStart"
+        android:textColor="@color/activity_detail_title_color"
+        android:textSize="@dimen/activity_detail_content_text_size"/>
+
+    <TextView
+        android:id="@+id/activity_detail_minute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_detail_content_text_margin"
+        android:textAlignment="viewStart"
+        android:textColor="@color/activity_detail_title_color"
+        android:textSize="@dimen/activity_detail_content_text_size"/>
+
+    <TextView
+        android:id="@+id/activity_detail_percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_detail_content_text_margin"
+        android:textAlignment="viewStart"
+        android:textColor="@color/activity_detail_title_color"
+        android:textSize="@dimen/activity_detail_content_text_size"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/activity_detail_button_selector"
+        android:text="@string/activity_detail_button"/>
+</LinearLayout>

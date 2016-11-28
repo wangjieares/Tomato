@@ -126,11 +126,17 @@ public class ToDoView extends View {
         mProgressColor = Color.parseColor("#FFFFFF");//进度条颜色
         mDrawWidth = (int) mScreenWidth;//绘制控件长度
         //初始化item绘制place
-        src = new Rect(0, 0, (int) mScreenWidth, (int) mScreenHeight);
-        dst = new Rect(0, 0, (int) mScreenWidth, (int) mScreenHeight);
-        LogUtils.e(tag,"mScreenWidth"+mScreenWidth+"mScreenHeight"+mScreenHeight);
+
+//        src = new Rect(0, 0, (int) mScreenWidth, (int) mScreenHeight);
+        dst = new Rect(0, 0, (int) mScreenWidth - 20, 200);
+        LogUtils.e(tag, "mScreenWidth" + mScreenWidth + "mScreenHeight" + mScreenHeight);
         //Item背景图片
         bitmap = ImageUtils.drawableToBitamp(getResources(), R.drawable.item_lans);
+//        bitmap = ImageUtils.drawableToBitamp(getResources(), R.mipmap.card1);
+    }
+
+    public void setBackground(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     @Override
@@ -141,7 +147,7 @@ public class ToDoView extends View {
         }
         if (ITEM_BACKGROUND) {
 //            canvas.drawColor(mDrawColor);
-            canvas.drawBitmap(bitmap, src, dst, mPaint);
+            canvas.drawBitmap(bitmap, null, dst, mPaint);
 //            canvas.drawBitmap(bitmap, 0, 0, mPaint);
             // 该方法图片绘制受本身限制
 //            canvas.drawColor(mDrawColor);
@@ -151,7 +157,7 @@ public class ToDoView extends View {
         mPaint.setColor(Color.rgb(255, 255, 255));
         mPaint.setTextSize(48);
 //        LogUtils.e(tag, "mScreenHeight=>" + mScreenHeight + "---mScreenWidth=>" + mScreenWidth);
-        canvas.drawText(mTodoTitle,50, 70, mPaint);
+        canvas.drawText(mTodoTitle, 50, 70, mPaint);
         mPaint.setTextSize(30);
         canvas.drawText(mTodoTime + "分钟", 55, 128, mPaint);
         //点击效果
@@ -168,7 +174,7 @@ public class ToDoView extends View {
 
     private void drawTextState(Canvas canvas) {
         //如果状态为假，说明该代办未完成
-        if (ITEM_STATUS==1) {
+        if (ITEM_STATUS == 1) {
             mPaint.setColor(Color.rgb(255, 255, 255));
             mPaint.setTextSize(40);
 //            canvas.drawText(mTodoStart, 480, 96, mPaint);
@@ -189,7 +195,7 @@ public class ToDoView extends View {
         final int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                if (x > mScreenWidth/1.5 && x < mScreenWidth) {
+                if (x > mScreenWidth / 1.5 && x < mScreenWidth) {
                     mKeyPress = true;
                     invalidate();
                 }
@@ -263,7 +269,7 @@ public class ToDoView extends View {
     }
 
     public void setTodoTitle(String mTodoTitle) {
-            this.mTodoTitle = mTodoTitle;
+        this.mTodoTitle = mTodoTitle;
     }
 
     public void setTodoTime(int mTodoTime) {

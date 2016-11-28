@@ -2,9 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">>
     <item
-        android:id="@+id/statistics_activity_add_item"
+        android:id="@+id/statistics_activity_share"
         android:icon="@mipmap/statistics_activity_menu_share"
+        android:orderInCategory="300"
+        android:title="@string/main_activity_add_item"
+        app:showAsAction="always" />
+
+<item
+        android:id="@+id/statistics_activity_achieve"
+        android:icon="@mipmap/statistics_activity_menu_achieve"
+        android:orderInCategory="200"
+        android:title="@string/main_activity_add_item"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/statistics_activity_record"
+        android:icon="@mipmap/statistics_activity_menu_record"
         android:orderInCategory="100"
         android:title="@string/main_activity_add_item"
         app:showAsAction="always" />
+
 </menu>

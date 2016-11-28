@@ -5,7 +5,7 @@
     <string name="activity_main_drawer_statistice">统计数据</string>
     <string name="activity_main_drawer_relax">休息</string>
     <string name="activity_main_drawer_menu">菜单</string>
-    <string name="activity_main_drawer_future">以后计划表</string>
+    <string name="activity_main_drawer_future">为来计划表</string>
     <string name="main_activity_add_item">Add</string>
     <string name="activity_add_title">增加一个ToDo</string>
     <string name="activity_add_hint">请输入事件名称</string>
@@ -27,4 +27,11 @@
     <string name="custrom_time">确定</string>
     <string name="edit_custrom_time">45</string>
     <string name="activity_count_timer_logion">精诚所至,金石为开.</string>
+    <string name="content_statistics_item_total">累计数据</string>
+    <string name="content_statistics_item_chrild_num">番茄个数</string>
+    <string name="content_statistics_item_chrild_time">总计时间</string>
+    <string name="activity_main_drawer_setting">设置</string>
+    <string name="activity_main_drawer_about">关于</string>
+    <string name="activity_main_drawer_feedback">反馈</string>
+    <string name="activity_detail_button">确定</string>
 </resources>

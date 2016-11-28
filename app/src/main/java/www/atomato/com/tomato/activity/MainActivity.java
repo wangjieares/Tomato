@@ -152,17 +152,17 @@ public class MainActivity extends BaseActivity
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
             //发消息通知更改
-            Message message = mOneFragment.handler.obtainMessage();
+            Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
-            mOneFragment.handler.handleMessage(message);
+            OneFragment.handler.handleMessage(message);
         } else {
             LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("title"));
             //发消息通知更改
-            Message message = mOneFragment.handler.obtainMessage();
+            Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
-            mOneFragment.handler.handleMessage(message);
+            OneFragment.handler.handleMessage(message);
         }
 
     }

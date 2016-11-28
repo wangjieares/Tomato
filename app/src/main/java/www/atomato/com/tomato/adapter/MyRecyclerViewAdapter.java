@@ -68,7 +68,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public void addData(ToDoData toDoData) {
         list.add(toDoData);
-        notifyDataSetChanged();
+        notifyItemInserted(getItemCount()+1);
     }
 
     public void removeData(int position) {

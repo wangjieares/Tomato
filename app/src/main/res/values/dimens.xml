@@ -16,4 +16,11 @@
     <dimen name="activity_count_timer_font_size">22sp</dimen>
     <dimen name="activity_count_timer_image_button_size">35dp</dimen>
     <dimen name="activity_add_item_radio_margin">5dp</dimen>
+    <dimen name="content_statistics_padding">15dp</dimen>
+    <dimen name="content_statistics_item_text_size">19sp</dimen>
+    <dimen name="content_statistics_item_text_chrild_size">16sp</dimen>
+    <dimen name="content_statistics_item_text_chrild_num_size">30sp</dimen>
+    <dimen name="activity_detail_content_text_size">16sp</dimen>
+    <dimen name="activity_detail_title_text_size">23sp</dimen>
+    <dimen name="activity_detail_content_text_margin">20dp</dimen>
 </resources>

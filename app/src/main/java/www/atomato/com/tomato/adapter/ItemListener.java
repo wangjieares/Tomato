@@ -1,10 +1,13 @@
 package www.atomato.com.tomato.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+
+import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -20,10 +23,15 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
     private boolean isSingleTapUp = false;
     //是否是长按事件
     private boolean isLongPressUp = false;
-    private boolean isMove = false;
     private long mDownTime;
+    // 计数器，防止多次点击导致最后一次形成longpress的时间变短
+    private int mCounter;
+    private boolean mReleased;
+    private boolean mMoved;
+    private Handler mHandler;
     private final long mLongDownTime = 500;
     private boolean isLongPress;//一次Down只能一次长按执行
+    private Runnable mLongPressRunnable; //
 
     //内部接口，定义点击方法以及长按方法
     public interface OnItemClickListener {
@@ -37,6 +45,21 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
     public ItemListener(Context context, OnItemClickListener listener) {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mListener = listener;
+        mHandler = new Handler();
+        mLongPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                LogUtils.i(tag, "thread");
+                LogUtils.i(tag, "mCounter--->>>" + mCounter);
+                LogUtils.i(tag, "isReleased--->>>" + mReleased);
+                LogUtils.i(tag, "isMoved--->>>" + mMoved);
+                mCounter--;
+                // 计数器大于0，说明当前执行的Runnable不是最后一次down产生的。
+                if (mCounter > 0 || mReleased || mMoved)
+                    return;
+//                mListener.onLongRightItenClick();
+            }
+        };
     }
 
     @Override
@@ -49,12 +72,17 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
                 mLastDownX = x;
                 mLastDownY = y;
                 mDownTime = System.currentTimeMillis();
-                isMove = false;
+                mCounter++;
+                mMoved = false;
+                mReleased = false;
+                mHandler.postDelayed(mLongPressRunnable, 3000);
                 break;
 
             case MotionEvent.ACTION_MOVE:
+                if (mMoved)
+                    break;
                 if (Math.abs(x - mLastDownX) > touchSlop || Math.abs(y - mLastDownY) > touchSlop) {
-                    isMove = true;
+                    mMoved = true;
                 }
                 if (isLongPress) {
                     if (System.currentTimeMillis() - mDownTime > mLongDownTime) {
@@ -66,7 +94,7 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
 
             case MotionEvent.ACTION_UP:
                 isLongPress = true;
-                if (isMove) {
+                if (mMoved) {
                     break;
                 }
                 if (System.currentTimeMillis() - mDownTime < mLongDownTime) {
@@ -76,6 +104,7 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
 //                } else {
 //                    isSingleTapUp = true;
 //                }
+                mReleased = false;
                 break;
         }
         if (isSingleTapUp) {
@@ -83,7 +112,7 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
             View childView = rv.findChildViewUnder(e.getX(), e.getY());
             isSingleTapUp = false;
             if (childView != null) {
-                if (x > 460 && x < rv.getWidth()) {
+                if (x > rv.getWidth() / 1.56 && x < rv.getWidth()) {
                     //回调mListener#onItemClick方法
                     mListener.onLeftItemClick(childView, rv.getChildLayoutPosition(childView));
                 } else {
@@ -92,11 +121,16 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
             }
         }
         if (isLongPressUp) {
-            View childView = rv.findChildViewUnder(e.getX(), e.getY());
-            isLongPressUp = false;
-            if (childView != null) {
-                mListener.onLongRightItenClick(childView, rv.getChildLayoutPosition(childView));
+            //长按的区域
+            if (x > 0 && x < rv.getWidth() / 1.56) {
+//                LogUtils.e(tag,tag+rv.getWidth()/1.55);
+                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+                isLongPressUp = false;
+                if (childView != null) {
+                    mListener.onLongRightItenClick(childView, rv.getChildLayoutPosition(childView));
+                }
             }
+
         }
         return false;
     }

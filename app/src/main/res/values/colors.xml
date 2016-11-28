@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#5BCEE3</color>
     <!--工具栏颜色-->
-    <color name="toolBar">#1F213A</color>
+    <color name="toolBar">#34495E</color>
     <color name="content_line">#F1F1F1</color>
     <!--Item 点击开始颜色-->
-    <color name="itemClick">#607377</color>
+    <color name="itemClick">#2D3E50</color>
     <!--主题颜色-->
     <color name="activity_add_content_color">#FFFFFF</color>
     <color name="activity_add_content_color_radio">#1F213A</color>
@@ -19,6 +19,11 @@
     <color name="activity_count_timer_progress">#FFFFFF</color>
     <color name="activity_add_button_pressed_false">#606366</color>
     <color name="activity_add_button_pressed_true">#1F213A</color>
+    <color name="content_linear_back_ground">#3F9BE6</color>
+    <color name="content_statistics_item_background_line_color">#FFFFFF</color>
+    <color name="content_statistics_item_text_color">#FFFFFF</color>
+    <color name="activity_detail_title_color">#000000</color>
+    <color name="activity_detail_button_color">#FFFFFF</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->
