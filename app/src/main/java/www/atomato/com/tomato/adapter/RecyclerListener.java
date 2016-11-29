@@ -13,7 +13,7 @@ import www.atomato.com.tomato.utils.LogUtils;
  * Created by wangjie on 16-11-17.
  */
 
-public class ItemListener implements RecyclerView.OnItemTouchListener {
+public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private String tag = getClass().getSimpleName();
     private int mLastDownX, mLastDownY;
     //该值记录了最小滑动距离
@@ -42,7 +42,7 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
         void onRightItemClick(View view, int position);
     }
 
-    public ItemListener(Context context, OnItemClickListener listener) {
+    public RecyclerListener(Context context, OnItemClickListener listener) {
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mListener = listener;
 //        mHandler = new Handler();
@@ -109,6 +109,8 @@ public class ItemListener implements RecyclerView.OnItemTouchListener {
         }
         if (isSingleTapUp) {
             //根据触摸坐标来获取childView
+
+//            View childView = rv.findChildViewUnder(e.getX(), e.getY());
             View childView = rv.findChildViewUnder(e.getX(), e.getY());
             isSingleTapUp = false;
             if (childView != null) {

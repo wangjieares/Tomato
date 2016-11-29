@@ -82,6 +82,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.RemindService"/>
+        <receiver android:name=".broadcast.MyBroadCastReceiver"/>
         <!--ShareSdk分享集成activity-->
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -105,12 +107,7 @@
             </intent-filter>
         </activity>
         <!--微信分享回调 -->
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
 
     </application>
 </manifest>

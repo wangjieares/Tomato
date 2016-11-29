@@ -21,6 +21,7 @@ import www.atomato.com.tomato.R;
  */
 
 public class ButtomWindow extends PopupWindow {
+    private BottomWindowListener mBottomWindowListener;
     @BindView(R.id.pop_stick)
     Button popStick;
     @BindView(R.id.pop_remind)
@@ -37,6 +38,16 @@ public class ButtomWindow extends PopupWindow {
     LinearLayout popLayout;
     private Context mContext;
     private View mView;
+    private View mItemView;
+    private int mItemPosition;
+
+    public void setItemView(View itemView) {
+        mItemView = itemView;
+    }
+
+    public void setItemPosition(int itemPosition) {
+        mItemPosition = itemPosition;
+    }
 
     public ButtomWindow(Activity context) {
         this.mContext = context;
@@ -78,30 +89,49 @@ public class ButtomWindow extends PopupWindow {
         });
     }
 
+    public void setBottomWindowListener(BottomWindowListener bottomWindowListener) {
+        this.mBottomWindowListener = bottomWindowListener;
+    }
+
     @OnClick({R.id.pop_stick, R.id.pop_remind, R.id.pop_mark, R.id.pop_edit, R.id.pop_delete, R.id.pop_cancel, R.id.pop_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.pop_stick:
+                if (mBottomWindowListener != null && mItemView != null) {
+                    mBottomWindowListener.stickClick(view,mItemPosition);
+                }
                 dismiss();
                 break;
             case R.id.pop_remind:
+                if (mBottomWindowListener != null && mItemView != null) {
+                    mBottomWindowListener.remindClick(view,mItemPosition);
+                }
                 dismiss();
                 break;
             case R.id.pop_mark:
+                if (mBottomWindowListener != null && mItemView != null) {
+                    mBottomWindowListener.markClick(view,mItemPosition);
+                }
                 dismiss();
                 break;
             case R.id.pop_edit:
+                if (mBottomWindowListener != null && mItemView != null) {
+                    mBottomWindowListener.editClick(view,mItemPosition);
+                }
                 dismiss();
                 break;
             case R.id.pop_delete:
+                if (mBottomWindowListener != null && mItemView != null) {
+                    mBottomWindowListener.deleteClick(view,mItemPosition);
+                }
                 dismiss();
                 break;
             case R.id.pop_cancel:
                 dismiss();
                 break;
-            case R.id.pop_layout:
-                dismiss();
-                break;
+//            case R.id.pop_layout:
+//                dismiss();
+//                break;
         }
     }
 }

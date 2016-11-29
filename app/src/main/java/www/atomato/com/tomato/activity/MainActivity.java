@@ -1,6 +1,5 @@
 package www.atomato.com.tomato.activity;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.adapter.MyViewPagerAdapter;
+import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
@@ -32,7 +31,7 @@ import www.atomato.com.tomato.viewpager.MyViewPager;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private String tag = getClass().getSimpleName();
-    private MyViewPagerAdapter mAdapter;
+    private FragmentViewPagerAdapter mAdapter;
     private List<Fragment> mFragmentList;
     private ImageButton mOneButton, mMoreButton;//底部按钮
     private OneFragment mOneFragment;
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity
         mFragmentList.add(mMoreFragment);
         mViewPager = (MyViewPager) findViewById(R.id.viewPager);
 //        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
-        mAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.addOnPageChangeListener(this);
