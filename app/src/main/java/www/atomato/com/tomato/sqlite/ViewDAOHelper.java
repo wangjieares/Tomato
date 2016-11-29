@@ -31,7 +31,7 @@ static ViewDAOHelper getInstance(Context context){
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + Constants.TABLE_NAME + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "todo_title TEXT NOT NULL," +
+                "todo_title TEXT NOT NULL UNIQUE ," +
                 "todo_time INTEGER," +
                 "todo_state INTEGER," +
                 "todo_progress INTEGER," +

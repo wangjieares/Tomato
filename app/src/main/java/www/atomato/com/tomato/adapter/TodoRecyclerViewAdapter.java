@@ -1,12 +1,14 @@
 package www.atomato.com.tomato.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
@@ -17,30 +19,31 @@ import www.atomato.com.tomato.view.ToDoView;
  */
 
 public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder> {
-    private List<ToDoData> list;
-    private Context context;
+    private List<ToDoData> mList;
+    private Context mContext;
+
     public TodoRecyclerViewAdapter(Context context, List<ToDoData> list) {
-        this.list = list;
-        this.context = context;
+        this.mList = list;
+        this.mContext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(new ToDoView(context));
+        return new MyViewHolder(new ToDoView(mContext));
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.toDoView.setTodoTitle(list.get(position).getTitle());
-        holder.toDoView.setTodoTime(list.get(position).getTime());
-        holder.toDoView.setProgress(list.get(position).getProgress());
-        holder.toDoView.setItemState(list.get(position).getState());
-        holder.toDoView.setDrawColor(list.get(position).getDrawBackColor());
+        holder.toDoView.setTodoTitle(mList.get(position).getTitle());
+        holder.toDoView.setTodoTime(mList.get(position).getTime());
+        holder.toDoView.setProgress(mList.get(position).getProgress());
+        holder.toDoView.setItemState(mList.get(position).getState());
+        holder.toDoView.setDrawColor(mList.get(position).getDrawBackColor());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return mList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -52,24 +55,39 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         }
     }
 
-    public void addData(int position, String title, int time, int state, float progree, int drawColor) {
-        LogUtils.e("MyRecycler", title);
-        ToDoData todoData = new ToDoData(title, time, state, progree, drawColor);
-        list.add(todoData);
-        notifyItemInserted(position);
+    private void addData(int position, ToDoData toDoData) {
+        mList.remove(position);
+        mList.add(position, toDoData);
+//        notifyItemInserted(position);
+        notifyItemChanged(position);
     }
+
     //不知道是否影响效率
     public String getTitle(int position) {
-        return list.get(position).getTitle();
+        return mList.get(position).getTitle();
     }
 
     public void addData(ToDoData toDoData) {
-        list.add(toDoData);
+        mList.add(toDoData);
         notifyItemInserted(getItemCount() + 1);
     }
 
     public void removeData(int position) {
-        list.remove(position);
+        mList.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void refresh(int position) {
+        ViewSQLite viewSQLite = new ViewSQLite(mContext);
+        String title = mList.get(position).getTitle();
+        LogUtils.e("refresh", "=====" + title);
+        try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{title}, null, null, null)) {
+            cursor.moveToNext();
+            int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
+            int state = cursor.getInt(cursor.getColumnIndex("todo_state"));
+            int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
+            int color = cursor.getInt(cursor.getColumnIndex("todo_color"));
+            addData(position, new ToDoData(title, time, state, progress, color));
+        }
     }
 }

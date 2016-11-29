@@ -46,8 +46,9 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     private View mView = null;
     private RecyclerView mRecyclerView;
     private List<ToDoData> mList;
-    private TodoRecyclerViewAdapter mAdapter;
+    private  TodoRecyclerViewAdapter mAdapter;
     public static ViewHandler handler;
+//    public static  Handler handler;
     private Subscriber<ToDoData> mTodoDataObserver;
     private Observable<ToDoData> mObservable;
 
@@ -61,7 +62,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     private void init() {
-        handler = new ViewHandler();
+        handler=new ViewHandler();
         //start RecyclerView
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.fragment_recyclerView);
         mList = new ArrayList<>();
@@ -211,22 +212,17 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
     @Override
     public void markClick(View view, int positon) {
-        String todo_title = mAdapter.getTitle(positon);
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        try {
-            ContentValues values = new ContentValues();
-            values.put("todo_state", 1);
-            values.put("todo_day_index", "todo_day_index+=todo_day_index+1");
-            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title = ?", new String[]{todo_title});
-        } finally {
-            viewSQLite.closedb();
-        }
-        mAdapter.notifyItemChanged(positon);
+        ContentValues values = new ContentValues();
+        values.put("todo_state", 1);
+        values.put("todo_day_index", 1);
+        values.put("todo_day_total_time", 35);
+        viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mAdapter.getTitle(positon)});
+        mAdapter.refresh(positon);
     }
 
     @Override
     public void editClick(View view, int positon) {
-
     }
 
     @Override
@@ -242,6 +238,33 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mAdapter.removeData(positon);
     }
 
+    public void addItem(){
+        mTodoDataObserver = new Subscriber<ToDoData>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(ToDoData toDoData) {
+                mAdapter.addData(toDoData);
+            }
+        };
+
+        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
+            @Override
+            public void call(Subscriber<? super ToDoData> subscriber) {
+
+            }
+        });
+        mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
+        mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
+        mObservable.subscribe(mTodoDataObserver);
+    }
+
     public class ViewHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -249,8 +272,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             switch (msg.what) {
                 case Constants.CREATE_TODO:
                     Bundle bundle = msg.getData();
-//                    String title = bundle.getString("title");
-                    String title = bundle.getString("title");//------------
+                    String title = bundle.getString("title");
                     int time = bundle.getInt("time", 35);
                     int state = bundle.getInt("state", 0);
                     int progress = bundle.getInt("progress", 0);

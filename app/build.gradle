@@ -34,4 +34,6 @@ dependencies {
     compile project(':fUI')
     compile files('libs/MobCommons-2016.1107.1809.jar')
     compile 'io.reactivex:rxandroid:1.2.1'
+    //开源图表框架
+    compile 'com.diogobernardino:williamchart:2.3.0'
 }

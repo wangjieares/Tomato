@@ -22,6 +22,7 @@ import java.util.List;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
@@ -146,7 +147,6 @@ public class MainActivity extends BaseActivity
         int plan = bundle.getInt("plan");
         int time = bundle.getInt("time");
         int day = bundle.getInt("day");
-
         //默认情况创建Todo
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);

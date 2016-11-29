@@ -3,6 +3,7 @@ package www.atomato.com.tomato.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -117,6 +118,7 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     public void onClick() {
         if (!activityItemTitle.getText().toString().equals("")) {
             bundle.putString("title", activityItemTitle.getText().toString());
+            bundle.putLong("cteate", SystemClock.currentThreadTimeMillis());
             LogUtils.e(tag, activityItemTitle.getText().toString());
             Intent intent = new Intent();
             intent.putExtra("data", bundle);
