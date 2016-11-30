@@ -195,9 +195,7 @@ public class ToDoData implements Serializable, Comparable {
         Calendar cRhs = Calendar.getInstance();
         cLhs.setTimeInMillis(lhs);
         cRhs.setTimeInMillis(rhs);
-//        LogUtils.e("TodoData","cLhs ==="+lhs+"----"+"cRhs ==="+rhs);
-//        LogUtils.e("TodoData","cLhs ==="+cLhs+"----"+"cRhs ==="+cRhs);
-//        LogUtils.e("TodoData","compare ==="+cLhs.compareTo(cRhs));
+
         return cLhs.compareTo(cRhs);
     }
 }
