@@ -122,7 +122,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
     public void refresh(int position) {
         ViewSQLite viewSQLite = new ViewSQLite(mContext);
         String title = mList.get(position).getTitle();
-        LogUtils.e("refresh", "=====" + title);
+        LogUtils.e("TodoRecycle refresh", "=====" + title);
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{title}, null, null, null)) {
             cursor.moveToNext();
             int time = cursor.getInt(cursor.getColumnIndex("todo_time"));

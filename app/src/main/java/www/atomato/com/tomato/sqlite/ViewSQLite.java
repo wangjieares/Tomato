@@ -44,8 +44,8 @@ public class ViewSQLite {
         values.put("todo_state", toDoData.getState());
         values.put("todo_progress", toDoData.getProgress());
         values.put("todo_color", toDoData.getDrawBackColor());
-        values.put("todo_stick",toDoData.getStickState());
-        values.put("todo_stick_time",toDoData.getStickStateTime());
+        values.put("todo_stick", toDoData.getStickState());
+        values.put("todo_stick_time", toDoData.getStickStateTime());
         values.put("todo_type", toDoData.getType());//必须修改
         values.put("todo_plan", toDoData.getPlan());
         values.put("todo_day", toDoData.getDay());
@@ -56,7 +56,7 @@ public class ViewSQLite {
         try {
             mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
         } catch (SQLiteConstraintException e) {
-            ToastUtils.show(mContext,"标题名称重复！");
+            ToastUtils.show(mContext, "标题名称重复！");
         } finally {
             closedb();
         }
@@ -100,7 +100,7 @@ public class ViewSQLite {
 
     public Cursor query() {
         openDataBase();
-        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time asc");
+        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc ,todo_stick_time asc");
     }
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {

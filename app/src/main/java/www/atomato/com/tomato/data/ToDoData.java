@@ -195,7 +195,9 @@ public class ToDoData implements Serializable, Comparable {
         Calendar cRhs = Calendar.getInstance();
         cLhs.setTimeInMillis(lhs);
         cRhs.setTimeInMillis(rhs);
-
         return cLhs.compareTo(cRhs);
+        //早,返回-1,
+        //相同,返回0
+        //晚,返回1
     }
 }
