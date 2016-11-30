@@ -11,22 +11,24 @@ import www.atomato.com.tomato.constants.Constants;
  */
 
 class ViewDAOHelper extends SQLiteOpenHelper {
-private static ViewDAOHelper instance;
-    ViewDAOHelper(Context context){
+    private static ViewDAOHelper instance;
+
+    ViewDAOHelper(Context context) {
         super(context, Constants.TABLE_NAME, null, Constants.DATABASE_VERSION);
     }
 
-//    public static ViewDAOHelper getInstance(Context context){
+    //    public static ViewDAOHelper getInstance(Context context){
 //        super(context,Constants.DATABASE_NAME,null,Constants.DATABASE_VERSION);
 //
 //        re
 //    }
-static ViewDAOHelper getInstance(Context context){
-    if (instance == null) {
-        instance = new ViewDAOHelper(context);
+    static ViewDAOHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new ViewDAOHelper(context);
+        }
+        return instance;
     }
-    return instance;
-}
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + Constants.TABLE_NAME + " (" +
@@ -36,11 +38,12 @@ static ViewDAOHelper getInstance(Context context){
                 "todo_state INTEGER," +
                 "todo_progress INTEGER," +
                 "todo_color INTEGER," +
+                "todo_stick INTEGER," +
                 "todo_type INTEGER," +
                 "todo_plan INTEGER," +
                 "todo_day INTEGER," +
-                "todo_create INTEGER,"+//创建时间
-                "todo_destory INTEGER,"+//删除时间
+                "todo_create INTEGER," +//创建时间
+                "todo_destory INTEGER," +//删除时间
                 "todo_day_index INTEGER," +//本身执行总个数
                 "todo_day_total_time INTEGER)";//本身执行总时间
         String sql1 = "create table " + Constants.TOTAL_NAME + " (" +

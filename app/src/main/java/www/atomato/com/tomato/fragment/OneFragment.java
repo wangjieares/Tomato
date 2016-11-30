@@ -3,7 +3,6 @@ package www.atomato.com.tomato.fragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,12 +25,13 @@ import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.activity.CountProgressActivity;
 import www.atomato.com.tomato.activity.DetailActivity;
+import www.atomato.com.tomato.recall.OnStickListener;
 import www.atomato.com.tomato.adapter.RecyclerListener;
 import www.atomato.com.tomato.adapter.TodoRecyclerViewAdapter;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.SpaceItemDecoration;
 import www.atomato.com.tomato.data.ToDoData;
-import www.atomato.com.tomato.pop.BottomWindowListener;
+import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.pop.ButtomWindow;
 import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
@@ -43,7 +43,7 @@ import www.atomato.com.tomato.view.ToDoView;
  * Created by wangjie on 16-11-17.
  */
 
-public class OneFragment extends BaseFragment implements RecyclerListener.OnItemClickListener, BottomWindowListener {
+public class OneFragment extends BaseFragment implements RecyclerListener.OnItemClickListener, BottomWindowListener, OnStickListener {
     private View mView = null;
     private RecyclerView mRecyclerView;
     private List<ToDoData> mList;
@@ -52,11 +52,11 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     //    public static  Handler handler;
     private Subscriber<ToDoData> mTodoDataObserver;
     private Observable<ToDoData> mObservable;
+    private LinearLayoutManager mLinearLayoutManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtils.d(tag, "===onCreateView");
         mView = inflater.inflate(R.layout.fragment_one, container, false);
         init();
         return mView;
@@ -69,14 +69,15 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mList = new ArrayList<>();
         mAdapter = new TodoRecyclerViewAdapter(getActivity(), mList);
         //设置布局管理器
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        manager.setStackFromEnd(true);//列表再底部开始展示，反转后由上面开始展示
-        manager.setReverseLayout(true);//列表反转
-        mRecyclerView.setLayoutManager(manager);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mLinearLayoutManager.setStackFromEnd(true);//列表再底部开始展示，反转后由上面开始展示
+        mLinearLayoutManager.setReverseLayout(true);//列表反转
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerListener(getActivity(), this));
+        mAdapter.setOnStickListener(this);
         //end RecyclerView
         initTodo();
     }
@@ -140,35 +141,15 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
 
     @Override
-    public void onLongRightItenClick(View view, int position) {
-        LogUtils.e(tag, tag + "===onLongRightItenClick===>" + position);
+    public void onLongLeftItemClick(View view, int position) {
+//        LogUtils.e(tag, tag + "===onLongRightItenClick===>" + position);
         showPopFormBottom(view, position);
 //        ButtomAlertDialog.showDialog(getContext());
     }
 
     @Override
     public void onLeftItemClick(View view, int position) {
-        LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
-        String todo_title = ((ToDoView) view).getTodoTitle();
-        ViewSQLite viewSQLite = new ViewSQLite(getContext());
-//        LogUtils.e(tag,"todo_title==="+todo_title);
-        try {
-            Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
-            if (cursor.moveToNext()) {
-//            LogUtils.e(tag,"time==="+time);
-                Intent intent = new Intent(getContext(), CountProgressActivity.class);
-                intent.putExtra("todo_title", todo_title);
-                startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
-            }
-        } finally {
-            viewSQLite.closedb();
-        }
-
-    }
-
-    @Override
-    public void onRightItemClick(View view, int position) {
-        LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
+//        LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
         Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_time"}, "todo_title = ?", new String[]{todo_title}, null, null, null);
@@ -179,12 +160,34 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             intent.putExtra("todo_time", time);
             startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
         }
+
+    }
+
+    @Override
+    public void onRightItemClick(View view, int position) {
+//        LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
+        String todo_title = ((ToDoView) view).getTodoTitle();
+        ViewSQLite viewSQLite = new ViewSQLite(getContext());
+//        LogUtils.e(tag,"todo_title==="+todo_title);
+        try {
+            Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
+            if (cursor.moveToNext()) {
+//            LogUtils.e(tag,"time==="+time);
+                Intent intent = new Intent(getContext(), CountProgressActivity.class);
+                intent.putExtra("todo_title", todo_title);
+                intent.putExtra("todo_time", cursor.getInt(cursor.getColumnIndex("todo_time")));
+                startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
+            }
+        } finally {
+            viewSQLite.closedb();
+        }
     }
 
     public void showPopFormBottom(View view, int position) {
         ButtomWindow buttomWindow = new ButtomWindow(getActivity());
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.setBottomWindowListener(this);
+        buttomWindow.setTitle(mAdapter.getTitle(position));
         buttomWindow.setItemView(view);
         buttomWindow.setItemPosition(position);
         buttomWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
@@ -200,12 +203,21 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
     @Override
     public void stickClick(View view, int positon) {
+        ViewSQLite viewSQLite = new ViewSQLite(getContext());
+        try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{mAdapter.getTitle(positon)}, null, null, null)) {
+            cursor.moveToNext();
+            int state = cursor.getInt(cursor.getColumnIndex("todo_stick"));
+            mAdapter.refreshAll(positon, state);
+        } finally {
+            viewSQLite.closedb();
 
+        }
+//        mAdapter.
     }
 
     @Override
     public void remindClick(View view, int positon) {
-        LogUtils.e(tag, (view.getParent().getClass().getSimpleName()) + "===position" + positon);
+//        LogUtils.e(tag, (view.getParent().getClass().getSimpleName()) + "===position" + positon);
         Intent intent = new Intent(getContext(), RemindService.class);
         intent.putExtra("time", 35);
         getContext().startService(intent);
@@ -239,31 +251,37 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mAdapter.removeData(positon);
     }
 
-    public void addItem() {
-        mTodoDataObserver = new Subscriber<ToDoData>() {
-            @Override
-            public void onCompleted() {
-            }
+//    public void addItem() {
+//        mTodoDataObserver = new Subscriber<ToDoData>() {
+//            @Override
+//            public void onCompleted() {
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//            }
+//
+//            @Override
+//            public void onNext(ToDoData toDoData) {
+//                mAdapter.addData(toDoData);
+//            }
+//        };
+//
+//        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
+//            @Override
+//            public void call(Subscriber<? super ToDoData> subscriber) {
+//
+//            }
+//        });
+//        mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
+//        mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
+//        mObservable.subscribe(mTodoDataObserver);
+//    }
 
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onNext(ToDoData toDoData) {
-                mAdapter.addData(toDoData);
-            }
-        };
-
-        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
-            @Override
-            public void call(Subscriber<? super ToDoData> subscriber) {
-
-            }
-        });
-        mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
-        mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
-        mObservable.subscribe(mTodoDataObserver);
+    @Override
+    public void onScrollTop(int position) {
+        mRecyclerView.smoothScrollToPosition(position);//添加Item之后自动滑动到顶端
+//        LogUtils.e(tag, tag + position);
     }
 
     public class ViewHandler extends Handler {
@@ -282,7 +300,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                     int plan = bundle.getInt("plan");
                     int type = bundle.getInt("type");
                     ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor, day, plan, type);
-                    mAdapter.addData(todoData);
+                    mAdapter.addDataOnScroll(todoData);
                     break;
                 case Constants.DELETE_TODO:
                     break;

@@ -35,7 +35,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
 
     //内部接口，定义点击方法以及长按方法
     public interface OnItemClickListener {
-        void onLongRightItenClick(View view, int position);
+        void onLongLeftItemClick(View view, int position);
 
         void onLeftItemClick(View view, int position);
 
@@ -116,9 +116,9 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
             if (childView != null) {
                 if (x > rv.getWidth() / 1.56 && x < rv.getWidth()) {
                     //回调mListener#onItemClick方法
-                    mListener.onLeftItemClick(childView, rv.getChildLayoutPosition(childView));
-                } else {
                     mListener.onRightItemClick(childView, rv.getChildLayoutPosition(childView));
+                } else {
+                    mListener.onLeftItemClick(childView, rv.getChildLayoutPosition(childView));
                 }
             }
         }
@@ -129,7 +129,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 View childView = rv.findChildViewUnder(e.getX(), e.getY());
                 isLongPressUp = false;
                 if (childView != null) {
-                    mListener.onLongRightItenClick(childView, rv.getChildLayoutPosition(childView));
+                    mListener.onLongLeftItemClick(childView, rv.getChildLayoutPosition(childView));
                 }
             }
 

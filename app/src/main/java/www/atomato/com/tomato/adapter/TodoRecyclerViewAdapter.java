@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collections;
 import java.util.List;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.ToDoData;
+import www.atomato.com.tomato.recall.OnStickListener;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.view.ToDoView;
@@ -21,6 +23,7 @@ import www.atomato.com.tomato.view.ToDoView;
 public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder> {
     private List<ToDoData> mList;
     private Context mContext;
+    private OnStickListener mOnStickListener;
 
     public TodoRecyclerViewAdapter(Context context, List<ToDoData> list) {
         this.mList = list;
@@ -55,11 +58,26 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         }
     }
 
+    public void setOnStickListener(OnStickListener onStickListener) {
+        this.mOnStickListener = onStickListener;
+    }
+
     private void addData(int position, ToDoData toDoData) {
         mList.remove(position);
         mList.add(position, toDoData);
 //        notifyItemInserted(position);
         notifyItemChanged(position);
+        if (mOnStickListener != null) {
+            mOnStickListener.onScrollTop(mList.size());//滑动最上边
+        }
+    }
+
+    public void addInsert(int positon, ToDoData toDoData) {
+        mList.add(positon, toDoData);
+        notifyItemInserted(positon);
+        if (mOnStickListener != null) {
+            mOnStickListener.onScrollTop(mList.size());//滑动最上边
+        }
     }
 
     //不知道是否影响效率
@@ -69,12 +87,36 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
 
     public void addData(ToDoData toDoData) {
         mList.add(toDoData);
-        notifyItemInserted(getItemCount() + 1);
+        notifyItemInserted(getItemCount());
+//        if (mOnStickListener != null) {
+//            mOnStickListener.onScrollTop(mList.size());//滑动最上边
+//        }
+    }
+
+    public void addDataOnScroll(ToDoData toDoData) {
+        mList.add(toDoData);
+        notifyItemInserted(getItemCount());
+        if (mOnStickListener != null) {
+            mOnStickListener.onScrollTop(mList.size());//滑动最上边
+        }
     }
 
     public void removeData(int position) {
         mList.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void refreshAll(int positon, int state) {
+        if (state == 0) {
+            LogUtils.e("RecyclerView", "--------------------------true");
+            mList.get(positon).setStickState(1);
+        }
+        if (state == 1) {
+            LogUtils.e("RecyclerView", "--------------------------false");
+            mList.get(positon).setStickState(0);
+        }
+        Collections.sort(mList);
+        notifyDataSetChanged();
     }
 
     public void refresh(int position) {

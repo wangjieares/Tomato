@@ -102,16 +102,25 @@ public class CountProgressActivity extends Activity {
                     LogUtils.e(tag, view.isSelected() + "");
                     mIsNext = true;
                     view.setSelected(false);
+                    ToastUtils.show(this, "开启自动循环！");
                 } else {
                     mIsNext = false;
                     view.setSelected(true);
+                    ToastUtils.show(this, "关闭自动循环！");
                 }
                 break;
             case R.id.activity_count_timer_image_button_stop:
-                if (view.isSelected()) {
-                    view.setSelected(false);
+                if (!quit) {
+                    ToastUtils.show(this, "退出请再按一次！");
+                    lastTime = System.currentTimeMillis();
+                    quit = true;
                 } else {
-                    view.setSelected(true);
+                    if (SystemClock.currentThreadTimeMillis() - lastTime < 1000) {
+                        finish();
+                    } else {
+                        ToastUtils.show(this, "退出请再按一次！");
+                        lastTime = System.currentTimeMillis();
+                    }
                 }
                 break;
             case R.id.activity_count_timer_image_button_computer:
@@ -128,9 +137,11 @@ public class CountProgressActivity extends Activity {
                     view.setSelected(false);
                     mWakeLock.setReferenceCounted(false);
                     mWakeLock.acquire();
+                    ToastUtils.show(this, "开启屏幕常亮！");
                 } else {
                     if (mWakeLock.isHeld()) {
                         mWakeLock.release(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK);
+                        ToastUtils.show(this, "关闭屏幕常亮！");
                     }
                     view.setSelected(true);
                 }

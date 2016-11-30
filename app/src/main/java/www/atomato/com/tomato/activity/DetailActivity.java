@@ -2,10 +2,12 @@ package www.atomato.com.tomato.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 
 /**
@@ -23,6 +25,8 @@ public class DetailActivity extends Activity {
     TextView activityDetailMinute;
     @BindView(R.id.activity_detail_percent)
     TextView activityDetailPercent;
+    @BindView(R.id.activity_detail_button)
+    Button activityDetailButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +39,11 @@ public class DetailActivity extends Activity {
         activityDetailTime.setText("计划内累计完成时间0分钟");
         activityDetailMinute.setText("计划总时间 6000分钟");
         activityDetailPercent.setText("计划完成百分比0.000% ");
+
+    }
+
+    @OnClick(R.id.activity_detail_button)
+    public void onClick() {
+        finish();
     }
 }

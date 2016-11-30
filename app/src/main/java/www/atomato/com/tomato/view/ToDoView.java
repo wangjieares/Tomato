@@ -18,7 +18,6 @@ import android.view.View;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.utils.ImageUtils;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
@@ -27,7 +26,6 @@ import www.atomato.com.tomato.utils.ScreenUtils;
 
 public class ToDoView extends View {
     private String tag = getClass().getSimpleName();
-
     // 移动的阈值
     public int TOUCH_SLOP = 10;
     //有背景
@@ -63,7 +61,7 @@ public class ToDoView extends View {
     private int mViewHeith;
     private int mItemClickColor;
     //绘制图片背景范围
-    private Rect src, dst;
+    private Rect dst;
     //Progress绘制参数
     private float mProgress = 0.01f;//当前的进度
     private float mProgressLoadingWidth;//当前进度条宽度
@@ -82,8 +80,16 @@ public class ToDoView extends View {
     private float mProgressXPositon = 170;
     private float mProgressYPositon = 120;
     private int mProgressColor;//进度条颜色 默认白色
-
     private float mTouchXPostion;
+    private boolean mStickState = false;
+
+    public boolean getStickState() {
+        return mStickState;
+    }
+
+    public void setStickState(boolean stickState) {
+        mStickState = stickState;
+    }
 
     public ToDoView(Context context) {
         super(context);
@@ -126,7 +132,7 @@ public class ToDoView extends View {
         //初始化item绘制place
 //        src = new Rect(0, 0, (int) mScreenWidth, (int) mScreenHeight);
         dst = new Rect(0, 0, (int) mScreenWidth - 20, 200);
-        LogUtils.e(tag, "mScreenWidth" + mScreenWidth + "mScreenHeight" + mScreenHeight);
+//        LogUtils.e(tag, "mScreenWidth" + mScreenWidth + "mScreenHeight" + mScreenHeight);
         //Item Color
         mItemClickColor = getResources().getColor(R.color.itemClick);
         //Item背景图片

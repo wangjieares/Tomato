@@ -3,6 +3,10 @@ package www.atomato.com.tomato.data;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+import java.util.Calendar;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
@@ -10,7 +14,7 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
 /**
  * Created by wangjie on 16-11-17.
  */
-public class ToDoData {
+public class ToDoData implements Serializable, Comparable {
     private String mTitle;
     private int mTime;
     private int mDrawBackColor = Color.parseColor("#1ABC9C");
@@ -25,6 +29,8 @@ public class ToDoData {
     private ViewSQLite viewSQLite;
     private int mIndexNum = 0;//总个数
     private int mTotalTime = 0;//总时间
+    private int mStickState = 0;//是否置顶
+
 
     public ToDoData(Context context, String title, int time, int state, float progress, int drawColor, int day, int plan, int type) {
         mContext = context;
@@ -141,4 +147,41 @@ public class ToDoData {
         mDestory = destory;
     }
 
+    public int getStickState() {
+        return mStickState;
+    }
+
+    public void setStickState(int stickState) {
+        mStickState = stickState;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object another) {
+        if (!(another instanceof ToDoData)) {
+            return -1;
+        }
+        ToDoData toDoData = (ToDoData) another;
+        /**置顶判断 ArrayAdapter是按照升序从上到下排序的，就是默认的自然排序  、、、、排序是降序,因为布局反转,所以看起来是升序
+         * 如果是相等的情况下返回0，包括都置顶或者都不置顶，返回0的情况下要
+         * 再做判断，拿它们置顶时间进行判断
+         * 如果是不相等的情况下，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData下面，所以返回1
+         *  同样，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData上面，所以返回-1
+         * */
+        int result = 0 - (toDoData.getStickState() - mStickState);
+        if (result == 0) {
+            result = 0 - compareToTime(mTime, toDoData.getTime());
+        }
+        return result;
+    }
+
+    /**
+     * 根据时间对比
+     */
+    private int compareToTime(long lhs, long rhs) {
+        Calendar cLhs = Calendar.getInstance();
+        Calendar cRhs = Calendar.getInstance();
+        cLhs.setTimeInMillis(lhs);
+        cRhs.setTimeInMillis(rhs);
+        return cLhs.compareTo(cRhs);
+    }
 }

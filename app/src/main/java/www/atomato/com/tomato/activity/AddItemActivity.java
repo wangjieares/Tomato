@@ -16,8 +16,7 @@ import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.pop.ButtomDialogUtils;
-import www.atomato.com.tomato.pop.DialogListener;
-import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.recall.DialogListener;
 
 /**
  * Created by wangjie on 2016-11-20.
@@ -73,41 +72,41 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
             case R.id.planRadioGroup:
                 if (checkedId == R.id.longRadio) {
                     bundle.putInt("plan", Constants.LONG_RADIO);
-                    LogUtils.e(tag, "plan==" + Constants.LONG_RADIO);
+//                    LogUtils.e(tag, "plan==" + Constants.LONG_RADIO);
                     break;
                 } else if (checkedId == R.id.shortRadio) {
                     bundle.putInt("plan", Constants.SHORT_RADIO);
-                    LogUtils.e(tag, "plan==" + Constants.SHORT_RADIO);
+//                    LogUtils.e(tag, "plan==" + Constants.SHORT_RADIO);
                     break;
                 }
                 break;
             case R.id.timeRadioGroup:
                 if (checkedId == R.id.customRadio) {
 //                    bundle.putInt("time", Constants.CUSTOM_RADIO);
-                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
+//                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
                     ButtomDialogUtils.showDialog(this, this);
 
                     break;
                 } else if (checkedId == R.id.timeRadio) {
                     bundle.putInt("time", Constants.TIME_RADIO);
-                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
+//                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
 
                     break;
                 } else if (checkedId == R.id.defaultDayRadio) {
                     bundle.putInt("time", Constants.DEFAULT_RADIO);
-                    LogUtils.e(tag, "time==" + Constants.DEFAULT_RADIO);
+//                    LogUtils.e(tag, "time==" + Constants.DEFAULT_RADIO);
                     break;
                 }
                 break;
             case R.id.dayRadioGroup:
                 if (checkedId == R.id.oneDayRadio) {
                     bundle.putInt("day", Constants.ONE_DAY_RADIO);
-                    LogUtils.e(tag, "day==" + Constants.ONE_DAY_RADIO);
+//                    LogUtils.e(tag, "day==" + Constants.ONE_DAY_RADIO);
 
                     break;
                 } else if (checkedId == R.id.everyDayRadio) {
                     bundle.putInt("day", Constants.EVERY_DAY_RADIO);
-                    LogUtils.e(tag, "day==" + Constants.EVERY_DAY_RADIO);
+//                    LogUtils.e(tag, "day==" + Constants.EVERY_DAY_RADIO);
                     break;
                 }
                 break;
@@ -120,7 +119,7 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
         if (!activityItemTitle.getText().toString().equals("")) {
             bundle.putString("title", activityItemTitle.getText().toString());
             bundle.putLong("cteate", SystemClock.currentThreadTimeMillis());
-            LogUtils.e(tag, activityItemTitle.getText().toString());
+//            LogUtils.e(tag, activityItemTitle.getText().toString());
             Intent intent = new Intent();
             intent.putExtra("data", bundle);
             setResult(RESULT_OK, intent);

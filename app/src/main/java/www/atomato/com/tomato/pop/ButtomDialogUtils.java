@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.recall.DialogListener;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.StringUtil;
-import www.atomato.com.tomato.view.ToDoView;
 
 /**
  * Created by wangj on 2016-11-24.
@@ -46,9 +46,10 @@ public class ButtomDialogUtils {
                                                               dialogListener.setValue(Integer.parseInt(custrom));
                                                               LogUtils.e("custrom", custrom);
                                                           }
+                                                      } else {
+                                                          dialogListener.setValue(55);
                                                       }
                                                   } finally {
-                                                      dialogListener.setValue(55);
                                                       mDialog.dismiss();
                                                   }
                                               }

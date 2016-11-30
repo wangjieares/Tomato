@@ -1,7 +1,9 @@
 package www.atomato.com.tomato.pop;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,12 +17,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.recall.BottomWindowListener;
+import www.atomato.com.tomato.sqlite.ViewSQLite;
 
 /**
  * Created by wangj on 2016-11-24.
  */
 
-public class ButtomWindow extends PopupWindow {
+public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
     private BottomWindowListener mBottomWindowListener;
     @BindView(R.id.pop_stick)
     Button popStick;
@@ -40,6 +45,7 @@ public class ButtomWindow extends PopupWindow {
     private View mView;
     private View mItemView;
     private int mItemPosition;
+    private String mTitle;
 
     public void setItemView(View itemView) {
         mItemView = itemView;
@@ -47,6 +53,24 @@ public class ButtomWindow extends PopupWindow {
 
     public void setItemPosition(int itemPosition) {
         mItemPosition = itemPosition;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+        ViewSQLite viewSQLite = new ViewSQLite(mContext);
+        try {
+            Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{title}, null, null, null);
+            cursor.moveToNext();
+            int stick = cursor.getInt(cursor.getColumnIndex("todo_stick"));
+            if (stick == 1) {
+                popStick.setText("取消置顶");
+            }
+            if (stick == 0) {
+                popStick.setText("置顶");
+            }
+        } finally {
+            viewSQLite.closedb();
+        }
     }
 
     public ButtomWindow(Activity context) {
@@ -72,21 +96,7 @@ public class ButtomWindow extends PopupWindow {
         // 设置弹出窗体显示时的动画，从底部向上弹出
         this.setAnimationStyle(R.style.pop_window_anim);
         //点击popwindows之外 自动销毁
-        this.mView.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-
-                int height = mView.findViewById(R.id.pop_layout).getTop();
-
-                int y = (int) event.getY();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (y < height) {
-                        dismiss();
-                    }
-                }
-                return true;
-            }
-        });
+        mView.setOnTouchListener(this);
     }
 
     public void setBottomWindowListener(BottomWindowListener bottomWindowListener) {
@@ -98,31 +108,51 @@ public class ButtomWindow extends PopupWindow {
         switch (view.getId()) {
             case R.id.pop_stick:
                 if (mBottomWindowListener != null && mItemView != null) {
-                    mBottomWindowListener.stickClick(view,mItemPosition);
+                    mBottomWindowListener.stickClick(view, mItemPosition);
+                    ViewSQLite viewSQLite = new ViewSQLite(mContext);
+                    try {
+                        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{mTitle}, null, null, null);
+                        cursor.moveToNext();
+                        int stick = cursor.getInt(cursor.getColumnIndex("todo_stick"));
+                        if (stick == 0) {
+                            popStick.setText("取消置顶");
+                            ContentValues values = new ContentValues();
+                            values.put("todo_stick", 1);
+                            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
+                        }
+                        if (stick == 1) {
+                            popStick.setText("置顶");
+                            ContentValues values = new ContentValues();
+                            values.put("todo_stick", 0);
+                            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
+                        }
+                    } finally {
+                        viewSQLite.closedb();
+                    }
                 }
                 dismiss();
                 break;
             case R.id.pop_remind:
                 if (mBottomWindowListener != null && mItemView != null) {
-                    mBottomWindowListener.remindClick(view,mItemPosition);
+                    mBottomWindowListener.remindClick(view, mItemPosition);
                 }
                 dismiss();
                 break;
             case R.id.pop_mark:
                 if (mBottomWindowListener != null && mItemView != null) {
-                    mBottomWindowListener.markClick(view,mItemPosition);
+                    mBottomWindowListener.markClick(view, mItemPosition);
                 }
                 dismiss();
                 break;
             case R.id.pop_edit:
                 if (mBottomWindowListener != null && mItemView != null) {
-                    mBottomWindowListener.editClick(view,mItemPosition);
+                    mBottomWindowListener.editClick(view, mItemPosition);
                 }
                 dismiss();
                 break;
             case R.id.pop_delete:
                 if (mBottomWindowListener != null && mItemView != null) {
-                    mBottomWindowListener.deleteClick(view,mItemPosition);
+                    mBottomWindowListener.deleteClick(view, mItemPosition);
                 }
                 dismiss();
                 break;
@@ -133,5 +163,18 @@ public class ButtomWindow extends PopupWindow {
 //                dismiss();
 //                break;
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        int height = mView.findViewById(R.id.pop_layout).getTop();
+
+        int y = (int) motionEvent.getY();
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            if (y < height) {
+                dismiss();
+            }
+        }
+        return true;
     }
 }
