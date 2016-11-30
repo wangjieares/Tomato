@@ -19,6 +19,7 @@
             android:inputType="number" />
 
         <Button
+            android:id="@+id/custrom_button"
             android:background="@drawable/custrom_button_selector"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

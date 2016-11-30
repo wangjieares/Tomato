@@ -1,6 +1,7 @@
 package www.atomato.com.tomato.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
@@ -151,11 +152,42 @@ public class MainActivity extends BaseActivity
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
             //发消息通知更改
+            bundle.putInt("time",35);
+            bundle.putInt("state",0);
+            bundle.putInt("progress",0);
+            bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
+            bundle.putInt("day",Constants.EVERY_DAY_RADIO);
+            bundle.putInt("plan",Constants.DEFAULT_RADIO);
+            bundle.putInt("type",Constants.LONG_RADIO);
             Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);
         } else {
+            if (time == Constants.EVERY_DAY_RADIO) {//如果每天 销毁时间为0
+                bundle.putInt("todo_destory", 0);
+            }
+            if (time == Constants.ONE_DAY_RADIO) {//一天 24小时 或者执行完毕销毁 销毁值为1
+                bundle.putInt("todo_destory", 1);
+            }
+            if (time == Constants.DEFAULT_RADIO) {
+                bundle.putInt("todo_time", 35);
+            }
+            if (time == Constants.TIME_RADIO) {
+                bundle.putInt("todo_time", 45);
+            }
+            if (time == Constants.CUSTOM_RADIO) {
+
+            }
+            if (time == Constants.SHORT_RADIO) {
+                bundle.putInt("todo_plan", Constants.SHORT_RADIO);
+            }
+            if (time == Constants.LONG_RADIO) {
+                bundle.putInt("todo_plan", Constants.LONG_RADIO);
+            }
+            bundle.putInt("state",0);
+            bundle.putInt("progress",0);
+            bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
             LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("title"));
             //发消息通知更改
             Message message = OneFragment.handler.obtainMessage();
@@ -239,6 +271,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
+
     @Override
     public void onPageSelected(int position) {
         switch (position) {
@@ -250,6 +283,7 @@ public class MainActivity extends BaseActivity
                 break;
         }
     }
+
     @Override
     public void onPageScrollStateChanged(int state) {
     }

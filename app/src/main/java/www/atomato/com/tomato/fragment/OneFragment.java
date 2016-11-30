@@ -3,6 +3,7 @@ package www.atomato.com.tomato.fragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -46,9 +47,9 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     private View mView = null;
     private RecyclerView mRecyclerView;
     private List<ToDoData> mList;
-    private  TodoRecyclerViewAdapter mAdapter;
+    private TodoRecyclerViewAdapter mAdapter;
     public static ViewHandler handler;
-//    public static  Handler handler;
+    //    public static  Handler handler;
     private Subscriber<ToDoData> mTodoDataObserver;
     private Observable<ToDoData> mObservable;
 
@@ -62,7 +63,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     private void init() {
-        handler=new ViewHandler();
+        handler = new ViewHandler();
         //start RecyclerView
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.fragment_recyclerView);
         mList = new ArrayList<>();
@@ -238,7 +239,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mAdapter.removeData(positon);
     }
 
-    public void addItem(){
+    public void addItem() {
         mTodoDataObserver = new Subscriber<ToDoData>() {
             @Override
             public void onCompleted() {
@@ -273,9 +274,9 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                 case Constants.CREATE_TODO:
                     Bundle bundle = msg.getData();
                     String title = bundle.getString("title");
-                    int time = bundle.getInt("time", 35);
-                    int state = bundle.getInt("state", 0);
-                    int progress = bundle.getInt("progress", 0);
+                    int time = bundle.getInt("time");
+                    int state = bundle.getInt("state");
+                    int progress = bundle.getInt("progress");
                     int drawColor = bundle.getInt("drawColor");
                     int day = bundle.getInt("day");
                     int plan = bundle.getInt("plan");

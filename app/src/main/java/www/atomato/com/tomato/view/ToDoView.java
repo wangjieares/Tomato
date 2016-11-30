@@ -31,11 +31,9 @@ public class ToDoView extends View {
     // 移动的阈值
     public int TOUCH_SLOP = 10;
     //有背景
-    public boolean ITEM_BACKGROUND = true;
-    //无背景
-    public boolean NOT_ITEM_BACKGROUND = false;
+    private boolean ITEM_BACKGROUND = false;
     //item状态 完成未完成
-    public int ITEM_STATUS = 1;
+    private int ITEM_STATUS = 1;
     //有边按键被按下 出现点击效果
     private boolean mKeyPress = false;
     //画笔
@@ -63,7 +61,7 @@ public class ToDoView extends View {
     private Bitmap bitmap;
     private int mViewWidth;
     private int mViewHeith;
-    private int mItemClickColor = getResources().getColor(R.color.itemClick);
+    private int mItemClickColor;
     //绘制图片背景范围
     private Rect src, dst;
     //Progress绘制参数
@@ -126,10 +124,11 @@ public class ToDoView extends View {
         mProgressColor = Color.parseColor("#FFFFFF");//进度条颜色
         mDrawWidth = (int) mScreenWidth;//绘制控件长度
         //初始化item绘制place
-
 //        src = new Rect(0, 0, (int) mScreenWidth, (int) mScreenHeight);
         dst = new Rect(0, 0, (int) mScreenWidth - 20, 200);
         LogUtils.e(tag, "mScreenWidth" + mScreenWidth + "mScreenHeight" + mScreenHeight);
+        //Item Color
+        mItemClickColor = getResources().getColor(R.color.itemClick);
         //Item背景图片
         bitmap = ImageUtils.drawableToBitamp(getResources(), R.drawable.item_lans);
 //        bitmap = ImageUtils.drawableToBitamp(getResources(), R.mipmap.card1);
@@ -142,17 +141,16 @@ public class ToDoView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (NOT_ITEM_BACKGROUND) {
-            canvas.drawColor(mDrawColor);
-        }
         if (ITEM_BACKGROUND) {
-//            canvas.drawColor(mDrawColor);
             canvas.drawBitmap(bitmap, null, dst, mPaint);
+//            canvas.drawColor(mDrawColor);
 //            canvas.drawBitmap(bitmap, 0, 0, mPaint);
             // 该方法图片绘制受本身限制
 //            canvas.drawColor(mDrawColor);
 //            Bitmap bitmap = ImageUtils.drawableToBitamp(getResources(), R.drawable.item_lans);
 //            canvas.drawBitmap(bitmap, 0, 0, mPaint);
+        } else {
+            canvas.drawColor(mDrawColor);
         }
         mPaint.setColor(Color.rgb(255, 255, 255));
         mPaint.setTextSize(48);
@@ -298,6 +296,11 @@ public class ToDoView extends View {
         mPaint.setColor(mProgressColor);
     }
 
+    public void setProgress(float progress) {
+        mProgress = progress / 100;
+        invalidate();
+    }
+
     private void drawLeftArc(Canvas canvas) {
         canvas.save();
         canvas.translate(mProgressXPositon, mProgressYPositon);
@@ -323,10 +326,8 @@ public class ToDoView extends View {
 
     private void drawCenterRect(Canvas canvas) {
         float rectAndLeftArcMaxWidth = mProgressMaxWidth - mRadius;//所有进度条减去右边 就是左边和矩形
-
         float progressBarWidthNowTemp = mProgressLoadingWidth < rectAndLeftArcMaxWidth ? mProgressLoadingWidth : rectAndLeftArcMaxWidth;
         float rectWidth = progressBarWidthNowTemp - mRadius;//当前进度条减去左边半圆
-
         rectWidth = rectWidth < rectAndLeftArcMaxWidth ? rectWidth : rectAndLeftArcMaxWidth;
         RectF rectFCenter = new RectF(0, -mRadius, rectWidth, mRadius);
         canvas.drawRect(rectFCenter, mPaint);
@@ -373,7 +374,6 @@ public class ToDoView extends View {
     }
 
     private void drawProgress(Canvas canvas) {
-        initProgress();
         if (mProgress <= 0) {
             return;
         }
@@ -390,11 +390,6 @@ public class ToDoView extends View {
             drawRightArc(canvas);
         }
         canvas.restore();
-    }
-
-    public void setProgress(float progress) {
-        mProgress = progress / 100;
-        invalidate();
     }
 
     public void setProgressColor(int progressColor) {
@@ -430,5 +425,9 @@ public class ToDoView extends View {
 
     public void setItemState(int itemState) {
         this.ITEM_STATUS = itemState;
+    }
+
+    public void setItemBackground(boolean ITEM_BACKGROUND) {
+        this.ITEM_BACKGROUND = ITEM_BACKGROUND;
     }
 }

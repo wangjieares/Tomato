@@ -5,17 +5,22 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.view.CountDownTimerView;
 
 /**
@@ -37,6 +42,8 @@ public class CountProgressActivity extends Activity {
     LinearLayout activityCountTimerLinear;
     private String tag = getClass().getSimpleName();
     private boolean mIsNext = false;
+    private boolean quit = false;
+    long lastTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,23 @@ public class CountProgressActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (!quit) {
+            ToastUtils.show(this, "退出请再按一次back！");
+            lastTime = System.currentTimeMillis();
+            quit = true;
+        } else {
+            if (SystemClock.currentThreadTimeMillis() - lastTime < 1000) {
+                super.onBackPressed();
+            } else {
+                ToastUtils.show(this, "退出请再按一次back！");
+                lastTime = System.currentTimeMillis();
+            }
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.ToDoData;
@@ -13,6 +14,7 @@ import www.atomato.com.tomato.data.ToDoData;
  */
 
 public class ViewSQLite {
+
     private SQLiteDatabase mSQLDatabase;
     private ViewDAOHelper viewDAO;
 
@@ -30,8 +32,7 @@ public class ViewSQLite {
         }
     }
 
-    public long insert(ToDoData toDoData) {
-        long state;
+    public void insert(ToDoData toDoData) {
         openDataBase();
         ContentValues values = new ContentValues();
         values.put("todo_title", toDoData.getTitle());
@@ -42,16 +43,15 @@ public class ViewSQLite {
         values.put("todo_type", toDoData.getType());//必须修改
         values.put("todo_plan", toDoData.getPlan());
         values.put("todo_day", toDoData.getDay());
-        values.put("todo_create", toDoData.getDay());
-        values.put("todo_destory", toDoData.getDay());
-        values.put("todo_day_index", toDoData.getDay());
-        values.put("todo_day_total_time", toDoData.getDay());
+        values.put("todo_create", toDoData.getCreate());
+        values.put("todo_destory", toDoData.getDestory());
+        values.put("todo_day_index", toDoData.getIndexNum());
+        values.put("todo_day_total_time", toDoData.getTotalTime());
         try {
-            state = mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
+            mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
         } finally {
             closedb();
         }
-        return state;
     }
 
     public void update(ToDoData toDoData) {

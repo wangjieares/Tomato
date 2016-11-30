@@ -13,20 +13,21 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
 public class ToDoData {
     private String mTitle;
     private int mTime;
-    private int mDrawBackColor = Color.RED;
+    private int mDrawBackColor = Color.parseColor("#1ABC9C");
     private float mProgress = 0f;
     private int mState = 0;
     private int mDay = Constants.EVERY_DAY_RADIO;
     private int mPlan = Constants.TIME_RADIO;
     private int mType = Constants.LONG_RADIO;
     private long mCreate;
-
     private int mDestory;
-
-
+    private Context mContext;
     private ViewSQLite viewSQLite;
+    private int mIndexNum = 0;//总个数
+    private int mTotalTime = 0;//总时间
 
     public ToDoData(Context context, String title, int time, int state, float progress, int drawColor, int day, int plan, int type) {
+        mContext = context;
         this.mTitle = title;
         this.mTime = time;
         this.mDrawBackColor = drawColor;
@@ -36,8 +37,12 @@ public class ToDoData {
         this.mPlan = plan;
         this.mType = type;
         mCreate = System.currentTimeMillis();
+        insertSQL();
+    }
+
+    private void insertSQL() {
         try {
-            viewSQLite = new ViewSQLite(context);
+            viewSQLite = new ViewSQLite(mContext);
             viewSQLite.insert(this);
         } finally {
             viewSQLite.closedb();
@@ -59,7 +64,6 @@ public class ToDoData {
     public void setType(int mType) {
         this.mType = mType;
     }
-
 
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
@@ -85,8 +89,20 @@ public class ToDoData {
         return mDrawBackColor;
     }
 
+    public long getCreate() {
+        return mCreate;
+    }
+
     public int getDay() {
         return mDay;
+    }
+
+    public int getIndexNum() {
+        return mIndexNum;
+    }
+
+    public int getTotalTime() {
+        return mTotalTime;
     }
 
     public void setDay(int mDay) {
