@@ -114,16 +114,20 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
                         Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{mTitle}, null, null, null);
                         cursor.moveToNext();
                         int stick = cursor.getInt(cursor.getColumnIndex("todo_stick"));
-                        if (stick == 0) {
-                            popStick.setText("取消置顶");
-                            ContentValues values = new ContentValues();
-                            values.put("todo_stick", 1);
-                            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
-                        }
                         if (stick == 1) {
-                            popStick.setText("置顶");
+                            popStick.setText("取消置顶");
+                            long time = System.currentTimeMillis() - cursor.getLong(cursor.getColumnIndex("todo_create"));
+                            //置顶停留的时间 = 现在时间减创建时间加原本时间
                             ContentValues values = new ContentValues();
                             values.put("todo_stick", 0);
+                            values.put("todo_stick_time", time);//用来排序
+                            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
+                        }
+                        if (stick == 0) {
+                            popStick.setText("置顶");
+                            ContentValues values = new ContentValues();
+                            values.put("todo_stick", 1);
+                            values.put("todo_stick_time", System.currentTimeMillis());
                             viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
                         }
                     } finally {

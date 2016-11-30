@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
+import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -30,7 +31,15 @@ public class ToDoData implements Serializable, Comparable {
     private int mIndexNum = 0;//总个数
     private int mTotalTime = 0;//总时间
     private int mStickState = 0;//是否置顶
+    private long mStickStateTime;//置顶时间
 
+    public long getStickStateTime() {
+        return mStickStateTime;
+    }
+
+    public void setStickStateTime(long stickStateTime) {
+        mStickStateTime = stickStateTime;
+    }
 
     public ToDoData(Context context, String title, int time, int state, float progress, int drawColor, int day, int plan, int type) {
         mContext = context;
@@ -43,6 +52,7 @@ public class ToDoData implements Serializable, Comparable {
         this.mPlan = plan;
         this.mType = type;
         mCreate = System.currentTimeMillis();
+        mStickStateTime = System.currentTimeMillis();
         insertSQL();
     }
 
@@ -61,6 +71,8 @@ public class ToDoData implements Serializable, Comparable {
         this.mDrawBackColor = drawBackColor;
         this.mProgress = mProgress;
         this.mState = mState;
+        mCreate = System.currentTimeMillis();
+        mStickStateTime = System.currentTimeMillis();
     }
 
     public int getType() {
@@ -167,9 +179,10 @@ public class ToDoData implements Serializable, Comparable {
          * 如果是不相等的情况下，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData下面，所以返回1
          *  同样，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData上面，所以返回-1
          * */
+        LogUtils.e("TodoData","mStickState ==="+mStickStateTime+"----"+"toDoData.getStickStateTime() ==="+toDoData.getStickStateTime());
         int result = 0 - (toDoData.getStickState() - mStickState);
         if (result == 0) {
-            result = 0 - compareToTime(mTime, toDoData.getTime());
+            result = 0 - compareToTime(toDoData.getStickStateTime(), mStickStateTime);
         }
         return result;
     }
@@ -182,6 +195,9 @@ public class ToDoData implements Serializable, Comparable {
         Calendar cRhs = Calendar.getInstance();
         cLhs.setTimeInMillis(lhs);
         cRhs.setTimeInMillis(rhs);
+//        LogUtils.e("TodoData","cLhs ==="+lhs+"----"+"cRhs ==="+rhs);
+//        LogUtils.e("TodoData","cLhs ==="+cLhs+"----"+"cRhs ==="+cRhs);
+//        LogUtils.e("TodoData","compare ==="+cLhs.compareTo(cRhs));
         return cLhs.compareTo(cRhs);
     }
 }

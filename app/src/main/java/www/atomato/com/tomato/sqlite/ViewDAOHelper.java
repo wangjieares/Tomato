@@ -39,6 +39,7 @@ class ViewDAOHelper extends SQLiteOpenHelper {
                 "todo_progress INTEGER," +
                 "todo_color INTEGER," +
                 "todo_stick INTEGER," +
+                "todo_stick_time INTEGER," +
                 "todo_type INTEGER," +
                 "todo_plan INTEGER," +
                 "todo_day INTEGER," +

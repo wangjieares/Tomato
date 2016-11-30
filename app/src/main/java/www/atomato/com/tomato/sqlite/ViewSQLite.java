@@ -45,6 +45,7 @@ public class ViewSQLite {
         values.put("todo_progress", toDoData.getProgress());
         values.put("todo_color", toDoData.getDrawBackColor());
         values.put("todo_stick",toDoData.getStickState());
+        values.put("todo_stick_time",toDoData.getStickStateTime());
         values.put("todo_type", toDoData.getType());//必须修改
         values.put("todo_plan", toDoData.getPlan());
         values.put("todo_day", toDoData.getDay());
@@ -99,7 +100,7 @@ public class ViewSQLite {
 
     public Cursor query() {
         openDataBase();
-        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick,todo_create asc");
+        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time asc");
     }
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
