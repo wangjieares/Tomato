@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
+            app:elevation="@dimen/app_bar_shadow"
             android:id="@+id/statistics_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

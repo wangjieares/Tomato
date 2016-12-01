@@ -1,7 +1,9 @@
 package www.atomato.com.tomato.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
@@ -14,7 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,7 +28,6 @@ import java.util.List;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
-import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
@@ -44,8 +48,35 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initWindow(getResources().getColor(R.color.toolBar));
         initView();
     }
+
+    @TargetApi(21)
+    private void initWindow(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 设置状态栏透明
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+//            LogUtils.e(tag,"statusBarHeight==="+statusBarHeight);
+            // 绘制一个和状态栏一样高的矩形
+            View statusView = new View(this);
+            ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    statusBarHeight);
+            // 生成一个状态栏大小的矩形
+            statusView.setLayoutParams(params);
+            statusView.setBackgroundColor(color);
+            // 添加 statusView 到布局中
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            decorView.addView(statusView);
+            // 设置根布局的参数
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setFitsSystemWindows(true);
+            rootView.setClipToPadding(true);
+        }
+    }
+
 
     private void initView() {
         //start按钮初始化
@@ -152,13 +183,13 @@ public class MainActivity extends BaseActivity
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
             //发消息通知更改
-            bundle.putInt("time",35);
-            bundle.putInt("state",0);
-            bundle.putInt("progress",0);
+            bundle.putInt("time", 35);
+            bundle.putInt("state", 0);
+            bundle.putInt("progress", 0);
             bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
-            bundle.putInt("day",Constants.EVERY_DAY_RADIO);
-            bundle.putInt("plan",Constants.DEFAULT_RADIO);
-            bundle.putInt("type",Constants.LONG_RADIO);
+            bundle.putInt("day", Constants.EVERY_DAY_RADIO);
+            bundle.putInt("plan", Constants.DEFAULT_RADIO);
+            bundle.putInt("type", Constants.LONG_RADIO);
             Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
@@ -185,8 +216,8 @@ public class MainActivity extends BaseActivity
             if (time == Constants.LONG_RADIO) {
                 bundle.putInt("todo_plan", Constants.LONG_RADIO);
             }
-            bundle.putInt("state",0);
-            bundle.putInt("progress",0);
+            bundle.putInt("state", 0);
+            bundle.putInt("progress", 0);
             bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
             LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("title"));
             //发消息通知更改
@@ -286,5 +317,15 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

@@ -106,8 +106,5 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!--微信分享回调 -->
-
-
     </application>
 </manifest>

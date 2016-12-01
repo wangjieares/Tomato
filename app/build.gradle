@@ -36,4 +36,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     //开源图表框架
     compile 'com.diogobernardino:williamchart:2.3.0'
+    //系统状态栏4.4
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

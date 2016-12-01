@@ -15,7 +15,7 @@
     <declare-styleable name="Indicator"><attr format="integer" name="childSum"/><attr format="integer" name="aniDuration"/></declare-styleable>
     <declare-styleable name="TabButton"><attr format="reference" name="drawable"/><attr format="reference|string" name="buttonText"/></declare-styleable>
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">36dp</dimen>
     <dimen name="content_paddingLeftRight">10dp</dimen>
     <dimen name="content_paddingTopBottom">10dp</dimen>
     <dimen name="fbutton_paddingTopBottom">36dp</dimen>

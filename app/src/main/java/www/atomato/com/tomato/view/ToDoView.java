@@ -159,11 +159,11 @@ public class ToDoView extends View {
             canvas.drawColor(mDrawColor);
         }
         mPaint.setColor(Color.rgb(255, 255, 255));
-        mPaint.setTextSize(48);
+        mPaint.setTextSize(sp2px(28));
 //        LogUtils.e(tag, "mScreenHeight=>" + mScreenHeight + "---mScreenWidth=>" + mScreenWidth);
-        canvas.drawText(mTodoTitle, 50, 70, mPaint);
-        mPaint.setTextSize(30);
-        canvas.drawText(mTodoTime + "分钟", 55, 128, mPaint);
+        canvas.drawText(mTodoTitle, (float) (mScreenWidth/14.4), (float) (mScreenHeight/18.2), mPaint);
+        mPaint.setTextSize(sp2px(16));
+        canvas.drawText(mTodoTime + "分钟", mScreenWidth/13, mScreenHeight/10, mPaint);
         //点击效果
         if (mKeyPress) {
             mPaint.setColor(mItemClickColor);
@@ -180,14 +180,14 @@ public class ToDoView extends View {
         //如果状态为假，说明该代办未完成
         if (ITEM_STATUS == 1) {
             mPaint.setColor(Color.rgb(255, 255, 255));
-            mPaint.setTextSize(40);
+            mPaint.setTextSize(sp2px(15));
 //            canvas.drawText(mTodoStart, 480, 96, mPaint);
-            canvas.drawText(mTodoEnd, (float) (mScreenWidth / 1.38), 96, mPaint);
+            canvas.drawText(mTodoEnd, (float) (mScreenWidth / 1.34), (float) (mScreenHeight/14.8), mPaint);
         } else {
             //默认该代办未完成
             mPaint.setColor(Color.rgb(255, 255, 255));
-            mPaint.setTextSize(40);
-            canvas.drawText(mTodoStart, (float) (mScreenWidth / 1.38), 96, mPaint);
+            mPaint.setTextSize(sp2px(15));
+            canvas.drawText(mTodoStart, (float) (mScreenWidth / 1.34), (float) (mScreenHeight/14.8), mPaint);
         }
     }
 
@@ -264,7 +264,7 @@ public class ToDoView extends View {
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         } else {
-            result = 160;
+            result = (int) (mScreenHeight/8.5);
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
             }
@@ -408,7 +408,11 @@ public class ToDoView extends View {
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
         return px;
     }
-
+    public int sp2px(int spValue) {
+        //转化标准尺寸
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, getResources().getDisplayMetrics());
+        return px;
+    }
     public int getTodoTime() {
         return mTodoTime;
     }

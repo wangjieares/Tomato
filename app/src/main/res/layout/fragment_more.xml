@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:paddingLeft="@dimen/todo_margin_left_right"
-    android:paddingRight="@dimen/todo_margin_left_right"
-    android:paddingTop="@dimen/todo_margin_top_bottom"
-    android:paddingBottom="@dimen/todo_margin_top_bottom"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/todo_margin_top_bottom"
+              android:paddingLeft="@dimen/todo_margin_left_right"
+              android:paddingRight="@dimen/todo_margin_left_right"
+              android:paddingTop="@dimen/todo_margin_top_bottom">
 
     <TextView
-        android:text="this is more"
+        android:id="@+id/textView3"
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
+        android:text="正在开发"/>
 </LinearLayout>

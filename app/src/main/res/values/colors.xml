@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#34495E</color>
     <color name="colorAccent">#5BCEE3</color>
     <!--工具栏颜色-->
     <color name="toolBar">#34495E</color>
