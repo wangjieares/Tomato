@@ -2,6 +2,8 @@ package www.atomato.com.tomato.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -19,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.ToDoData;
+import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.view.CountDownTimerView;
@@ -27,7 +32,7 @@ import www.atomato.com.tomato.view.CountDownTimerView;
  * Created by wangj on 2016-11-25.
  */
 
-public class CountProgressActivity extends Activity {
+public class CountProgressActivity extends Activity implements www.atomato.com.tomato.view.CountDownTimerView.OnCountdownFinishListener {
     @BindView(R.id.activity_count_timer_show)
     TextView activityCountTimerShow;
     @BindView(R.id.CountDownTimerView)
@@ -44,6 +49,8 @@ public class CountProgressActivity extends Activity {
     private boolean mIsNext = false;
     private boolean quit = false;
     long lastTime;
+    private String todoTitle;
+    private int todoTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +58,9 @@ public class CountProgressActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_timer);
         ButterKnife.bind(this);
-        CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
+        todoTitle = getIntent().getStringExtra("todo_title");
+        todoTime = getIntent().getIntExtra("todo_time", 35);
+        CountDownTimerView.setCountdownTime(todoTime * 1000 * 60);
         activityCountTimerImageButtonRestart.setSelected(true);
         activityCountTimerImageButtonComputer.setSelected(true);
         //设置背景
@@ -61,15 +70,7 @@ public class CountProgressActivity extends Activity {
 //            activityCountTimerLinear.setBackground(getResources().getDrawable(R.drawable.activity_count_timer_background));
 //        }
         //开始计时器
-        CountDownTimerView.startCountDownTime(new CountDownTimerView.OnCountdownFinishListener() {
-            @Override
-            public void performFinished() {
-                LogUtils.e(tag, "countdownFinished === done");
-                if (mIsNext) {
-                    CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
-                }
-            }
-        });
+        CountDownTimerView.startCountDownTime(this);
     }
 
     @Override
@@ -148,5 +149,22 @@ public class CountProgressActivity extends Activity {
                 break;
         }
 
+    }
+
+    @Override
+    public void performFinished() {
+        if (mIsNext) {
+            CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
+        }
+        ViewSQLite viewSQLite = new ViewSQLite(this);
+        ContentValues contentValues = new ContentValues();
+        try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
+            cursor.moveToNext();
+            int totalTIme = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+            contentValues.put("todo_total_time", totalTIme + todoTime);//总时间 之前时间+当前完成时间
+            viewSQLite.update(Constants.TABLE_NAME, contentValues, "todo_title=?", new String[]{todoTitle});
+        } finally {
+            viewSQLite.closedb();
+        }
     }
 }

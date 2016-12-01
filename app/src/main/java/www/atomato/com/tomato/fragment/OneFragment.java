@@ -152,12 +152,16 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 //        LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_time"}, "todo_title = ?", new String[]{todo_title}, null, null, null);
+        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
         if (cursor.moveToNext()) {
-            int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
-//            LogUtils.e(tag,"time==="+time);
+            int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+            int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
+            int todo_current_time = cursor.getInt(cursor.getColumnIndex("todo_time"));
             Intent intent = new Intent(getContext(), DetailActivity.class);
-            intent.putExtra("todo_time", time);
+            intent.putExtra("title", todo_title);//标题
+            intent.putExtra("total_time", todo_total_time);//总时间
+            intent.putExtra("todo_plan_time", todo_plan_time);//计划完成时间
+            intent.putExtra("todo_current_time", todo_current_time);//当前todo时间
             startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
         }
 
@@ -168,7 +172,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 //        LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
-//        LogUtils.e(tag,"todo_title==="+todo_title);
+        LogUtils.e(tag,"todo_title==="+todo_title);
         try {
             Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
             if (cursor.moveToNext()) {
@@ -188,7 +192,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.setBottomWindowListener(this);
         buttomWindow.setTitle(mAdapter.getTitle(position));
-        buttomWindow.setItemView(view);
+        buttomWindow.setItemView((ToDoView)view);
         buttomWindow.setItemPosition(position);
         buttomWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
     }
@@ -296,10 +300,8 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                     int state = bundle.getInt("state");
                     int progress = bundle.getInt("progress");
                     int drawColor = bundle.getInt("drawColor");
-                    int day = bundle.getInt("day");
-                    int plan = bundle.getInt("plan");
-                    int type = bundle.getInt("type");
-                    ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor, day, plan, type);
+                    int longPlan = bundle.getInt("long");
+                    ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor,longPlan);
                     mAdapter.addDataOnScroll(todoData);
                     break;
                 case Constants.DELETE_TODO:

@@ -1,9 +1,7 @@
 package www.atomato.com.tomato.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
@@ -16,10 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -49,11 +44,9 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ScreenUtils.initWindow(this,getResources().getColor(R.color.toolBar));
+        ScreenUtils.initWindow(this, getResources().getColor(R.color.toolBar));
         initView();
     }
-
-
 
 
     private void initView() {
@@ -157,6 +150,8 @@ public class MainActivity extends BaseActivity
         int plan = bundle.getInt("plan");
         int time = bundle.getInt("time");
         int day = bundle.getInt("day");
+        int shortPlan = bundle.getInt("short");
+        int longPlan = bundle.getInt("long");
         //默认情况创建Todo
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
@@ -197,6 +192,8 @@ public class MainActivity extends BaseActivity
             bundle.putInt("state", 0);
             bundle.putInt("progress", 0);
             bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
+            bundle.putInt("short", shortPlan);
+            bundle.putInt("long", longPlan);
             LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("title"));
             //发消息通知更改
             Message message = OneFragment.handler.obtainMessage();
@@ -227,7 +224,6 @@ public class MainActivity extends BaseActivity
 //            item.setCheckable(true);
 //            item.setChecked(true);
             Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
-
             startActivity(intent);
             LogUtils.e(tag, "nav_camera");
             // Handle the camera action
@@ -264,12 +260,12 @@ public class MainActivity extends BaseActivity
         int id = view.getId();
         switch (id) {
             case R.id.oneButton:
-                LogUtils.d(tag, tag + "===oneButton Click");
+//                LogUtils.d(tag, tag + "===oneButton Click");
                 mViewPager.setCurrentItem(0);
                 invalidateOptionsMenu();
                 break;
             case R.id.moreButton:
-                LogUtils.d(tag, tag + "===moreButton Click");
+//                LogUtils.d(tag, tag + "===moreButton Click");
                 mViewPager.setCurrentItem(1);
                 invalidateOptionsMenu();
                 break;

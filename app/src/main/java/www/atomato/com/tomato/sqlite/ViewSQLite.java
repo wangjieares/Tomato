@@ -46,13 +46,10 @@ public class ViewSQLite {
         values.put("todo_color", toDoData.getDrawBackColor());
         values.put("todo_stick", toDoData.getStickState());
         values.put("todo_stick_time", toDoData.getStickStateTime());
-        values.put("todo_type", toDoData.getType());//必须修改
-        values.put("todo_plan", toDoData.getPlan());
-        values.put("todo_day", toDoData.getDay());
         values.put("todo_create", toDoData.getCreate());
         values.put("todo_destory", toDoData.getDestory());
-        values.put("todo_day_index", toDoData.getIndexNum());
-        values.put("todo_day_total_time", toDoData.getTotalTime());
+        values.put("todo_plan_time", toDoData.getPlanTime());
+        values.put("todo_total_time", toDoData.getTotalTime());
         try {
             mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
         } catch (SQLiteConstraintException e) {
@@ -70,9 +67,6 @@ public class ViewSQLite {
         values.put("todo_state", toDoData.getState());
         values.put("todo_progress", toDoData.getProgress());
         values.put("todo_color", toDoData.getDrawBackColor());
-        values.put("todo_type", toDoData.getType());//必须修改
-        values.put("todo_plan", toDoData.getPlan());
-        values.put("todo_day", toDoData.getDay());
         try {
             mSQLDatabase.update(Constants.TABLE_NAME, values, null, null);
         } finally {
@@ -100,7 +94,8 @@ public class ViewSQLite {
 
     public Cursor query() {
         openDataBase();
-        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc ,todo_stick_time asc");
+//        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc");
+        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time desc");//排序规则不对
     }
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {

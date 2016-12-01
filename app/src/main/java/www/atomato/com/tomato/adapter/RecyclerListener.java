@@ -18,7 +18,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private String tag = getClass().getSimpleName();
     private int mLastDownX, mLastDownY;
     //该值记录了最小滑动距离
-    private int touchSlop;
+    private int touchSlop=30;
     private OnItemClickListener mListener;
     //是否是单击事件
     private boolean isSingleTapUp = false;
@@ -44,7 +44,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     }
 
     public RecyclerListener(Context context, OnItemClickListener listener) {
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+//        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mListener = listener;
     }
 

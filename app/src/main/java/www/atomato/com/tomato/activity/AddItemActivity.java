@@ -2,6 +2,7 @@ package www.atomato.com.tomato.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.pop.ButtomDialogUtils;
 import www.atomato.com.tomato.recall.DialogListener;
+import www.atomato.com.tomato.sqlite.ViewSQLite;
+import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
  * Created by wangjie on 2016-11-20.
@@ -73,9 +76,10 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
                 if (checkedId == R.id.longRadio) {
                     bundle.putInt("plan", Constants.LONG_RADIO);
 //                    LogUtils.e(tag, "plan==" + Constants.LONG_RADIO);
+                    ButtomDialogUtils.showLongDialog(this, this);
                     break;
                 } else if (checkedId == R.id.shortRadio) {
-                    bundle.putInt("plan", Constants.SHORT_RADIO);
+                    bundle.putInt("long", 350);
 //                    LogUtils.e(tag, "plan==" + Constants.SHORT_RADIO);
                     break;
                 }
@@ -84,7 +88,7 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
                 if (checkedId == R.id.customRadio) {
 //                    bundle.putInt("time", Constants.CUSTOM_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
-                    ButtomDialogUtils.showDialog(this, this);
+                    ButtomDialogUtils.showCustromDialog(this, this);
 
                     break;
                 } else if (checkedId == R.id.timeRadio) {
@@ -100,13 +104,10 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
                 break;
             case R.id.dayRadioGroup:
                 if (checkedId == R.id.oneDayRadio) {
-                    bundle.putInt("day", Constants.ONE_DAY_RADIO);
-//                    LogUtils.e(tag, "day==" + Constants.ONE_DAY_RADIO);
-
+                    ToastUtils.show(this, "正在开发中");
                     break;
                 } else if (checkedId == R.id.everyDayRadio) {
-                    bundle.putInt("day", Constants.EVERY_DAY_RADIO);
-//                    LogUtils.e(tag, "day==" + Constants.EVERY_DAY_RADIO);
+                    ToastUtils.show(this, "正在开发中");
                     break;
                 }
                 break;
@@ -117,22 +118,50 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     @OnClick(R.id.main_activity_add_item_commit)
     public void onClick() {
         if (!activityItemTitle.getText().toString().equals("")) {
-            bundle.putString("title", activityItemTitle.getText().toString());
-            bundle.putLong("cteate", SystemClock.currentThreadTimeMillis());
+            if (titleNotRepeat()) {
+                bundle.putString("title", activityItemTitle.getText().toString());
+//            bundle.putLong("create", SystemClock.currentThreadTimeMillis());
 //            LogUtils.e(tag, activityItemTitle.getText().toString());
-            Intent intent = new Intent();
-            intent.putExtra("data", bundle);
-            setResult(RESULT_OK, intent);
-            finish();
+                Intent intent = new Intent();
+                intent.putExtra("data", bundle);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                ToastUtils.show(this, "标题重复，请重新输入！");
+            }
+
         } else {
             setResult(RESULT_CANCELED);
             Toast.makeText(this, "请输入ToD名称！", Toast.LENGTH_SHORT).show();
         }
     }
 
+    boolean titleNotRepeat() {
+        ViewSQLite viewSQLite = new ViewSQLite(this);
+        try {
+            Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_title"}, null, null, null, null, null);
+            while (cursor.moveToNext()) {
+                String oldTitle = cursor.getString(cursor.getColumnIndex("todo_title"));
+                String currentTitle = activityItemTitle.getText().toString();
+                if (oldTitle.equals(currentTitle)) {
+                    return false;
+                }
+            }
+            return true;
+        } finally {
+            viewSQLite.closedb();
+        }
+    }
+
     @Override
-    public void setValue(int value) {
+    public void setCustromValue(int value) {
         bundle.putInt("time", value);
         customRadio.setText(String.valueOf(value));
+    }
+
+    @Override
+    public void setLongValue(int value) {
+        bundle.putInt("long", value);
+        longRadio.setText(String.valueOf(value));
     }
 }

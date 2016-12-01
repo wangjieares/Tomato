@@ -40,18 +40,14 @@ class ViewDAOHelper extends SQLiteOpenHelper {
                 "todo_color INTEGER," +
                 "todo_stick INTEGER," +
                 "todo_stick_time INTEGER," +
-                "todo_type INTEGER," +
-                "todo_plan INTEGER," +
-                "todo_day INTEGER," +
                 "todo_create INTEGER," +//创建时间
                 "todo_destory INTEGER," +//删除时间
-                "todo_day_index INTEGER," +//本身执行总个数
-                "todo_day_total_time INTEGER)";//本身执行总时间
+                "todo_plan_time INTEGER," +//计划完成时间
+                "todo_total_time INTEGER)";//本身执行总时间
         String sql1 = "create table " + Constants.TOTAL_NAME + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "total_account INTEGER," +// 账号
                 "total_password INTEGER," +// 密码
-                "total_num INTEGER," +// 总 一共完成个数
                 "total_time INTEGER," +// 总 一共完成时间
                 "total_day_num INTEGER," +// 总 一共完成时间
                 "total_day_time INTEGER)"; // 总 一共完成时间

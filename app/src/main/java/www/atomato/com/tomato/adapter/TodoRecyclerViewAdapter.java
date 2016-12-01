@@ -110,13 +110,13 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         if (state == 0) {
             LogUtils.e("RecyclerView", "--------------------------true");
             mList.get(positon).setStickState(1);
+            Collections.sort(mList);
+            notifyDataSetChanged();
         }
         if (state == 1) {
             LogUtils.e("RecyclerView", "--------------------------false");
             mList.get(positon).setStickState(0);
         }
-        Collections.sort(mList);
-        notifyDataSetChanged();
     }
 
     public void refresh(int position) {

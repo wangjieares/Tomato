@@ -159,7 +159,7 @@ public class ToDoView extends View {
             canvas.drawColor(mDrawColor);
         }
         mPaint.setColor(Color.rgb(255, 255, 255));
-        mPaint.setTextSize(sp2px(28));
+        mPaint.setTextSize(sp2px(22));
 //        LogUtils.e(tag, "mScreenHeight=>" + mScreenHeight + "---mScreenWidth=>" + mScreenWidth);
         canvas.drawText(mTodoTitle, (float) (mScreenWidth/14.4), (float) (mScreenHeight/18.2), mPaint);
         mPaint.setTextSize(sp2px(16));

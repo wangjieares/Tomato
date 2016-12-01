@@ -1,6 +1,7 @@
 package www.atomato.com.tomato.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangj on 2016-11-28.
@@ -27,18 +29,29 @@ public class DetailActivity extends Activity {
     TextView activityDetailPercent;
     @BindView(R.id.activity_detail_button)
     Button activityDetailButton;
+    double percent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        String todo_title = getIntent().getStringExtra("todo_title");
-        activityDetailTitle.setText("读书");
-        activityDetailNum.setText("目前已完成0次");
-        activityDetailTime.setText("计划内累计完成时间0分钟");
-        activityDetailMinute.setText("计划总时间 6000分钟");
-        activityDetailPercent.setText("计划完成百分比0.000% ");
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        int total_time = intent.getIntExtra("total_time", 1);//总完成时间
+        int todo_plan_time = intent.getIntExtra("todo_plan_time", 350);//计划时间
+        int todo_current_time = intent.getIntExtra("todo_current_time", 35);//当前时间
+        try {
+            percent = todo_plan_time / total_time;
+        } catch (ArithmeticException e) {
+            percent = 0f;
+        }
+        int num = total_time / todo_current_time;
+        activityDetailTitle.setText(title);
+        activityDetailNum.setText("目前已完成" + num + "次");
+        activityDetailTime.setText("计划内累计完成时间" + total_time + "分钟");
+        activityDetailMinute.setText("计划总时间 " + todo_plan_time + "分钟");
+        activityDetailPercent.setText("计划完成百分比" + percent + "% ");
 
     }
 

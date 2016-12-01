@@ -20,6 +20,7 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
+import www.atomato.com.tomato.view.ToDoView;
 
 /**
  * 2016.11.27 countTImer计时器界面
@@ -45,11 +46,11 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
     LinearLayout popLayout;
     private Context mContext;
     private View mView;
-    private View mItemView;
+    private ToDoView mItemView;
     private int mItemPosition;
     private String mTitle;
 
-    public void setItemView(View itemView) {
+    public void setItemView(ToDoView itemView) {
         mItemView = itemView;
     }
 
@@ -127,9 +128,10 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
                         }
                         if (stick == 0) {
                             popStick.setText("置顶");
+                            long time = cursor.getLong(cursor.getColumnIndex("todo_create"));
                             ContentValues values = new ContentValues();
                             values.put("todo_stick", 1);
-                            values.put("todo_stick_time", System.currentTimeMillis());
+                            values.put("todo_stick_time", time);
                             viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mTitle});
                         }
                     } finally {

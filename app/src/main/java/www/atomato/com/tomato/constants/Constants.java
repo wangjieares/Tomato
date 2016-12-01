@@ -8,11 +8,11 @@ public class Constants {
     //返回用户选择todo状态码---------------------
     public static final int EVERY_DAY_RADIO = 100;//每天
     public static final int ONE_DAY_RADIO = 101;//一天
-    public static final int DEFAULT_RADIO = 102;//默认 35
-    public static final int TIME_RADIO = 103;//45
-    public static final int CUSTOM_RADIO = 104;//自定义
-    public static final int SHORT_RADIO = 105;//短期
-    public static final int LONG_RADIO = 106;//长期
+    public static final int DEFAULT_RADIO = 35;//默认 35
+    public static final int TIME_RADIO = 45;//45
+    public static final int CUSTOM_RADIO = 55;//自定义
+    public static final int SHORT_RADIO = 350;//短期
+    public static final int LONG_RADIO = 10000;//长期
     //进度条选项-------------------------------------
     public static final int TODO_SOLID = 107;
     public static final int TODO_SOLID_AND_FRAME = 108;
