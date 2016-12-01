@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Random;
 
+import www.atomato.com.tomato.constants.ColorConstants;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
@@ -18,7 +20,7 @@ import www.atomato.com.tomato.utils.LogUtils;
 public class ToDoData implements Serializable, Comparable {
     private String mTitle;
     private int mTime;
-    private int mDrawBackColor = Color.parseColor("#1ABC9C");
+    private int mDrawBackColor;
     private float mProgress = 0f;
     private int mState = 0;
     private int mDay = Constants.EVERY_DAY_RADIO;
@@ -51,6 +53,7 @@ public class ToDoData implements Serializable, Comparable {
         this.mDay = day;
         this.mPlan = plan;
         this.mType = type;
+        mDrawBackColor = ColorConstants.randomBackground();
         mCreate = System.currentTimeMillis();
         mStickStateTime = System.currentTimeMillis();
         insertSQL();
@@ -64,6 +67,7 @@ public class ToDoData implements Serializable, Comparable {
             viewSQLite.closedb();
         }
     }
+
 
     public ToDoData(String title, int time, int mState, float mProgress, int drawBackColor) {
         this.mTitle = title;
@@ -179,7 +183,7 @@ public class ToDoData implements Serializable, Comparable {
          * 如果是不相等的情况下，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData下面，所以返回1
          *  同样，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData上面，所以返回-1
          * */
-        LogUtils.e("TodoData","mStickState ==="+mStickStateTime+"----"+"toDoData.getStickStateTime() ==="+toDoData.getStickStateTime());
+        LogUtils.e("TodoData", "mStickState ===" + mStickStateTime + "----" + "toDoData.getStickStateTime() ===" + toDoData.getStickStateTime());
         int result = 0 - (toDoData.getStickState() - mStickState);
         if (result == 0) {
             result = 0 - compareToTime(toDoData.getStickStateTime(), mStickStateTime);

@@ -32,6 +32,7 @@ import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.ScreenUtils;
 import www.atomato.com.tomato.viewpager.MyViewPager;
 
 public class MainActivity extends BaseActivity
@@ -48,34 +49,11 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initWindow(getResources().getColor(R.color.toolBar));
+        ScreenUtils.initWindow(this,getResources().getColor(R.color.toolBar));
         initView();
     }
 
-    @TargetApi(21)
-    private void initWindow(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 设置状态栏透明
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-//            LogUtils.e(tag,"statusBarHeight==="+statusBarHeight);
-            // 绘制一个和状态栏一样高的矩形
-            View statusView = new View(this);
-            ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    statusBarHeight);
-            // 生成一个状态栏大小的矩形
-            statusView.setLayoutParams(params);
-            statusView.setBackgroundColor(color);
-            // 添加 statusView 到布局中
-            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
-            decorView.addView(statusView);
-            // 设置根布局的参数
-            ViewGroup rootView = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
-            rootView.setFitsSystemWindows(true);
-            rootView.setClipToPadding(true);
-        }
-    }
+
 
 
     private void initView() {
