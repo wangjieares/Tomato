@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
+import www.atomato.com.tomato.data.Item;
 import www.atomato.com.tomato.recall.ItemClickListener;
-import www.atomato.com.tomato.recall.TodoSection;
+import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.R;
 
@@ -38,10 +38,10 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
 //                mRecyclerView, this, 3);
         ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,this,3);
         //random data
-        ArrayList<View> arrayList = new ArrayList<>();
-        arrayList.add(new EditText(getContext()));
-        expandableLayoutHelper.addSection("Apple Products", arrayList);
-        expandableLayoutHelper.addItem("Apple Products", new EditText(getContext()));
+        ArrayList<Item> arrayList = new ArrayList<>();
+        arrayList.add(new Item("读书",1));
+        expandableLayoutHelper.addSection("项目组", arrayList);
+        expandableLayoutHelper.addItem("项目组", new Item("读书",2));
         expandableLayoutHelper.notifyDataSetChanged();
     }
 

@@ -4,7 +4,7 @@ package www.atomato.com.tomato.adapter;
  * Created by bpncool on 2/24/2016.
  */
 
-import www.atomato.com.tomato.recall.TodoSection;
+import www.atomato.com.tomato.data.TodoSection;
 
 /**
  * interface to listen changes in state of sections

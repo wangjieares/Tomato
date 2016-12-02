@@ -1,4 +1,4 @@
-package www.atomato.com.tomato.recall;
+package www.atomato.com.tomato.data;
 
 /**
  * Created by bpncool on 2/23/2016.

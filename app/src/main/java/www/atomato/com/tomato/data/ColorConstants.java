@@ -1,4 +1,4 @@
-package www.atomato.com.tomato.constants;
+package www.atomato.com.tomato.data;
 
 import android.graphics.Color;
 

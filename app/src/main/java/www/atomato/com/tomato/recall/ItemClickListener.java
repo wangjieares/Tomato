@@ -2,6 +2,8 @@ package www.atomato.com.tomato.recall;
 
 import android.view.View;
 
+import www.atomato.com.tomato.data.TodoSection;
+
 /**
  * Created by lenovo on 2/23/2016.
  */

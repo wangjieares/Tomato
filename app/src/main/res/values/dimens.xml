@@ -24,15 +24,11 @@
     <dimen name="activity_detail_title_text_size">23sp</dimen>
     <dimen name="activity_detail_content_text_margin">20dp</dimen>
     <dimen name="app_bar_shadow">0dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. FragmentMore-->
     <dimen name="fragment_more_section_text_size">28sp</dimen>
-    <dimen name="fragment_more_section_text_padding">20dp</dimen>
     <dimen name="fragment_more_section_height">80dp</dimen>
-
-
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="section_padding">7dp</dimen>
-    <dimen name="section_text_size">20sp</dimen>
-    <dimen name="item_height">100dp</dimen>
-    <dimen name="item_margin">3dp</dimen>
-    <dimen name="section_text_padding_left">15dp</dimen>
+    <dimen name="fragment_more_section_padding">7dp</dimen>
+    <dimen name="fragment_more_item_margin_left_right">10dp</dimen>
+    <dimen name="fragment_more_item_margin_top_bottom">2dp</dimen>
+    <dimen name="fragment_more_section_text_padding_left">20dp</dimen>
 </resources>

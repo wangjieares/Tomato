@@ -3,7 +3,6 @@ package www.atomato.com.tomato.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 import www.atomato.com.tomato.data.Item;
 import www.atomato.com.tomato.recall.ItemClickListener;
-import www.atomato.com.tomato.recall.TodoSection;
+import www.atomato.com.tomato.data.TodoSection;
 
 /**
  * Created by bpncool on 2/23/2016.
@@ -20,7 +19,7 @@ import www.atomato.com.tomato.recall.TodoSection;
 public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
     //data list
-    private LinkedHashMap<TodoSection, ArrayList<View>> mSectionDataMap = new LinkedHashMap<>();
+    private LinkedHashMap<TodoSection, ArrayList<Item>> mSectionDataMap = new LinkedHashMap<>();
     private ArrayList<Object> mDataArrayList = new ArrayList<>();
 
     //section map
@@ -51,13 +50,13 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         mExpandableTodoAdapter.notifyDataSetChanged();
     }
 
-    public void addSection(String section, ArrayList<View> items) {
+    public void addSection(String section, ArrayList<Item> items) {
         TodoSection newTodoSection;
         mSectionMap.put(section, (newTodoSection = new TodoSection(section)));//section
         mSectionDataMap.put(newTodoSection, items);
     }
 
-    public void addItem(String section, View item) {
+    public void addItem(String section, Item item) {
         mSectionDataMap.get(mSectionMap.get(section)).add(item);
     }
 
@@ -72,7 +71,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
     private void generateDataList () {
         mDataArrayList.clear();
-        for (Map.Entry<TodoSection, ArrayList<View>> entry : mSectionDataMap.entrySet()) {
+        for (Map.Entry<TodoSection, ArrayList<Item>> entry : mSectionDataMap.entrySet()) {
             TodoSection key;
             mDataArrayList.add((key = entry.getKey()));
             if (key.isExpanded)

@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import www.atomato.com.tomato.constants.ColorConstants;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
