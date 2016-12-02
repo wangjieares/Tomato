@@ -76,7 +76,16 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
         }
     }
 
-    public ButtomWindow(Activity context) {
+    private static ButtomWindow mInstance;
+
+    public static ButtomWindow getInstance(Activity context) {
+        if (mInstance == null) {
+            mInstance = new ButtomWindow(context);
+        }
+        return mInstance;
+    }
+
+    private ButtomWindow(Activity context) {
         this.mContext = context;
         this.mView = LayoutInflater.from(mContext).inflate(R.layout.pop_window, null);
         // 设置外部可点击
@@ -120,7 +129,7 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
                         if (stick == 1) {
                             popStick.setText("取消置顶");
 //                            long time =  cursor.getLong(cursor.getColumnIndex("todo_create"))-System.currentTimeMillis();
-                            long time =  System.currentTimeMillis();
+                            long time = System.currentTimeMillis();
                             //置顶停留的时间 = 现在时间减创建时间加原本时间
                             //如果排序不对 应该取反
                             //因为置顶的时候adapter要判断置顶时间，时间越大，排序的时候越靠前

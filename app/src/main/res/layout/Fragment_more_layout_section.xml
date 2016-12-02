@@ -37,8 +37,8 @@
         <ToggleButton
             android:background="@drawable/activity_main_add_one"
             android:id="@+id/toggle_button_section"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/fragment_more_layout_icon_height"
+            android:layout_height="@dimen/fragment_more_layout_icon_height"
             android:padding="@dimen/fragment_more_section_padding"
             android:textOff=""
             android:textOn=""/>

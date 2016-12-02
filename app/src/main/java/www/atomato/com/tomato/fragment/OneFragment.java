@@ -188,7 +188,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     public void showPopFormBottom(View view, int position) {
-        ButtomWindow buttomWindow = new ButtomWindow(getActivity());
+        ButtomWindow buttomWindow = ButtomWindow.getInstance(getActivity());
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.setBottomWindowListener(this);
         buttomWindow.setTitle(mAdapter.getTitle(position));

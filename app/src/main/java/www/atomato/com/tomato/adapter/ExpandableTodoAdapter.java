@@ -37,8 +37,8 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
     private static final int VIEW_TYPE_SECTION = R.layout.fragment_more_layout_section;
     private static final int VIEW_TYPE_ITEM = R.layout.fragment_more_layout_item; //TODO : change this
 
-    public ExpandableTodoAdapter(Context context, ArrayList<Object> dataArrayList,
-                                 final LinearLayoutManager gridLayoutManager, ItemClickListener itemClickListener,
+    ExpandableTodoAdapter(Context context, ArrayList<Object> dataArrayList,
+                                 final LinearLayoutManager linearLayoutManager, ItemClickListener itemClickListener,
                                  TodoStateChangeListener todoStateChangeListener) {
         mContext = context;
         mItemClickListener = itemClickListener;
