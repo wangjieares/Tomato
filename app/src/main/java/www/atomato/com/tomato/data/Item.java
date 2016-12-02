@@ -3,15 +3,18 @@ package www.atomato.com.tomato.data;
 /**
  * Created by bpncool on 2/23/2016.
  */
-public class TodoSection {
+public class Item {
 
     private final String name;
+    private final int id;
 
-    public boolean isExpanded;
-
-    public TodoSection(String name) {
+    public Item(String name, int id) {
         this.name = name;
-        isExpanded = true;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

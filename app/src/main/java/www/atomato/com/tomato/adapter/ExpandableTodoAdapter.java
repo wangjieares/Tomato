@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+
 import java.util.ArrayList;
+
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
-import www.atomato.com.tomato.recall.TodoStateChangeListener;
-import www.atomato.com.tomato.view.ToDoView;
+import www.atomato.com.tomato.recall.TodoSection;
 
 /**
  * Created by lenovo on 2/23/2016.
@@ -31,13 +31,14 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
     //listeners
     private final ItemClickListener mItemClickListener;
     private final TodoStateChangeListener mTodoStateChangeListener;
+
     //view type
     private static final int VIEW_TYPE_SECTION = R.layout.fragment_more_layout_section;
     private static final int VIEW_TYPE_ITEM = R.layout.fragment_more_layout_item; //TODO : change this
 
-    ExpandableTodoAdapter(Context context, ArrayList<Object> dataArrayList,
-                                 final LinearLayoutManager linearLayoutManager, ItemClickListener itemClickListener,
-                                 ExpandableLayoutHelper todoStateChangeListener) {
+    public ExpandableTodoAdapter(Context context, ArrayList<Object> dataArrayList,
+                                 final LinearLayoutManager gridLayoutManager, ItemClickListener itemClickListener,
+                                 TodoStateChangeListener todoStateChangeListener) {
         mContext = context;
         mItemClickListener = itemClickListener;
         mTodoStateChangeListener = todoStateChangeListener;
@@ -58,8 +59,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         switch (holder.viewType) {
             case VIEW_TYPE_ITEM :
-                final TextView view = (TextView) mDataArrayList.get(position);
-                view.setText("test");
+                final View view = (View) mDataArrayList.get(position);
 //                holder.itemTextView.setText(item.getName());
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -100,7 +100,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         else return VIEW_TYPE_ITEM;
     }
 
-     static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
 
         //common
         View view;
@@ -111,15 +111,16 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         ToggleButton sectionToggleButton;
 
         //for item
-        TextView itemToDoView;
+        TextView itemTextView;
 
          ViewHolder(View view, int viewType) {
             super(view);
             this.viewType = viewType;
             this.view = view;
             if (viewType == VIEW_TYPE_ITEM) {
+                itemTextView = (TextView) view.findViewById(R.id.text_item);
             } else {
-                sectionTextView = (TextView) view.findViewById(R.id.fragment_more_section_title);
+                sectionTextView = (TextView) view.findViewById(R.id.text_section);
                 sectionToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_section);
             }
         }

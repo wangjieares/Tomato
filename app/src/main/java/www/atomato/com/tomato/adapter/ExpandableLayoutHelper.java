@@ -4,15 +4,15 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import www.atomato.com.tomato.data.TodoSection;
+import www.atomato.com.tomato.data.Item;
 import www.atomato.com.tomato.recall.ItemClickListener;
-import www.atomato.com.tomato.recall.TodoStateChangeListener;
-import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.recall.TodoSection;
 
 /**
  * Created by bpncool on 2/23/2016.
@@ -33,7 +33,8 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     //recycler view
     RecyclerView mRecyclerView;
 
-    public ExpandableLayoutHelper(Context context, RecyclerView recyclerView, ItemClickListener itemClickListener) {
+    public ExpandableLayoutHelper(Context context, RecyclerView recyclerView, ItemClickListener itemClickListener,
+                                  int gridSpanCount) {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -60,7 +61,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         mSectionDataMap.get(mSectionMap.get(section)).add(item);
     }
 
-    public void removeItem(String section, View item) {
+    public void removeItem(String section, Item item) {
         mSectionDataMap.get(mSectionMap.get(section)).remove(item);
     }
 
@@ -83,7 +84,6 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     public void onSectionStateChanged(TodoSection todoSection, boolean isOpen) {
         if (!mRecyclerView.isComputingLayout()) {
             todoSection.isExpanded = isOpen;
-            LogUtils.e("ExpandableLayoutHelper","onSectionStateChanged");
             notifyDataSetChanged();
         }
     }

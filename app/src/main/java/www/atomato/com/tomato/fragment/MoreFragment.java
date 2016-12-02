@@ -7,23 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
-import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
+import www.atomato.com.tomato.recall.TodoSection;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.utils.ToastUtils;
-import www.atomato.com.tomato.view.ToDoView;
 
 /**
  * Created by wangjie on 16-11-17.
  */
 
-public class MoreFragment extends BaseFragment implements ItemClickListener {
+public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private View view = null;
     RecyclerView mRecyclerView;
     @Nullable
@@ -35,27 +32,26 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     }
 
     private void initView() {
+        //setting the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
-        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
-                mRecyclerView, this);
-
+//        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
+//                mRecyclerView, this, 3);
+        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,this,3);
         //random data
         ArrayList<View> arrayList = new ArrayList<>();
-        arrayList.add(new ToDoView(getContext()));
-        arrayList.add(new ToDoView(getContext()));
-        arrayList.add(new ToDoView(getContext()));
-        expandableLayoutHelper.addSection("Test", arrayList);
+        arrayList.add(new EditText(getContext()));
+        expandableLayoutHelper.addSection("Apple Products", arrayList);
+        expandableLayoutHelper.addItem("Apple Products", new EditText(getContext()));
         expandableLayoutHelper.notifyDataSetChanged();
     }
 
-
     @Override
     public void itemClicked(View item) {
-        ToastUtils.show(getContext(),"itemClicked+item");
+
     }
 
     @Override
     public void itemClicked(TodoSection todoSection) {
-        ToastUtils.show(getContext(),"itemClicked+todoSection");
+
     }
 }

@@ -1,10 +1,10 @@
-package www.atomato.com.tomato.recall;
+package www.atomato.com.tomato.adapter;
 
 /**
  * Created by bpncool on 2/24/2016.
  */
 
-import www.atomato.com.tomato.data.TodoSection;
+import www.atomato.com.tomato.recall.TodoSection;
 
 /**
  * interface to listen changes in state of sections
