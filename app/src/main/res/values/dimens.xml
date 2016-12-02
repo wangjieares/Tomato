@@ -24,4 +24,7 @@
     <dimen name="activity_detail_title_text_size">23sp</dimen>
     <dimen name="activity_detail_content_text_margin">20dp</dimen>
     <dimen name="app_bar_shadow">0dp</dimen>
+    <dimen name="fragment_more_section_text_size">28sp</dimen>
+    <dimen name="fragment_more_section_text_padding">20dp</dimen>
+    <dimen name="fragment_more_section_height">80dp</dimen>
 </resources>

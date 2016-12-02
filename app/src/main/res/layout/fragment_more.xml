@@ -10,10 +10,8 @@
               android:paddingRight="@dimen/todo_margin_left_right"
               android:paddingTop="@dimen/todo_margin_top_bottom">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:textAlignment="center"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_more_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="正在开发"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>
