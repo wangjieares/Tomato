@@ -119,9 +119,12 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
                         int stick = cursor.getInt(cursor.getColumnIndex("todo_stick"));
                         if (stick == 1) {
                             popStick.setText("取消置顶");
-                            long time =  cursor.getLong(cursor.getColumnIndex("todo_create"))-System.currentTimeMillis();
+//                            long time =  cursor.getLong(cursor.getColumnIndex("todo_create"))-System.currentTimeMillis();
+                            long time =  System.currentTimeMillis();
                             //置顶停留的时间 = 现在时间减创建时间加原本时间
                             //如果排序不对 应该取反
+                            //因为置顶的时候adapter要判断置顶时间，时间越大，排序的时候越靠前
+                            //如果需要往前移动，返回1 返回0不需要移动，返回-1是要往后移动 或者是错误
                             ContentValues values = new ContentValues();
                             values.put("todo_stick", 0);
                             values.put("todo_stick_time", time);//用来排序
