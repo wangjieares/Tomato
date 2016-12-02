@@ -5,6 +5,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
         <item name="android:actionMenuTextColor">@android:color/white</item>
+        <!---->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <!---->
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

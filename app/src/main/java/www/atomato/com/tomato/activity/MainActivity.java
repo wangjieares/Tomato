@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ScreenUtils.initWindow(this, getResources().getColor(R.color.toolBar));
+        ScreenUtils.setColor(this,getResources().getColor(R.color.toolBar));
         initView();
     }
 

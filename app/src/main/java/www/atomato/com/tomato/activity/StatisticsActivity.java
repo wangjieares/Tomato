@@ -22,7 +22,7 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staticstics);
-        ScreenUtils.initWindow(this,getResources().getColor(R.color.toolBar));
+        ScreenUtils.setColor(this,getResources().getColor(R.color.toolBar));
         Toolbar toolbar = (Toolbar) findViewById(R.id.statistics_toolbar);
         toolbar.setTitle("统计数据");
         toolbar.setNavigationIcon(R.mipmap.statistics_activity_menu_back);

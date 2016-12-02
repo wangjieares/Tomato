@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="www.atomato.com.tomato.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -13,14 +12,12 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <!--android:clipToPadding="true"-->
-        <!--android:fitsSystemWindows="true"-->
         <android.support.v7.widget.Toolbar
+            android:fitsSystemWindows="true"
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/toolBar"
-            app:elevation="@dimen/app_bar_shadow"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
