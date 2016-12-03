@@ -2,7 +2,7 @@
 *.iml
 .gradle
 /build
-/.idea
+/.idea/*
 /fUI/build
 /local.properties
 /app/build
