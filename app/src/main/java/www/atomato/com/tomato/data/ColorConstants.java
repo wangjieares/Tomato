@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Created by wangjie on 2016-11-20.
+ * 随机颜色返回类
  */
 
 public class ColorConstants {

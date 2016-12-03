@@ -15,19 +15,19 @@ import www.atomato.com.tomato.utils.LogUtils;
  * Created by wangjie on 16-11-17.
  */
 public class ToDoData implements Serializable, Comparable {
-    private String mTitle;
-    private int mTime;
-    private int mDrawBackColor;
-    private float mProgress = 0f;
-    private int mState = 0;
-    private long mCreate;
-    private int mDestory;
-    private Context mContext;
-    private ViewSQLite viewSQLite;
+    private String mTitle;//标题
+    private int mTime;//时间
+    private int mDrawBackColor;//绘制北京
+    private float mProgress = 0f;//进度
+    private int mState = 0;//完成状态
+    private long mCreate;//创建时间
     private int mTotalTime = 0;//总时间
     private int mPlanTime = 350;//计划完成时间
     private int mStickState = 0;//是否置顶
     private long mStickStateTime;//置顶时间
+    private int mDestory;//销毁时间
+    private Context mContext;
+    private ViewSQLite viewSQLite;
 
     public ToDoData(String title, int time, int mState, float mProgress, int drawBackColor) {
         this.mTitle = title;
@@ -59,7 +59,6 @@ public class ToDoData implements Serializable, Comparable {
             viewSQLite.closedb();
         }
     }
-
 
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;

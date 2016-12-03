@@ -18,7 +18,7 @@
             android:id="@+id/activity_about_collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:collapsedTitleGravity="left"
+            app:collapsedTitleGravity="left|top"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <android.support.v7.widget.Toolbar
