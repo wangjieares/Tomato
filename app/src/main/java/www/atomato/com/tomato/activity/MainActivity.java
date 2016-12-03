@@ -212,33 +212,29 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         LogUtils.e(tag, "getItemId");
-        if (id == R.id.nav_camera) {
+        if (id == R.id.statistics) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
             Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
             startActivity(intent);
-            LogUtils.e(tag, "nav_camera");
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.relax) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
-            LogUtils.e(tag, "nav_camera");
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.future_plan) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
-            LogUtils.e(tag, "nav_camera");
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.setting) {
+            Intent intent = new Intent(this,SettingActivity.class);
+            startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
-            LogUtils.e(tag, "nav_camera");
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.about) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
-            LogUtils.e(tag, "nav_camera");
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.feedback) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
-            LogUtils.e(tag, "nav_camera");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.atomato.com.tomato.activity.AboutActivity">
+
+    <android.support.design.widget.appbarlayout
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:fitssystemwindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!--关键在这里↓-->
+        <android.support.design.widget.collapsingtoolbarlayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedtitlegravity="center"
+            app:contentscrim="@color/colorPrimary"
+            app:layout_scrollflags="scroll|exitUntilCollapsed">
+
+            <imageview
+                android:id="@+id/iv_news_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaletype="centerCrop"
+                android:src="@mipmap/shibai"
+                app:layout_collapsemode="parallax"
+                app:layout_collapseparallaxmultiplier="0.5">
+
+                <android.support.v7.widget.toolbar
+                    android:id="@+id/toolbar_newsDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#00000000"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Theme.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            </imageview>
+        </android.support.design.widget.collapsingtoolbarlayout>
+
+    </android.support.design.widget.appbarlayout>
+
+    <android.support.v4.widget.nestedscrollview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <webview
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </webview>
+
+
+    </android.support.v4.widget.nestedscrollview>
+
+    <android.support.design.widget.floatingactionbutton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:src="@drawable/ic_done"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+</android.support.design.widget.CoordinatorLayout>

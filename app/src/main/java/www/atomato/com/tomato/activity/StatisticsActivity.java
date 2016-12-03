@@ -10,7 +10,6 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.utils.BaseActivity;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
@@ -21,7 +20,7 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_staticstics);
+        setContentView(R.layout.activity_staticstics_bar);
         ScreenUtils.setColor(this,getResources().getColor(R.color.toolBar));
         Toolbar toolbar = (Toolbar) findViewById(R.id.statistics_toolbar);
         toolbar.setTitle("统计数据");

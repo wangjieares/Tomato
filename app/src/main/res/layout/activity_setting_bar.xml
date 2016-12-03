@@ -5,25 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="www.atomato.com.tomato.activity.MainActivity">
-
+    tools:context="www.atomato.com.tomato.activity.SettingActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay">
-        <!--android:layout_height="?attr/actionBarSize"-->
+
         <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:id="@+id/setting_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/toolBar"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </android.support.design.widget.AppBarLayout>
-
     <include
-        layout="@layout/content_main"
+        layout="@layout/activity_setting_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </android.support.design.widget.CoordinatorLayout>

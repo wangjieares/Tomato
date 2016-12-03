@@ -6,9 +6,9 @@
               android:background="@drawable/background"
               android:gravity="center">
 
-    <www.atomato.com.tomato.utils.RoundImageView
-        android:id="@+id/activity_launch_image"
-        android:src="@drawable/head_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+    <!--<www.atomato.com.tomato.utils.RoundImageView-->
+        <!--android:id="@+id/activity_launch_image"-->
+        <!--android:src="@drawable/head_icon"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"/>-->
 </LinearLayout>
