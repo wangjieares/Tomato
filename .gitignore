@@ -1,7 +1,6 @@
 #add
 *.iml
 .gradle
-
 /build
 /.idea
 /fUI/build
