@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context="www.atomato.com.tomato.activity.AboutActivity">
 
-    <android.support.design.widget.appbarlayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:fitssystemwindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <!--关键在这里↓-->
-        <android.support.design.widget.collapsingtoolbarlayout
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedtitlegravity="center"
@@ -38,9 +38,9 @@
                     app:popupTheme="@style/Theme.AppCompat.Light"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
             </imageview>
-        </android.support.design.widget.collapsingtoolbarlayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.appbarlayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.nestedscrollview
         android:layout_width="match_parent"
