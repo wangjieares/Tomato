@@ -1,4 +1,8 @@
+#add
+*.iml
+.gradle
+
 /build
-/.gradle
 /.idea
 /fUI/build
+/local.properties
