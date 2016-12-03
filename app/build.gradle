@@ -7,6 +7,7 @@ android {
         applicationId "www.atomato.com.tomato"
         minSdkVersion 19
         targetSdkVersion 25
+        multiDexEnabled = true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -40,8 +41,7 @@ dependencies {
     //系统状态栏4.4
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //google广告
-    compile 'com.google.firebase:firebase-ads:9.6.1'
-
+    compile 'com.android.support:multidex:1.0.1'
+    //日历 应用有限制
+//    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
 }
-
-apply plugin: 'com.google.gms.google-services'

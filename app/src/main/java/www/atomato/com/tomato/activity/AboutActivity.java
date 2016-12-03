@@ -5,9 +5,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.data.GoogleAdBehaior;
 import www.atomato.com.tomato.utils.BaseActivity;
@@ -39,9 +36,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
 
     private void initAd() {
         if(GoogleAdBehaior.aboutAd()){
-            AdView mAdView = (AdView)findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
         }
     }
 
