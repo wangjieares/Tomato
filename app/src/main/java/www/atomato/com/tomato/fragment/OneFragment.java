@@ -295,12 +295,12 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             switch (msg.what) {
                 case Constants.CREATE_TODO:
                     Bundle bundle = msg.getData();
-                    String title = bundle.getString("title");
-                    int time = bundle.getInt("time");
-                    int state = bundle.getInt("state");
-                    int progress = bundle.getInt("progress");
-                    int drawColor = bundle.getInt("drawColor");
-                    int longPlan = bundle.getInt("long");
+                    String title = bundle.getString("todo_title");
+                    int time = bundle.getInt("todo_time");
+                    int state = bundle.getInt("todo_state");
+                    int progress = bundle.getInt("todo_progress");
+                    int drawColor = bundle.getInt("todo_drawColor");
+                    int longPlan = bundle.getInt("todo_plan_time");
                     ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor,longPlan);
                     mAdapter.addDataOnScroll(todoData);
                     break;

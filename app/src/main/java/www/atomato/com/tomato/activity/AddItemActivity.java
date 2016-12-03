@@ -89,12 +89,10 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
 //                    bundle.putInt("time", Constants.CUSTOM_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
                     ButtomDialogUtils.showCustromDialog(this, this);
-
                     break;
                 } else if (checkedId == R.id.timeRadio) {
                     bundle.putInt("time", Constants.TIME_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
-
                     break;
                 } else if (checkedId == R.id.defaultDayRadio) {
                     bundle.putInt("time", Constants.DEFAULT_RADIO);
@@ -119,7 +117,7 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     public void onClick() {
         if (!activityItemTitle.getText().toString().equals("")) {
             if (titleNotRepeat()) {
-                bundle.putString("title", activityItemTitle.getText().toString());
+                bundle.putString("todo_title", activityItemTitle.getText().toString());
 //            bundle.putLong("create", SystemClock.currentThreadTimeMillis());
 //            LogUtils.e(tag, activityItemTitle.getText().toString());
                 Intent intent = new Intent();

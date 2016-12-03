@@ -51,6 +51,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     long lastTime;
     private String todoTitle;
     private int todoTime;
+    private ViewSQLite viewSQLite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,18 +152,39 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
 
     }
 
+    private boolean isDesotry() {
+        try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
+            cursor.moveToNext();
+            int todo_destory = cursor.getInt(cursor.getColumnIndex("todo_destory"));
+            int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
+            int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+            if (todo_destory == 1 && todo_plan_time == todo_total_time) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     @Override
     public void performFinished() {
+        viewSQLite = new ViewSQLite(this);
         if (mIsNext) {
-            CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
+            if (!isDesotry()) {
+                CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
+            } else {
+                viewSQLite.delete(todoTitle);
+            }
         }
-        ViewSQLite viewSQLite = new ViewSQLite(this);
         ContentValues contentValues = new ContentValues();
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
             cursor.moveToNext();
             int totalTIme = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
             contentValues.put("todo_total_time", totalTIme + todoTime);//总时间 之前时间+当前完成时间
             viewSQLite.update(Constants.TABLE_NAME, contentValues, "todo_title=?", new String[]{todoTitle});
+            if (isDesotry()) {
+                viewSQLite.delete(todoTitle);
+            }
         } finally {
             viewSQLite.closedb();
         }

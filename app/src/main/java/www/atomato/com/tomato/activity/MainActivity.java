@@ -150,24 +150,24 @@ public class MainActivity extends BaseActivity
         int plan = bundle.getInt("plan");
         int time = bundle.getInt("time");
         int day = bundle.getInt("day");
-        int shortPlan = bundle.getInt("short");
-        int longPlan = bundle.getInt("long");
         //默认情况创建Todo
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
             //发消息通知更改
-            bundle.putInt("time", 35);
-            bundle.putInt("state", 0);
-            bundle.putInt("progress", 0);
-            bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
-            bundle.putInt("day", Constants.EVERY_DAY_RADIO);
-            bundle.putInt("plan", Constants.DEFAULT_RADIO);
-            bundle.putInt("type", Constants.LONG_RADIO);
+            bundle.putInt("todo_time", 35);
+            bundle.putInt("todo_state", 0);
+            bundle.putInt("todo_progress", 0);
+            bundle.putInt("todo_drawColor", Color.parseColor("#1ABC9C"));
+            bundle.putInt("todo_plan_time",bundle.getInt("time")*10);//短期十个一组
             Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);
         } else {
+            bundle.putInt("todo_plan_time",bundle.getInt("time")*10);//短期十个一组
+            bundle.putInt("todo_state", 0);
+            bundle.putInt("todo_progress", 0);
+            bundle.putInt("todo_destory", 0);
             if (time == Constants.EVERY_DAY_RADIO) {//如果每天 销毁时间为0
                 bundle.putInt("todo_destory", 0);
             }
@@ -180,21 +180,13 @@ public class MainActivity extends BaseActivity
             if (time == Constants.TIME_RADIO) {
                 bundle.putInt("todo_time", 45);
             }
-            if (time == Constants.CUSTOM_RADIO) {
-
-            }
             if (time == Constants.SHORT_RADIO) {
-                bundle.putInt("todo_plan", Constants.SHORT_RADIO);
+                bundle.putInt("todo_plan_time",bundle.getInt("todo_time")*10);//短期十个一组
             }
             if (time == Constants.LONG_RADIO) {
-                bundle.putInt("todo_plan", Constants.LONG_RADIO);
+                bundle.putInt("todo_plan_time",bundle.getInt("todo_time")*100);//长期100个一组
             }
-            bundle.putInt("state", 0);
-            bundle.putInt("progress", 0);
-            bundle.putInt("drawColor", Color.parseColor("#1ABC9C"));
-            bundle.putInt("short", shortPlan);
-            bundle.putInt("long", longPlan);
-            LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("title"));
+            LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("todo_title"));
             //发消息通知更改
             Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
