@@ -1,7 +1,7 @@
 #add
 *.iml
 .gradle
+/.idea
 /build
-/fUI/build
 /local.properties
-/app/build
+/app
