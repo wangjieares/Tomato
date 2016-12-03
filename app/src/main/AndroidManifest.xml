@@ -63,6 +63,7 @@
         </activity>
         <activity
             android:name=".activity.DetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent">
             <intent-filter>
