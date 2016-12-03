@@ -38,4 +38,5 @@ dependencies {
     compile 'com.diogobernardino:williamchart:2.3.0'
     //系统状态栏4.4
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile files('libs/ShareSDK-Instagram-2.7.10.jar')
 }

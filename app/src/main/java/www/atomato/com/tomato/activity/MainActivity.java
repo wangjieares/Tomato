@@ -230,6 +230,8 @@ public class MainActivity extends BaseActivity
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.about) {
+            Intent intent = new Intent(this,AboutActivity.class);
+            startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.feedback) {
