@@ -50,7 +50,6 @@ public class LaunchActivity extends Activity {
         };
         timer.schedule(timerTask, 1000);
     }
-
 //    public float formX;
 //    public float formY;
 //    private void startAnimation() {
