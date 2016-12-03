@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "403658806647",
+    "firebase_url": "https://tomato-dc43b.firebaseio.com",
+    "project_id": "tomato-dc43b",
+    "storage_bucket": "tomato-dc43b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403658806647:android:4749151eed8ce73a",
+        "android_client_info": {
+          "package_name": "www.atomato.com.tomato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403658806647-oq5uhcromlha1k6aarhjm0cb4gvf05la.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRixM2ovdSh0dM37ChzuoCNySsh49V4hQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

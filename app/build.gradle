@@ -33,10 +33,15 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile project(':fUI')
     compile files('libs/MobCommons-2016.1107.1809.jar')
+    compile files('libs/ShareSDK-Instagram-2.7.10.jar')
     compile 'io.reactivex:rxandroid:1.2.1'
     //开源图表框架
     compile 'com.diogobernardino:williamchart:2.3.0'
     //系统状态栏4.4
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile files('libs/ShareSDK-Instagram-2.7.10.jar')
+    //google广告
+    compile 'com.google.firebase:firebase-ads:9.6.1'
+    compile 'com.google.android.gms:play-services:9.6.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

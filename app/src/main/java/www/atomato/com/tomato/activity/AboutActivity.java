@@ -5,6 +5,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.utils.BaseActivity;
 
@@ -29,6 +32,10 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         toolbar.setNavigationOnClickListener(this);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_about_collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitle("关于番茄钟");
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
