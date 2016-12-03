@@ -46,11 +46,13 @@
         android:padding="12dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <WebView
+        <LinearLayout
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.gms.ads.AdView
+                android:layout_gravity="bottom"
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,9 +61,7 @@
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id">
             </com.google.android.gms.ads.AdView>
-        </WebView>
-
-
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <!--<android.support.design.widget.FloatingActionButton-->

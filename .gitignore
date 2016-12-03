@@ -1,5 +1,4 @@
 #add
-*.iml
 .gradle
 /build
 /local.properties
