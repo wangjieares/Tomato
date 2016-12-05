@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;

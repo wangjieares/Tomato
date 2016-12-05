@@ -14,19 +14,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
-import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
-import www.atomato.com.tomato.view.CountDownTimerView;
 
 /**
  * Created by wangj on 2016-11-25.

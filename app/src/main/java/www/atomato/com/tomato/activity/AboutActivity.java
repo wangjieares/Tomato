@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.data.GoogleAdBehaior;
+import www.atomato.com.tomato.data.AdBehaior;
+import www.atomato.com.tomato.data.YouMiSdk;
 import www.atomato.com.tomato.utils.BaseActivity;
 
 /**
@@ -30,12 +32,14 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         toolbar.setNavigationOnClickListener(this);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_about_collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitle("关于番茄钟");
-
         initAd();
     }
 
     private void initAd() {
-        if(GoogleAdBehaior.aboutAd()){
+        if(AdBehaior.aboutAd()){
+            YouMiSdk youMiSdk = new YouMiSdk(this);
+            youMiSdk.init(true);
+            youMiSdk.setBanner((LinearLayout)findViewById(R.id.activity_about_linear));
         }
     }
 

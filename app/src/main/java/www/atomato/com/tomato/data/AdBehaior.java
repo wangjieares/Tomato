@@ -6,7 +6,7 @@ package www.atomato.com.tomato.data;
  * 控制部分广告的显示与隐藏
  */
 
-public class GoogleAdBehaior {
+public class AdBehaior {
     private static boolean OVERALL_BEHAIOR = true;//全部
     private static boolean ABOUT_BEHAIOR = true;
     public static void setOverallBehaior(boolean behaior){

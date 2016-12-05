@@ -2,13 +2,9 @@ package www.atomato.com.tomato.adapter;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-
-import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangjie on 16-11-17.

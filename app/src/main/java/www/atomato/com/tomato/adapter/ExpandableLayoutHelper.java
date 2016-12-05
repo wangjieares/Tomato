@@ -10,8 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import www.atomato.com.tomato.data.Item;
-import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.data.TodoSection;
+import www.atomato.com.tomato.recall.ItemClickListener;
+import www.atomato.com.tomato.recall.TodoStateChangeListener;
 
 /**
  * Created by bpncool on 2/23/2016.

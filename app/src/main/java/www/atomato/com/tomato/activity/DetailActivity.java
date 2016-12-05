@@ -10,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangj on 2016-11-28.

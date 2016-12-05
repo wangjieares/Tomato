@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.ToDoData;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**

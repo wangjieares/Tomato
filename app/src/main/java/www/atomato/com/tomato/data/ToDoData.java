@@ -72,16 +72,8 @@ public class ToDoData implements Serializable, Comparable {
         return mStickStateTime;
     }
 
-    public void setStickStateTime(long stickStateTime) {
-        mStickStateTime = stickStateTime;
-    }
-
     public int getPlanTime() {
         return mPlanTime;
-    }
-
-    public void setPlanTime(int planTime) {
-        mPlanTime = planTime;
     }
 
     public void setTime(int mTime) {
@@ -92,10 +84,6 @@ public class ToDoData implements Serializable, Comparable {
         return mTime;
     }
 
-    public void setDrawBackColor(int drawBackColor) {
-        this.mDrawBackColor = drawBackColor;
-    }
-
     public int getDrawBackColor() {
         return mDrawBackColor;
     }
@@ -103,7 +91,6 @@ public class ToDoData implements Serializable, Comparable {
     public long getCreate() {
         return mCreate;
     }
-
 
     public int getTotalTime() {
         return mTotalTime;
@@ -113,24 +100,12 @@ public class ToDoData implements Serializable, Comparable {
         return mState;
     }
 
-    public void setState(int mState) {
-        this.mState = mState;
-    }
-
     public float getProgress() {
         return mProgress;
     }
 
-    public void setProgress(float mProgress) {
-        this.mProgress = mProgress;
-    }
-
     public int getDestory() {
         return mDestory;
-    }
-
-    public void setDestory(int destory) {
-        mDestory = destory;
     }
 
     public int getStickState() {
@@ -140,6 +115,30 @@ public class ToDoData implements Serializable, Comparable {
     public void setStickState(int stickState) {
         mStickState = stickState;
     }
+
+//    public void setPlanTime(int planTime) {
+//        mPlanTime = planTime;
+//    }
+//
+//    public void setStickStateTime(long stickStateTime) {
+//        mStickStateTime = stickStateTime;
+//    }
+//
+//    public void setDrawBackColor(int drawBackColor) {
+//        this.mDrawBackColor = drawBackColor;
+//    }
+//
+//    public void setState(int mState) {
+//        this.mState = mState;
+//    }
+//
+//    public void setProgress(float mProgress) {
+//        this.mProgress = mProgress;
+//    }
+//
+//    public void setDestory(int destory) {
+//        mDestory = destory;
+//    }
 
     @Override
     public int compareTo(@NonNull Object another) {
@@ -160,9 +159,9 @@ public class ToDoData implements Serializable, Comparable {
         cursor2.moveToNext();
         int num1 = cursor1.getInt(cursor1.getColumnIndex("todo_stick_time"));
         int num2 = cursor2.getInt(cursor2.getColumnIndex("todo_stick_time"));
-        LogUtils.e("TodoData", "oldTitle ===" + ((ToDoData) another).getTitle() + "----" + "currentTitle===" + mTitle);
-        LogUtils.e("TodoData", "oldTitleNum1 ===" + num1 + "----" + "currentTitleNum2===" + num2);
-        LogUtils.e("TodoData", "oldTitleState ===" + toDoData.getStickState() + "----" + "currentTitleState===" + mStickState);
+//        LogUtils.e("TodoData", "oldTitle ===" + ((ToDoData) another).getTitle() + "----" + "currentTitle===" + mTitle);
+//        LogUtils.e("TodoData", "oldTitleNum1 ===" + num1 + "----" + "currentTitleNum2===" + num2);
+//        LogUtils.e("TodoData", "oldTitleState ===" + toDoData.getStickState() + "----" + "currentTitleState===" + mStickState);
 //        LogUtils.e("ToDoDate", "===num1===" + num1 + "===num2===" + num2);
         int result = 0 - (((ToDoData) another).getStickState() - mStickState);
         if (result == 0) {
@@ -179,7 +178,7 @@ public class ToDoData implements Serializable, Comparable {
         Calendar Rhs = Calendar.getInstance();
         Lhs.setTimeInMillis(lhs);
         Rhs.setTimeInMillis(rhs);
-        LogUtils.e("ToDoDate", "===Lhs.compareTo(Rhs)===" + Lhs.compareTo(Rhs));
+//        LogUtils.e("ToDoDate", "===Lhs.compareTo(Rhs)===" + Lhs.compareTo(Rhs));
         return Lhs.compareTo(Rhs);
     }
 }

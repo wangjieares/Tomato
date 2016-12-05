@@ -10,13 +10,13 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-
 import java.util.ArrayList;
 
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.data.Item;
-import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.data.TodoSection;
+import www.atomato.com.tomato.recall.ItemClickListener;
+import www.atomato.com.tomato.recall.TodoStateChangeListener;
 
 /**
  * Created by lenovo on 2/23/2016.

@@ -1,11 +1,11 @@
 package www.atomato.com.tomato.utils;
 
+import android.content.Context;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-
-import android.content.Context;
 
 public class AssetUtils {
 	

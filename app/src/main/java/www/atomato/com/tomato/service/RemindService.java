@@ -3,12 +3,10 @@ package www.atomato.com.tomato.service;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import www.atomato.com.tomato.activity.AddItemActivity;
-import www.atomato.com.tomato.activity.MainActivity;
 
 /**
  * Created by wangj on 2016-11-29.

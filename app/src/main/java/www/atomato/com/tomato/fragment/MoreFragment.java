@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
 import www.atomato.com.tomato.data.Item;
-import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.data.TodoSection;
+import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
-import www.atomato.com.tomato.R;
 
 /**
  * Created by wangjie on 16-11-17.

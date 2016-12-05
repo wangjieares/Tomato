@@ -1,19 +1,13 @@
 package www.atomato.com.tomato;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import www.atomato.com.tomato.activity.MainActivity;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.RoundImageView;
 
 
