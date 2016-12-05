@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:id="@+id/activity_launch_linear"
+              android:fitsSystemWindows="true"
+              android:clipToPadding="true"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_gravity="center"
-              android:background="@drawable/background"
               android:gravity="center">
 
-    <!--<www.atomato.com.tomato.utils.RoundImageView-->
-        <!--android:id="@+id/activity_launch_image"-->
-        <!--android:src="@drawable/head_icon"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"/>-->
 </LinearLayout>

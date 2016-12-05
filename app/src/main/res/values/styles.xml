@@ -60,14 +60,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <style name="activity_add_item_button"/>
-
     <style name="content_statistics_item_margin">
         <item name="android:layout_marginBottom">10dp</item>
     </style>
-
     <style name="activity_add_item_radio_button" parent="FRadioButton">
         <item name="android:layout_marginStart">3dp</item>
     </style>
-
     <style name="activity_add_item_edit_text" parent="FEditText"/>
 </resources>

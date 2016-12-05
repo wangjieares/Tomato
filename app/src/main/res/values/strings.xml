@@ -36,4 +36,6 @@
     <string name="activity_detail_button">确定</string>
     <string name="edit_long_plan">10000</string>
     <string name="setting_title">设置</string>
+    <string name="activity_setting_content_ad_banner">关闭关于页面的广告</string>
+    <string name="content_statistics_item_day">今日数据</string>
 </resources>

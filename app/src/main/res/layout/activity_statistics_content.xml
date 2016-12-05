@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/statistics_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,14 +18,32 @@
 
             <include
                 style="@style/content_statistics_item_margin"
-                layout="@layout/content_statistics_item"
+                layout="@layout/content_statistics_day_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <include
-                layout="@layout/content_statistics_item"
+                layout="@layout/content_statistics_total_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <com.db.chart.view.LineChartView
+                android:id="@+id/activity_statistics_content_line_chart_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"/>
+
+            <com.db.chart.view.BarChartView
+                android:id="@+id/activity_statistics_content_bar_chart_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

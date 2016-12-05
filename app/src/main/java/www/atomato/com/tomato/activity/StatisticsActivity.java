@@ -1,14 +1,28 @@
 package www.atomato.com.tomato.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.db.chart.model.BarSet;
+import com.db.chart.model.LineSet;
+import com.db.chart.view.BarChartView;
+import com.db.chart.view.LineChartView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.ColorConstants;
+import www.atomato.com.tomato.data.SettingController;
+import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
@@ -17,18 +31,72 @@ import www.atomato.com.tomato.utils.ScreenUtils;
  */
 
 public class StatisticsActivity extends BaseActivity implements View.OnClickListener {
+    private final String[] mLabels = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+    private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 9.9f, 7f},
+            {4.5f, 2.5f, 2.5f, 9f, 4.5f, 12.5f, 5f}};
+    @BindView(R.id.content_statistics_item_day_background)
+    LinearLayout contentStatisticsItemDayBackground;
+    @BindView(R.id.content_statistics_item_total_background)
+    LinearLayout contentStatisticsItemTotalBackground;
+    @BindView(R.id.content_statistics_item_day_num)
+    TextView contentStatisticsItemDayNum;
+    @BindView(R.id.content_statistics_item_day_time)
+    TextView contentStatisticsItemDayTime;
+    @BindView(R.id.content_statistics_item_total_num)
+    TextView contentStatisticsItemTotalNum;
+    @BindView(R.id.content_statistics_item_total_time)
+    TextView contentStatisticsItemTotalTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staticstics_bar);
-        ScreenUtils.setColor(this,getResources().getColor(R.color.toolBar));
+        ButterKnife.bind(this);
+        ScreenUtils.setColor(this, getResources().getColor(R.color.toolBar));
         Toolbar toolbar = (Toolbar) findViewById(R.id.statistics_toolbar);
         toolbar.setTitle("统计数据");
         toolbar.setNavigationIcon(R.mipmap.statistics_activity_menu_back);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(this);
-//        LineChartView chart = (LineChartView) findViewById(R.id.statistics_lineChartView);
 
+        if (SettingController.getInstance().isRandomColor()) {
+            contentStatisticsItemTotalBackground.setBackgroundColor(ColorConstants.randomBackground());
+            contentStatisticsItemDayBackground.setBackgroundColor(ColorConstants.randomBackground());
+        }
+        ViewSQLite viewSQLite = new ViewSQLite(this);
+        int totalNum = viewSQLite.sumColumn("todo_total_time",Constants.TABLE_NAME);
+        int totalTime = viewSQLite.sumColumn("todo_total_time",Constants.TABLE_NAME);
+//        contentStatisticsItemDayNum.setText();
+//        contentStatisticsItemDayTime.setText();
+        contentStatisticsItemTotalNum.setText(String.valueOf(totalNum));
+        contentStatisticsItemTotalTime.setText(String.valueOf(totalTime));
+
+        BarChartView barChartView = (BarChartView) findViewById(R.id.activity_statistics_content_bar_chart_view);
+        BarSet barSet = new BarSet(mLabels, mValues[0]);
+        barChartView.addData(barSet);
+        barChartView.show();
+
+
+        LineChartView lineChartView = (LineChartView) findViewById(R.id.activity_statistics_content_line_chart_view);
+        LineSet dataset = new LineSet(mLabels, mValues[1]);
+        dataset.setColor(Color.parseColor("#758cbb"))
+//                .setFill(Color.parseColor("#2d374c"))
+                .setDotsColor(Color.parseColor("#758cbb"))
+                .setThickness(1)
+                .setDashed(new float[]{5f, 5f})
+                .beginAt(0);
+        lineChartView.addData(dataset);
+        lineChartView.setXAxis(false);
+        lineChartView.setYAxis(false);
+        dataset = new LineSet(mLabels, mValues[0]);
+        dataset.setColor(Color.parseColor("#b3b5bb"))
+//                .setFill(Color.parseColor("#2d374c"))
+                .setDotsColor(Color.parseColor("#ffc755"))
+                .setThickness(2)
+                .setSmooth(true)
+                .endAt(7);
+        lineChartView.addData(dataset);
+        lineChartView.show();
     }
 
     @Override

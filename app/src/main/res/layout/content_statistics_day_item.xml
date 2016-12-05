@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="100dp"
-              android:background="@drawable/content_static_linear_radius"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_statistics_item_day_background"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/content_static_linear_radius"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="@string/content_statistics_item_total"
+        android:text="@string/content_statistics_item_day"
         android:textColor="@color/content_statistics_item_text_color"
         android:textSize="@dimen/content_statistics_item_text_size"/>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_margin="5dp"
@@ -51,7 +54,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/content_statistics_item_text_chrild_num"
+            android:id="@+id/content_statistics_item_day_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -59,7 +62,7 @@
             android:textSize="@dimen/content_statistics_item_text_chrild_num_size"/>
 
         <TextView
-            android:id="@+id/content_statistics_item_text_chrild_time"
+            android:id="@+id/content_statistics_item_day_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="145dp"

@@ -175,7 +175,9 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
             cursor.moveToNext();
             int totalTIme = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+            int totalNum = cursor.getInt(cursor.getColumnIndex("todo_total_num"));
             contentValues.put("todo_total_time", totalTIme + todoTime);//总时间 之前时间+当前完成时间
+            contentValues.put("todo_total_num", totalNum + 1);//总时间 之前个数+1
             viewSQLite.update(Constants.TABLE_NAME, contentValues, "todo_title=?", new String[]{todoTitle});
             if (isDesotry()) {
                 viewSQLite.delete(todoTitle);
@@ -183,5 +185,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         } finally {
             viewSQLite.closedb();
         }
+
+
     }
 }

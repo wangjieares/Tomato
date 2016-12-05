@@ -90,10 +90,20 @@ public class ViewSQLite {
         }
     }
 
+    public int sumColumn(String column, String table) {
+        openDataBase();
+//         Cursor cursor = mSQLDatabase.rawQuery("SELECT * FROM item_info",null);
+        try (Cursor cursor = mSQLDatabase.rawQuery("SELECT SUM(" + column + ") FROM " + table, null)) {
+            cursor.moveToNext();
+            closedb();
+            return cursor.getInt(0);
+        }
+    }
     public Cursor query() {
         openDataBase();
+        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time desc");
+
 //        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc");
-        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time desc");//排序规则不对
     }
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {

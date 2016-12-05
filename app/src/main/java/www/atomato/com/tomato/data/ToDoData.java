@@ -9,7 +9,6 @@ import java.util.Calendar;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
-import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -20,12 +19,14 @@ public class ToDoData implements Serializable, Comparable {
     private int mDrawBackColor;//绘制北京
     private float mProgress = 0f;//进度
     private int mState = 0;//完成状态
+    private int mStickState = 0;//是否置顶
     private long mCreate;//创建时间
+    private long mStickStateTime;//置顶时间
     private int mTotalTime = 0;//总时间
     private int mPlanTime = 350;//计划完成时间
-    private int mStickState = 0;//是否置顶
-    private long mStickStateTime;//置顶时间
-    private int mDestory;//销毁时间
+    private int mDestory=0;//销毁时间
+    //    private int mPlanNum = 0;//计划完成个数
+    //    private int mTotalNum = 0;//总完成个数
     private Context mContext;
     private ViewSQLite viewSQLite;
 
@@ -145,7 +146,7 @@ public class ToDoData implements Serializable, Comparable {
         if (!(another instanceof ToDoData)) {
             return -1;
         }
-        ToDoData toDoData = (ToDoData) another;
+//        ToDoData toDoData = (ToDoData) another;
         /**置顶判断 ArrayAdapter是按照升序从上到下排序的，就是默认的自然排序  、、、、排序是降序,因为布局反转,所以看起来是升序
          * 如果是相等的情况下返回0，包括都置顶或者都不置顶，返回0的情况下要
          * 再做判断，拿它们置顶时间进行判断

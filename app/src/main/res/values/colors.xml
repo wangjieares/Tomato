@@ -25,6 +25,9 @@
     <color name="activity_detail_title_color">#000000</color>
     <color name="activity_detail_button_color">#FFFFFF</color>
     <color name="fragment_more_section_text_color">#FFFFFF</color>
+    <color name="activity_setting_content_font_color">#3c3f41</color>
+    <color name="activity_setting_content_item_line">#b6b7b7</color>
+    <color name="activity_setting_content_background">#ffffff</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->

@@ -9,11 +9,23 @@ package www.atomato.com.tomato.data;
 public class AdBehaior {
     private static boolean OVERALL_BEHAIOR = true;//全部
     private static boolean ABOUT_BEHAIOR = true;
+    private static boolean LAUNCH_BEHAIOR = true;
     public static void setOverallBehaior(boolean behaior){
         OVERALL_BEHAIOR = behaior;
     }
     public static void setAboutBehaior(boolean behaior){
         OVERALL_BEHAIOR = behaior;
+    }
+    public static boolean LaunchAd(){
+        if(OVERALL_BEHAIOR){
+            if (LAUNCH_BEHAIOR){
+                return true;
+            }else{
+                return false;
+            }
+        }else {
+            return false;
+        }
     }
     public static boolean aboutAd(){
         if(OVERALL_BEHAIOR){

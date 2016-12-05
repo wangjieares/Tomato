@@ -38,7 +38,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     private void initAd() {
         if(AdBehaior.aboutAd()){
             YouMiSdk youMiSdk = new YouMiSdk(this);
-            youMiSdk.init(true);
             youMiSdk.setBanner((LinearLayout)findViewById(R.id.activity_about_linear));
         }
     }
