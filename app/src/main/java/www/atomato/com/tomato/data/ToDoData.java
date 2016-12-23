@@ -183,7 +183,7 @@ public class ToDoData implements Serializable, Comparable {
 //        LogUtils.e("ToDoDate", "===num1===" + num1 + "===num2===" + num2);
         int result = 0 - (((ToDoData) another).getStickState() - mStickState);
         if (result == 0) {
-            result = compareToTime(num2, num1);
+            result = compareToTime(num1, num2);
         }
         return result;
     }

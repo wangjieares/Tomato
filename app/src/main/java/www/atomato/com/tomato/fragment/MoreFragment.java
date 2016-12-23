@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
 import www.atomato.com.tomato.data.Item;
+import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
@@ -39,9 +40,9 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,this,3);
         //random data
         ArrayList<Item> arrayList = new ArrayList<>();
-        arrayList.add(new Item("读书",1));
+        arrayList.add(new Item(getContext(), "1", 1, 1, 1, 1,1));
         expandableLayoutHelper.addSection("项目组", arrayList);
-        expandableLayoutHelper.addItem("项目组", new Item("读书",2));
+        expandableLayoutHelper.addItem("项目组", new Item(getContext(), "1", 1, 1, 1, 1,1));
         expandableLayoutHelper.notifyDataSetChanged();
     }
 

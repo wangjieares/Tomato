@@ -86,26 +86,26 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
                 break;
             case R.id.timeRadioGroup:
                 if (checkedId == R.id.customRadio) {
-//                    bundle.putInt("time", Constants.CUSTOM_RADIO);
+//                    bundle.putInt("todo_time", Constants.CUSTOM_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
                     ButtomDialogUtils.showCustromDialog(this, this);
                     break;
                 } else if (checkedId == R.id.timeRadio) {
-                    bundle.putInt("time", Constants.TIME_RADIO);
+                    bundle.putInt("todo_time", Constants.TIME_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
                     break;
                 } else if (checkedId == R.id.defaultDayRadio) {
-                    bundle.putInt("time", Constants.DEFAULT_RADIO);
+                    bundle.putInt("todo_time", Constants.DEFAULT_RADIO);
 //                    LogUtils.e(tag, "time==" + Constants.DEFAULT_RADIO);
                     break;
                 }
                 break;
             case R.id.dayRadioGroup:
                 if (checkedId == R.id.oneDayRadio) {
-                    ToastUtils.show(this, "正在开发中");
+                    ToastUtils.show(this, "暂不支持功能切换!");
                     break;
                 } else if (checkedId == R.id.everyDayRadio) {
-                    ToastUtils.show(this, "正在开发中");
+                    ToastUtils.show(this, "暂不支持功能切换!");
                     break;
                 }
                 break;
@@ -153,7 +153,7 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
 
     @Override
     public void setCustromValue(int value) {
-        bundle.putInt("time", value);
+        bundle.putInt("todo_time", value);
         customRadio.setText(String.valueOf(value));
     }
 

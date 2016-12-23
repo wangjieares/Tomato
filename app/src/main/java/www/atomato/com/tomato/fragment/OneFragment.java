@@ -214,7 +214,6 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             mAdapter.refreshAll(positon, state);
         } finally {
             viewSQLite.closedb();
-
         }
 //        mAdapter.
     }

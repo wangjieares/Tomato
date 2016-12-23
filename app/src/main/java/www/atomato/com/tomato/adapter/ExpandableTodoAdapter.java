@@ -61,7 +61,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         switch (holder.viewType) {
             case VIEW_TYPE_ITEM :
                 final Item item = (Item) mDataArrayList.get(position);
-                holder.itemTextView.setText(item.getName());
+                holder.itemTextView.setText(item.getTitle());
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

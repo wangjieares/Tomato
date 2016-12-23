@@ -49,7 +49,7 @@ class ViewDAOHelper extends SQLiteOpenHelper {
                 "todo_total_time INTEGER)";//执行总时间
         String sql1 = "create table " + Constants.TOTAL_NAME + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "total_num INTEGER,"+
+                "total_num INTEGER,"+// 总 一共完成个数
                 "total_time INTEGER)"; // 总 一共完成时间
         db.execSQL(sql);
         db.execSQL(sql1);
