@@ -59,7 +59,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 mListener.onLongLeftItemClick(view, position);
             }
         };
-        mHandler.postDelayed(mLongPressRunnable, 1000);
+        mHandler.postDelayed(mLongPressRunnable, 1300);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                LogUtils.e(tag,"x=="+Math.abs(x - mLastDownX)+"\ny=="+Math.abs(y - mLastDownY));
+//                LogUtils.e(tag,"x=="+Math.abs(x - mLastDownX)+"\ny=="+Math.abs(y - mLastDownY));
                 if (mMoved)
                     break;
                 if (Math.abs(x - mLastDownX) > touchSlop || Math.abs(y - mLastDownY) > touchSlop) {
@@ -93,12 +93,12 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 if (mMoved) {
                     break;
                 }
+                mReleased = true;
                 if (System.currentTimeMillis() - mDownTime < mLongDownTime) {
                     isSingleTapUp = true;
                 }//else {
 //                    isLongPressUp = true;
 //                }
-                mReleased = true;
                 break;
         }
         if (isSingleTapUp) {

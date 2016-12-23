@@ -21,6 +21,7 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.SoundUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
@@ -59,6 +60,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         CountDownTimerView.setCountdownTime(todoTime * 1000 * 60);
         activityCountTimerImageButtonRestart.setSelected(true);
         activityCountTimerImageButtonComputer.setSelected(true);
+        SoundUtils.playSounds(this,R.raw.minute,1,-1);
         //设置背景
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            activityCountTimerLinear.setBackground(getDrawable(R.drawable.activity_count_timer_background));
@@ -67,6 +69,18 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
 //        }
         //开始计时器
         CountDownTimerView.startCountDownTime(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SoundUtils.stopSound();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SoundUtils.stopSound();
     }
 
     @Override
@@ -80,8 +94,8 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
             if (SystemClock.currentThreadTimeMillis() - lastTime < 1000) {
                 super.onBackPressed();
             } else {
-                ToastUtils.show(this, "退出请再按一次back！");
                 lastTime = System.currentTimeMillis();
+                SoundUtils.stopSound();
             }
         }
     }
@@ -163,6 +177,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
 
     @Override
     public void performFinished() {
+        SoundUtils.stopSound();
         viewSQLite = new ViewSQLite(this);
         if (mIsNext) {
             if (!isDesotry()) {

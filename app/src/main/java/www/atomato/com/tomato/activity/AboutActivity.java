@@ -10,6 +10,7 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.data.AdBehaior;
 import www.atomato.com.tomato.data.YouMiSdk;
 import www.atomato.com.tomato.utils.BaseActivity;
+import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
  * Created by wangjie on 12/3/2016.
@@ -22,6 +23,8 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        ScreenUtils.setMainColor(this,getResources().getColor(R.color.colorPrimary));
+
         initView();
     }
 

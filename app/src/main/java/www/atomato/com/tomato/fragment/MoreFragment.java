@@ -7,18 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
 import www.atomato.com.tomato.data.Item;
+import www.atomato.com.tomato.data.Person;
 import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
+import www.atomato.com.tomato.utils.SaxXmlUtils;
 
 /**
  * Created by wangjie on 16-11-17.
+ * 数据存储方式选择xml存储,为了复习xml解析
+ *
  */
 
 public class MoreFragment extends BaseFragment  implements ItemClickListener {
@@ -45,6 +51,14 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         expandableLayoutHelper.addSection("默认", arrayList);
         expandableLayoutHelper.addItem("默认", new Item(getContext(), "1", 1, 1, 1, 1,1));
         expandableLayoutHelper.notifyDataSetChanged();
+        List<Person> list = new ArrayList<>();
+        list.add(new Person(1,"wangjie","test"));
+        list.add(new Person(2,"wangjie1","t1est"));
+        try {
+            SaxXmlUtils.save(list,new FileOutputStream(getContext().getPackageResourcePath()+"/file"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

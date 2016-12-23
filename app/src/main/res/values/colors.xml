@@ -5,6 +5,7 @@
     <color name="colorAccent">#5BCEE3</color>
     <!--工具栏颜色-->
     <color name="toolBar">#34495E</color>
+    <color name="toolBarDark">#0c1d2d</color>
     <color name="content_line">#F1F1F1</color>
     <!--Item 点击开始颜色-->
     <color name="itemClick">#2D3E50</color>

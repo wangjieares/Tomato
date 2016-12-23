@@ -26,6 +26,7 @@ import www.atomato.com.tomato.utils.ToastUtils;
  */
 
 public class AddItemActivity extends Activity implements RadioGroup.OnCheckedChangeListener, DialogListener {
+    private String tag = getClass().getSimpleName();
     @BindView(R.id.everyDayRadio)
     RadioButton everyDayRadio;
     @BindView(R.id.oneDayRadio)
@@ -46,7 +47,6 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     RadioButton longRadio;
     @BindView(R.id.planRadioGroup)
     RadioGroup planRadioGroup;
-    private String tag = getClass().getSimpleName();
     @BindView(R.id.activity_item_title)
     EditText activityItemTitle;
     @BindView(R.id.main_activity_add_item_commit)
@@ -57,6 +57,8 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        ScreenUtils.setMainColor(this,getResources().getColor(R.color.toolBarDark));
+
         ButterKnife.bind(this);
         init();
     }

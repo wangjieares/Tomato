@@ -30,6 +30,8 @@ public class AddItemGroupActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item_group);
+        ScreenUtils.setMainColor(this,getResources().getColor(R.color.toolBarDark));
+
         init();
     }
 
