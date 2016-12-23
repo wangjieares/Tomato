@@ -24,9 +24,26 @@ public class ToDoData implements Serializable, Comparable {
     private long mStickStateTime;//置顶时间
     private int mTotalTime = 0;//总时间
     private int mPlanTime = 350;//计划完成时间
-    private int mDestory=0;//销毁时间
-    //    private int mPlanNum = 0;//计划完成个数
-    //    private int mTotalNum = 0;//总完成个数
+    private int mDestory = 0;//销毁时间
+
+    public int getmPlanNum() {
+        return mPlanNum;
+    }
+
+    public void setmPlanNum(int mPlanNum) {
+        this.mPlanNum = mPlanNum;
+    }
+
+    public int getmTotalNum() {
+        return mTotalNum;
+    }
+
+    public void setmTotalNum(int mTotalNum) {
+        this.mTotalNum = mTotalNum;
+    }
+
+    private int mPlanNum = 0;//计划完成个数
+    private int mTotalNum = 0;//总完成个数
     private Context mContext;
     private ViewSQLite viewSQLite;
 

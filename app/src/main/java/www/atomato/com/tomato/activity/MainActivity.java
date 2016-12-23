@@ -122,7 +122,9 @@ public class MainActivity extends BaseActivity
             }
         }
         if (1 == mViewPager.getCurrentItem()) {
-            Toast.makeText(this, "正在开发中", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
+            startActivityForResult(intent, Constants.REQUEST_CODE_ADD);
+//            Toast.makeText(this, "正在开发中", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

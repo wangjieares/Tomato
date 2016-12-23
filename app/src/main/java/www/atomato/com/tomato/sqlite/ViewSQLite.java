@@ -22,6 +22,11 @@ public class ViewSQLite {
     public ViewSQLite(Context context) {
         mContext = context;
         viewDAO = ViewDAOHelper.getInstance(context);
+        ContentValues values = new ContentValues();
+        //初始化总数据
+        //总数据内容包括 总时间,总个数,一些别的别的选项后补
+        values.put("total_time",0);
+        viewDAO.getWritableDatabase().insert(Constants.TOTAL_NAME,null,values);
     }
 
     private void openDataBase() {
@@ -47,6 +52,8 @@ public class ViewSQLite {
         values.put("todo_create", toDoData.getCreate());
         values.put("todo_destory", toDoData.getDestory());
         values.put("todo_plan_time", toDoData.getPlanTime());
+        values.put("todo_plan_num", toDoData.getmPlanNum());
+        values.put("todo_total_num", toDoData.getTotalTime());
         values.put("todo_total_time", toDoData.getTotalTime());
         try {
             mSQLDatabase.insert(Constants.TABLE_NAME, null, values);

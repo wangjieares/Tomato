@@ -8,6 +8,7 @@ import www.atomato.com.tomato.constants.Constants;
 
 /**
  * Created by wangj on 2016-11-23.
+ * 这里是否应该使用数据库
  */
 
 class ViewDAOHelper extends SQLiteOpenHelper {
@@ -44,12 +45,11 @@ class ViewDAOHelper extends SQLiteOpenHelper {
                 "todo_destory INTEGER," +//删除时间
                 "todo_plan_num INTEGER," +//计划完成个数
                 "todo_plan_time INTEGER," +//计划完成时间
-                "todo_total_num INTEGER"+//执行总个数
+                "todo_total_num INTEGER,"+//执行总个数
                 "todo_total_time INTEGER)";//执行总时间
         String sql1 = "create table " + Constants.TOTAL_NAME + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "total_account INTEGER," +// 账号
-                "total_password INTEGER," +// 密码
+                "total_num INTEGER,"+
                 "total_time INTEGER)"; // 总 一共完成时间
         db.execSQL(sql);
         db.execSQL(sql1);

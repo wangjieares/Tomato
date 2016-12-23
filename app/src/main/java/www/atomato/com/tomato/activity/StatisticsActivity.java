@@ -64,8 +64,8 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
             contentStatisticsItemDayBackground.setBackgroundColor(ColorConstants.randomBackground());
         }
         ViewSQLite viewSQLite = new ViewSQLite(this);
-        int totalNum = viewSQLite.sumColumn("todo_total_time",Constants.TABLE_NAME);
-        int totalTime = viewSQLite.sumColumn("todo_total_time",Constants.TABLE_NAME);
+        int totalNum = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
+        int totalTime = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
 //        contentStatisticsItemDayNum.setText();
 //        contentStatisticsItemDayTime.setText();
         contentStatisticsItemTotalNum.setText(String.valueOf(totalNum));

@@ -66,6 +66,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.AddItemGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.DetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -127,11 +137,5 @@
             </intent-filter>
         </activity>
         <!--微信回调-->
-        <activity
-            android:name="cn.sharesdk.onekeyshare.wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait" />
     </application>
 </manifest>
