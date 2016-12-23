@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -17,6 +18,7 @@ import www.atomato.com.tomato.data.Item;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
+import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by lenovo on 2/23/2016.
@@ -62,10 +64,10 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
             case VIEW_TYPE_ITEM :
                 final Item item = (Item) mDataArrayList.get(position);
                 holder.itemTextView.setText(item.getTitle());
-                holder.view.setOnClickListener(new View.OnClickListener() {
+                holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        mItemClickListener.itemClicked(v);
+                    public void onClick(View view) {
+                        LogUtils.e("ExpandableTodo","onClick()");
                     }
                 });
                 break;
@@ -113,13 +115,14 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
 
         //for item
         TextView itemTextView;
-
+        Button button;
          ViewHolder(View view, int viewType) {
             super(view);
             this.viewType = viewType;
             this.view = view;
             if (viewType == VIEW_TYPE_ITEM) {
-                itemTextView = (TextView) view.findViewById(R.id.text_item);
+                itemTextView = (TextView) view.findViewById(R.id.fragment_more_layout_item_title);
+                button = (Button)view.findViewById(R.id.fragment_more_layout_item_button);
             } else {
                 sectionTextView = (TextView) view.findViewById(R.id.text_section);
                 sectionToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_section);

@@ -172,7 +172,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 //        LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
         ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        LogUtils.e(tag,"todo_title==="+todo_title);
+        LogUtils.e(tag, "todo_title===" + todo_title);
         try {
             Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
             if (cursor.moveToNext()) {
@@ -192,7 +192,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.setBottomWindowListener(this);
         buttomWindow.setTitle(mAdapter.getTitle(position));
-        buttomWindow.setItemView((ToDoView)view);
+        buttomWindow.setItemView((ToDoView) view);
         buttomWindow.setItemPosition(position);
         buttomWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
     }
@@ -228,13 +228,24 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
     @Override
     public void markClick(View view, int positon) {
-        ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        ContentValues values = new ContentValues();
-        values.put("todo_state", 1);
-        values.put("todo_day_index", 1);
-        values.put("todo_day_total_time", 35);
-        viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mAdapter.getTitle(positon)});
-        mAdapter.refresh(positon);
+        //待优化代码---------------------------------------------------
+        try {
+            ViewSQLite viewSQLite = new ViewSQLite(getContext());
+            ContentValues values = new ContentValues();
+            values.put("todo_state", 1);
+            Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{mAdapter.getTitle(positon)}, null, null, null);
+            cursor.moveToNext();
+            //待修改 数据库应该可以自加
+            int num = cursor.getInt(cursor.getColumnIndex("todo_total_num"));
+            int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
+            int totalTime = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+            values.put("todo_total_num", num + 1);
+            values.put("todo_total_time", time + totalTime);
+            viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mAdapter.getTitle(positon)});
+            mAdapter.refresh(positon);
+        } finally {
+
+        }
     }
 
     @Override
@@ -300,7 +311,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                     int progress = bundle.getInt("todo_progress");
                     int drawColor = bundle.getInt("todo_drawColor");
                     int longPlan = bundle.getInt("todo_plan_time");
-                    ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor,longPlan);
+                    ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor, longPlan);
                     mAdapter.addDataOnScroll(todoData);
                     break;
                 case Constants.DELETE_TODO:

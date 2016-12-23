@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 
+import www.atomato.com.tomato.utils.LogUtils;
+
 /**
  * Created by wangjie on 16-11-17.
  */
@@ -14,20 +16,20 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private String tag = getClass().getSimpleName();
     private int mLastDownX, mLastDownY;
     //该值记录了最小滑动距离
-    private int touchSlop=30;
+    private int touchSlop = 8;
     private OnItemClickListener mListener;
     //是否是单击事件
     private boolean isSingleTapUp = false;
-    //是否是长按事件
-    private boolean isLongPressUp = false;
-    private long mDownTime;
     // 计数器，防止多次点击导致最后一次形成longpress的时间变短
-    private int mCounter;
+    private int mCounter = 0;
     private boolean mReleased;
     private boolean mMoved;
     private Handler mHandler;
-    private final long mLongDownTime = 500;
-    private boolean isLongPress;//一次Down只能一次长按执行
+    private final long mLongDownTime = 1300;
+    //是否是长按事件
+//    private boolean isLongPressUp = false;
+    //    private boolean isLongPress;//一次Down只能一次长按执行
+    private long mDownTime;
     private Runnable mLongPressRunnable; //
 
     //内部接口，定义点击方法以及长按方法
@@ -41,11 +43,11 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
 
     public RecyclerListener(Context context, OnItemClickListener listener) {
 //        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        mHandler = new Handler();
         mListener = listener;
     }
 
     private void setLong(final View view, final int position) {
-        mHandler = new Handler();
         mLongPressRunnable = new Runnable() {
             @Override
             public void run() {
@@ -57,7 +59,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 mListener.onLongLeftItemClick(view, position);
             }
         };
-        mHandler.postDelayed(mLongPressRunnable, 500);
+        mHandler.postDelayed(mLongPressRunnable, 1000);
     }
 
     @Override
@@ -65,7 +67,6 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
         int x = (int) e.getX();
         int y = (int) e.getY();
         switch (e.getAction()) {
-
             case MotionEvent.ACTION_DOWN:
                 mLastDownX = x;
                 mLastDownY = y;
@@ -73,33 +74,30 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 mCounter++;
                 mMoved = false;
                 mReleased = false;
-                isLongPressUp = true;//长按
+                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+                if (childView != null) {
+                    setLong(childView, rv.getChildAdapterPosition(childView));
+                }
                 break;
 
             case MotionEvent.ACTION_MOVE:
+                LogUtils.e(tag,"x=="+Math.abs(x - mLastDownX)+"\ny=="+Math.abs(y - mLastDownY));
                 if (mMoved)
                     break;
                 if (Math.abs(x - mLastDownX) > touchSlop || Math.abs(y - mLastDownY) > touchSlop) {
                     mMoved = true;
                 }
-                if (isLongPress) {
-                    if (System.currentTimeMillis() - mDownTime > mLongDownTime) {
-                        isLongPressUp = true;
-                        isLongPress = false;
-                    }
-                }
                 break;
 
             case MotionEvent.ACTION_UP:
-                isLongPress = true;
                 if (mMoved) {
                     break;
                 }
                 if (System.currentTimeMillis() - mDownTime < mLongDownTime) {
                     isSingleTapUp = true;
-                } else {
-                    isLongPressUp = true;
-                }
+                }//else {
+//                    isLongPressUp = true;
+//                }
                 mReleased = true;
                 break;
         }
@@ -117,18 +115,17 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 }
             }
         }
-        if (isLongPressUp) {
-            //长按的区域
-            if (x > 0 && x < rv.getWidth() / 1.56) {
-//                LogUtils.e(tag,tag+rv.getWidth()/1.55);
-                View childView = rv.findChildViewUnder(e.getX(), e.getY());
-                isLongPressUp = false;
-                if (childView != null) {
-                    setLong(childView, rv.getChildAdapterPosition(childView));
-                }
-            }
-
-        }
+//        if (isLongPressUp) {
+//            //长按的区域
+//            if (x > 0 && x < rv.getWidth() / 1.56) {
+////                LogUtils.e(tag,tag+rv.getWidth()/1.55);
+//                isLongPressUp = false;
+//                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+//                if (childView != null) {
+//                    setLong(childView, rv.getChildAdapterPosition(childView));
+//                }
+//            }
+//        }
         return false;
     }
 

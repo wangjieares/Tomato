@@ -24,6 +24,7 @@ import www.atomato.com.tomato.utils.BaseFragment;
 public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private View view = null;
     RecyclerView mRecyclerView;
+    ArrayList<Item> arrayList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,10 +40,10 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
 //                mRecyclerView, this, 3);
         ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,this,3);
         //random data
-        ArrayList<Item> arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>();
         arrayList.add(new Item(getContext(), "1", 1, 1, 1, 1,1));
-        expandableLayoutHelper.addSection("项目组", arrayList);
-        expandableLayoutHelper.addItem("项目组", new Item(getContext(), "1", 1, 1, 1, 1,1));
+        expandableLayoutHelper.addSection("默认", arrayList);
+        expandableLayoutHelper.addItem("默认", new Item(getContext(), "1", 1, 1, 1, 1,1));
         expandableLayoutHelper.notifyDataSetChanged();
     }
 

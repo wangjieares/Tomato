@@ -28,6 +28,8 @@
     <color name="activity_setting_content_font_color">#3c3f41</color>
     <color name="activity_setting_content_item_line">#b6b7b7</color>
     <color name="activity_setting_content_background">#ffffff</color>
+    <color name="fragment_more_layout_item_button_selected_false">#00000000</color>
+    <color name="fragment_more_layout_item_button_selected_true">@color/itemClick</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->

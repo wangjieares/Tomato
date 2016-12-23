@@ -35,7 +35,7 @@ class ViewDAOHelper extends SQLiteOpenHelper {
         String sql = "create table " + Constants.TABLE_NAME + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "todo_title TEXT NOT NULL UNIQUE ," +
-                "todo_time INTEGER," +
+                "todo_time INTEGER CHECK(todo_time > 0)," +
                 "todo_state INTEGER," +
                 "todo_progress INTEGER," +
                 "todo_color INTEGER," +

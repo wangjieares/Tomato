@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:elevation="5dp"
-    android:background="#2980b9"
-    android:layout_marginTop="@dimen/fragment_more_item_margin_top_bottom"
+    android:id="@+id/fragment_more_layout_item_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fragment_more_section_height"
     android:layout_marginBottom="@dimen/fragment_more_item_margin_top_bottom"
     android:layout_marginLeft="@dimen/fragment_more_item_margin_left_right"
     android:layout_marginRight="@dimen/fragment_more_item_margin_left_right"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/fragment_more_section_height">
+    android:layout_marginTop="@dimen/fragment_more_item_margin_top_bottom"
+    android:background="#2980b9"
+    app:elevation="5dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/text_item"
-        android:textColor="@color/fragment_more_section_text_color"
-        android:gravity="center"
-        android:layout_gravity="center" />
+        android:paddingBottom="8dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/fragment_more_layout_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_more_layout_item_title_margin"
+            android:text="test"
+            android:textColor="@color/fragment_more_section_text_color"
+            android:textSize="@dimen/fragment_more_layout_item_title_size" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/fragment_more_layout_item_title"
+            android:text="12分钟"
+            android:textColor="@color/fragment_more_section_text_color"
+            android:textSize="@dimen/fragment_more_layout_item_time_size" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/fragment_more_layout_item_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/fragment_more_layout_item_button_selector"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/fragment_more_layout_item_button_text"
+        android:textColor="@color/fragment_more_section_text_color" />
+
+
+</RelativeLayout>
