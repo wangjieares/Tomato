@@ -166,7 +166,7 @@ public class MainActivity extends BaseActivity
                 break;
             case Constants.REQUEST_CODE_ADD_GROUP:
 //                ToastUtils.show(this,"成功通信");
-                ((MoreFragment)mFragmentList.get(1)).setGroupItem(data.getStringExtra("title"));
+//                ((MoreFragment)mFragmentList.get(1)).setGroupItem(data.getStringExtra("title"));
                 break;
         }
     }
@@ -231,8 +231,6 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
-
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

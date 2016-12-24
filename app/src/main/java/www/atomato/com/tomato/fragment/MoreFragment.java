@@ -56,7 +56,6 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
 //        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
 //                mRecyclerView, this, 3);
         initTodo();
-        setGroupItem("a");
     }
     private void initTodo() {
         mTodoDataObserver = new Subscriber<GroupItem>() {
@@ -71,19 +70,19 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             @Override
             public void onNext(GroupItem groupItem) {
 //                arrayList.add(groupItem);
-                expandableLayoutHelper.addItem(groupItem.getmGroupName(),groupItem);
+                expandableLayoutHelper.addItem(groupItem.getmGroupName(),arrayList);
                 expandableLayoutHelper.notifyDataSetChanged();
             }
         };
-    }
-    public void setGroupItem(String title){
         mObservable = Observable.create(new Observable.OnSubscribe<GroupItem>() {
             @Override
             public void call(Subscriber<? super GroupItem> subscriber) {
                 try {
+//                    expandableLayoutHelper.addSection("默认", arrayList);
                     FileInputStream fileInputStream = new FileInputStream(getContext().getFilesDir()+"/todo.xml");
                     List<GroupItem> lists = SaxXmlUtils.parse(fileInputStream);
                     for(GroupItem groupItem :lists){
+                        arrayList.add(groupItem);
                         subscriber.onNext(groupItem);
                     }
                 } catch (FileNotFoundException e) {
@@ -97,7 +96,6 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
         mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
         mObservable.subscribe(mTodoDataObserver);
-        expandableLayoutHelper.addSection(title, arrayList);
     }
     @Override
     public void itemClicked(View item) {
