@@ -25,7 +25,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private boolean mReleased;
     private boolean mMoved;
     private Handler mHandler;
-    private final long mLongDownTime = 1300;
+    private final long mLongDownTime = 1000;
     //是否是长按事件
 //    private boolean isLongPressUp = false;
     //    private boolean isLongPress;//一次Down只能一次长按执行
@@ -59,7 +59,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                 mListener.onLongLeftItemClick(view, position);
             }
         };
-        mHandler.postDelayed(mLongPressRunnable, 1300);
+        mHandler.postDelayed(mLongPressRunnable, 1000);
     }
 
     @Override

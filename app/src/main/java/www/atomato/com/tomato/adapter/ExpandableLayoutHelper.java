@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import www.atomato.com.tomato.data.Item;
+import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
@@ -20,7 +20,7 @@ import www.atomato.com.tomato.recall.TodoStateChangeListener;
 public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
     //data list
-    private LinkedHashMap<TodoSection, ArrayList<Item>> mSectionDataMap = new LinkedHashMap<>();
+    private LinkedHashMap<TodoSection, ArrayList<GroupItem>> mSectionDataMap = new LinkedHashMap<>();
     private ArrayList<Object> mDataArrayList = new ArrayList<>();
 
     //section map
@@ -51,17 +51,17 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         mExpandableTodoAdapter.notifyDataSetChanged();
     }
 
-    public void addSection(String section, ArrayList<Item> items) {
+    public void addSection(String section, ArrayList<GroupItem> items) {
         TodoSection newTodoSection;
         mSectionMap.put(section, (newTodoSection = new TodoSection(section)));//section
         mSectionDataMap.put(newTodoSection, items);
     }
 
-    public void addItem(String section, Item item) {
+    public void addItem(String section, GroupItem item) {
         mSectionDataMap.get(mSectionMap.get(section)).add(item);
     }
 
-    public void removeItem(String section, Item item) {
+    public void removeItem(String section, GroupItem item) {
         mSectionDataMap.get(mSectionMap.get(section)).remove(item);
     }
 
@@ -72,7 +72,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
     private void generateDataList () {
         mDataArrayList.clear();
-        for (Map.Entry<TodoSection, ArrayList<Item>> entry : mSectionDataMap.entrySet()) {
+        for (Map.Entry<TodoSection, ArrayList<GroupItem>> entry : mSectionDataMap.entrySet()) {
             TodoSection key;
             mDataArrayList.add((key = entry.getKey()));
             if (key.isExpanded)

@@ -15,18 +15,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.SaxXmlUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 import www.atomato.com.tomato.viewpager.MyViewPager;
 
@@ -94,7 +97,6 @@ public class MainActivity extends BaseActivity
         }
         if (1 == mViewPager.getCurrentItem()) {
             menu.getItem(0).setIcon(R.drawable.activity_main_add_more);
-
         }
         return true;
 //        return super.onPrepareOptionsMenu(menu);
@@ -125,6 +127,18 @@ public class MainActivity extends BaseActivity
             Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
             startActivityForResult(intent, Constants.REQUEST_CODE_ADD);
 //            Toast.makeText(this, "正在开发中", Toast.LENGTH_SHORT).show();
+            List<GroupItem> list = new ArrayList<>();
+            list.add(new GroupItem("读书",32,1,1,1));
+            list.add(new GroupItem("读书2",32,1,1,1));
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(getFilesDir()+"/todo.xml");
+                FileInputStream fileInputStream = new FileInputStream(getFilesDir()+"/todo.xml");
+                SaxXmlUtils.save(list,fileOutputStream,"默认");
+                SaxXmlUtils.parse(fileInputStream,"读书");
+//                LogUtils.e(tag,getPackageResourcePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -221,6 +235,8 @@ public class MainActivity extends BaseActivity
             startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.relax) {
+            Intent intent = new Intent(MainActivity.this, RelaxActivity.class);
+            startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.future_plan) {

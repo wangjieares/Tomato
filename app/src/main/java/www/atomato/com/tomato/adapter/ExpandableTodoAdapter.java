@@ -14,7 +14,7 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.data.Item;
+import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
@@ -62,7 +62,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         switch (holder.viewType) {
             case VIEW_TYPE_ITEM :
-                final Item item = (Item) mDataArrayList.get(position);
+                final GroupItem item = (GroupItem) mDataArrayList.get(position);
                 holder.itemTextView.setText(item.getTitle());
                 holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override

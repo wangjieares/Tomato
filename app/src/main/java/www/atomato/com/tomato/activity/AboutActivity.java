@@ -23,7 +23,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        ScreenUtils.setMainColor(this,getResources().getColor(R.color.colorPrimary));
+        ScreenUtils.setMainColor(this,getResources().getColor(R.color.colorPrimaryDark));
 
         initView();
     }

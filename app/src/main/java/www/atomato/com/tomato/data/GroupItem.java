@@ -13,7 +13,28 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
 /**
  * Created by wangjie on 16-11-17.
  */
-public class Item implements Serializable, Comparable {
+public class GroupItem implements Serializable, Comparable {
+    @Override
+    public String toString() {
+        return "GroupItem{" +
+                "mTitle='" + mTitle + '\'' +
+                ", mTime=" + mTime +
+                ", mDrawBackColor=" + mDrawBackColor +
+                ", mProgress=" + mProgress +
+                ", mState=" + mState +
+                ", mStickState=" + mStickState +
+                ", mCreate=" + mCreate +
+                ", mStickStateTime=" + mStickStateTime +
+                ", mTotalTime=" + mTotalTime +
+                ", mPlanTime=" + mPlanTime +
+                ", mDestory=" + mDestory +
+                ", mPlanNum=" + mPlanNum +
+                ", mTotalNum=" + mTotalNum +
+                ", mContext=" + mContext +
+                ", viewSQLite=" + viewSQLite +
+                '}';
+    }
+
     private String mTitle;//标题
     private int mTime;//时间
     private int mDrawBackColor;//绘制北京
@@ -47,15 +68,18 @@ public class Item implements Serializable, Comparable {
     private Context mContext;
     private ViewSQLite viewSQLite;
 
-    public Item(String title, int time, int mState, float mProgress, int drawBackColor) {
+    public GroupItem(String title, int time, int mState, float mProgress, int drawBackColor) {
         this.mTitle = title;
         this.mTime = time;
         this.mDrawBackColor = drawBackColor;
         this.mProgress = mProgress;
         this.mState = mState;
+        mDrawBackColor = ColorConstants.randomBackground();
+        mCreate = System.currentTimeMillis();
+        mStickStateTime = 0;
     }
 
-    public Item(Context context, String title, int time, int state, float progress, int drawColor, int longPlan) {
+    public GroupItem(Context context, String title, int time, int state, float progress, int drawColor, int longPlan) {
         mContext = context;
         this.mTitle = title;
         this.mTime = time;
