@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/activity_item_title"
+            android:id="@+id/main_activity_add_item_title"
             style="@style/activity_add_item_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

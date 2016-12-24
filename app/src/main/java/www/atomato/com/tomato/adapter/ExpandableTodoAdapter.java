@@ -63,7 +63,8 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         switch (holder.viewType) {
             case VIEW_TYPE_ITEM :
                 final GroupItem item = (GroupItem) mDataArrayList.get(position);
-                holder.itemTextView.setText(item.getTitle());
+                holder.titleTextView.setText(item.getTitle());
+                holder.timeTextView.setText(item.getTime()+"分钟");
                 holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -114,14 +115,16 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         ToggleButton sectionToggleButton;
 
         //for item
-        TextView itemTextView;
+        TextView titleTextView;
+        TextView timeTextView;
         Button button;
          ViewHolder(View view, int viewType) {
             super(view);
             this.viewType = viewType;
             this.view = view;
             if (viewType == VIEW_TYPE_ITEM) {
-                itemTextView = (TextView) view.findViewById(R.id.fragment_more_layout_item_title);
+                titleTextView = (TextView) view.findViewById(R.id.fragment_more_layout_item_title);
+                timeTextView = (TextView) view.findViewById(R.id.fragment_more_layout_item_time);
                 button = (Button)view.findViewById(R.id.fragment_more_layout_item_button);
             } else {
                 sectionTextView = (TextView) view.findViewById(R.id.text_section);

@@ -2,9 +2,6 @@ package www.atomato.com.tomato.utils;
 
 import android.util.Xml;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -14,14 +11,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import www.atomato.com.tomato.data.GroupItem;
 
 /**
  * Created by wangjie on 12/24/2016.
+ * pull解析xml数据
  * <GroupName>
  * <读书>
  * <时间></时间>
@@ -39,6 +33,7 @@ public class SaxXmlUtils {
      * Sax方式，创建 XML
      */
     private static GroupItem groupItem;
+    private static int eventType;
 
     public static void save(List<GroupItem> items, OutputStream outStream, String groupName)
             throws Exception, IllegalStateException, IOException {
@@ -56,7 +51,7 @@ public class SaxXmlUtils {
             serializer.text(item.getTime() + "");
             serializer.endTag(null, "time");
             serializer.startTag(null, "progress");
-            serializer.text(item.getCreate() + "");
+            serializer.text(item.getProgress() + "");
             serializer.endTag(null, "progress");
             serializer.startTag(null, "create");
             serializer.text(item.getProgress() + "");
@@ -69,14 +64,14 @@ public class SaxXmlUtils {
         outStream.close();
     }
 
-    public static List<GroupItem> parse(InputStream inputStream, String title) throws Exception {
+    public static List<GroupItem> parse(InputStream inputStream) throws Exception {
         List<GroupItem> mList = new ArrayList<>();
         // 由android.util.Xml创建一个XmlPullParser实例
         XmlPullParser xpp = Xml.newPullParser();
         // 设置输入流 并指明编码方式
         xpp.setInput(inputStream, "UTF-8");
         // 产生第一个事件
-        int eventType = xpp.getEventType();
+        eventType = xpp.getEventType();
 
         while (eventType != XmlPullParser.END_DOCUMENT) {
             switch (eventType) {
@@ -85,23 +80,20 @@ public class SaxXmlUtils {
                     break;
                 // 判断当前事件是否为标签元素开始事件
                 case XmlPullParser.START_TAG:
-                    LogUtils.e("START_TAG",xpp.getName());
+//                    LogUtils.e("START_TAG",xpp.getName());
                     if (xpp.getName().equals("item")) {
                         groupItem = new GroupItem("", 0, 0, 0, 0);
                     } else if (xpp.getName().equals("title")) {
-                        xpp.nextText();
+                        eventType = xpp.next();
                         groupItem.setTitle(xpp.getText());
                     } else if (xpp.getName().equals("time")) {
-                        xpp.nextText();
+                        eventType = xpp.next();
                         groupItem.setTime(Integer.valueOf(xpp.getText()));
                     } else if (xpp.getName().equals("progress")) {
-                        xpp.nextText();
-                        groupItem.setTime(Integer.valueOf(xpp.getText()));
-                    } else if (xpp.getName().equals("create")) {
-                        xpp.nextText();
-                        groupItem.setTime(Integer.valueOf(xpp.getText()));
-                        mList.add(groupItem);//读取到最后放入
-                        LogUtils.e("Sax START_TAG", groupItem.toString());
+                        eventType = xpp.next();
+                        groupItem.setProgress(Float.valueOf(xpp.getText()));
+                        mList.add(groupItem);
+                        LogUtils.e("START_TAG", groupItem.toString());
                     }
                     break;
 

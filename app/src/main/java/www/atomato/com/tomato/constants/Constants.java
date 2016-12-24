@@ -3,7 +3,8 @@ package www.atomato.com.tomato.constants;
 import android.graphics.Color;
 
 public class Constants {
-    public static final int REQUEST_CODE_ADD = 0;
+    public static final int REQUEST_CODE_ADD = 0;//返回单个Item
+    public static final int REQUEST_CODE_ADD_GROUP = 1;//返回组
     public static final int REQUEST_CODE_PROGRESS = 1;
     //返回用户选择todo状态码---------------------
     public static final int EVERY_DAY_RADIO = 100;//每天

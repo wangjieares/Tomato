@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -22,6 +25,7 @@ import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseFragment;
+import www.atomato.com.tomato.utils.SaxXmlUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -31,10 +35,11 @@ import www.atomato.com.tomato.utils.BaseFragment;
 
 public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private View view = null;
-    RecyclerView mRecyclerView;
-    ArrayList<GroupItem> arrayList;
-    private Subscriber<ToDoData> mTodoDataObserver;
-    private Observable<ToDoData> mObservable;
+    private RecyclerView mRecyclerView;
+    private ArrayList<GroupItem> arrayList;
+    private ExpandableLayoutHelper expandableLayoutHelper;
+    private Subscriber<GroupItem> mTodoDataObserver;
+    private Observable<GroupItem> mObservable;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,18 +51,15 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private void initView() {
         //setting the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
+        arrayList = new ArrayList<>();
+        expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,MoreFragment.this);
 //        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
 //                mRecyclerView, this, 3);
-        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,this,3);
-        //random data
-        arrayList = new ArrayList<>();
-        arrayList.add(new GroupItem(getContext(), "1", 1, 1, 1, 1,1));
-        expandableLayoutHelper.addSection("默认", arrayList);
-        expandableLayoutHelper.addItem("默认", new GroupItem(getContext(), "1", 1, 1, 1, 1,1));
-        expandableLayoutHelper.notifyDataSetChanged();
+        initTodo();
+        setGroupItem("a");
     }
     private void initTodo() {
-        mTodoDataObserver = new Subscriber<ToDoData>() {
+        mTodoDataObserver = new Subscriber<GroupItem>() {
             @Override
             public void onCompleted() {
             }
@@ -67,31 +69,35 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             }
 
             @Override
-            public void onNext(ToDoData toDoData) {
+            public void onNext(GroupItem groupItem) {
+//                arrayList.add(groupItem);
+                expandableLayoutHelper.addItem(groupItem.getmGroupName(),groupItem);
+                expandableLayoutHelper.notifyDataSetChanged();
             }
         };
-
-        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
+    }
+    public void setGroupItem(String title){
+        mObservable = Observable.create(new Observable.OnSubscribe<GroupItem>() {
             @Override
-            public void call(Subscriber<? super ToDoData> subscriber) {
-                ViewSQLite viewSQLite = new ViewSQLite(getContext());
-                try (Cursor cursor = viewSQLite.query()) {
-                    while (cursor.moveToNext()) {
-//                        int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                        String title = cursor.getString(cursor.getColumnIndex("todo_title"));
-                        int time = cursor.getInt(cursor.getColumnIndex("todo_time"));
-                        int state = cursor.getInt(cursor.getColumnIndex("todo_state"));
-                        int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
-                        int color = cursor.getInt(cursor.getColumnIndex("todo_color"));
-                        subscriber.onNext(new ToDoData(title, time, state, progress, color));
+            public void call(Subscriber<? super GroupItem> subscriber) {
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(getContext().getFilesDir()+"/todo.xml");
+                    List<GroupItem> lists = SaxXmlUtils.parse(fileInputStream);
+                    for(GroupItem groupItem :lists){
+                        subscriber.onNext(groupItem);
                     }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                subscriber.onCompleted();
+//                subscriber.onCompleted();
             }
         });
         mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
         mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
         mObservable.subscribe(mTodoDataObserver);
+        expandableLayoutHelper.addSection(title, arrayList);
     }
     @Override
     public void itemClicked(View item) {

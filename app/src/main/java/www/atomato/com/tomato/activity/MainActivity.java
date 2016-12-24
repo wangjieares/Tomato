@@ -17,10 +17,15 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
@@ -31,6 +36,7 @@ import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.SaxXmlUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
+import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.viewpager.MyViewPager;
 
 public class MainActivity extends BaseActivity
@@ -47,7 +53,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ScreenUtils.setMainColor(this,getResources().getColor(R.color.toolBar));
+        ScreenUtils.setMainColor(this, getResources().getColor(R.color.toolBar));
         initView();
     }
 
@@ -125,22 +131,21 @@ public class MainActivity extends BaseActivity
         }
         if (1 == mViewPager.getCurrentItem()) {
             Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
-            startActivityForResult(intent, Constants.REQUEST_CODE_ADD);
+            startActivityForResult(intent, Constants.REQUEST_CODE_ADD_GROUP);
 //            Toast.makeText(this, "正在开发中", Toast.LENGTH_SHORT).show();
-            List<GroupItem> list = new ArrayList<>();
-            list.add(new GroupItem("读书",32,1,1,1));
-            list.add(new GroupItem("读书2",32,1,1,1));
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(getFilesDir()+"/todo.xml");
-                FileInputStream fileInputStream = new FileInputStream(getFilesDir()+"/todo.xml");
-                SaxXmlUtils.save(list,fileOutputStream,"默认");
-                SaxXmlUtils.parse(fileInputStream,"读书");
-//                LogUtils.e(tag,getPackageResourcePath());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            List<GroupItem> list = new ArrayList<>();
+//            list.add(new GroupItem("读书",32,1,1,1));
+//            list.add(new GroupItem("读书2",32,1,1,1));
+//            try {
+//                FileOutputStream fileOutputStream = new FileOutputStream(getFilesDir()+"/todo.xml");
+//                FileInputStream fileInputStream = new FileInputStream(getFilesDir()+"/todo.xml");
+//                SaxXmlUtils.save(list,fileOutputStream,"默认");
+//                SaxXmlUtils.parse(fileInputStream);
+////                LogUtils.e(tag,getPackageResourcePath());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -157,11 +162,16 @@ public class MainActivity extends BaseActivity
                     if (bundle != null) {
                         addToDo(bundle);
                     }
-                    break;
                 }
+                break;
+            case Constants.REQUEST_CODE_ADD_GROUP:
+//                ToastUtils.show(this,"成功通信");
+                ((MoreFragment)mFragmentList.get(1)).setGroupItem(data.getStringExtra("title"));
+                break;
         }
     }
 
+    //该功能实现较为繁琐,应该修改 2016.12.25
     public void addToDo(Bundle bundle) {
         int plan = bundle.getInt("plan");
         int time = bundle.getInt("time");
@@ -174,13 +184,13 @@ public class MainActivity extends BaseActivity
             bundle.putInt("todo_state", 0);
             bundle.putInt("todo_progress", 0);
             bundle.putInt("todo_drawColor", Color.parseColor("#1ABC9C"));
-            bundle.putInt("todo_plan_time",bundle.getInt("time")*10);//短期十个一组
+            bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
             Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);
         } else {
-            bundle.putInt("todo_plan_time",bundle.getInt("time")*10);//短期十个一组
+            bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
             bundle.putInt("todo_state", 0);
             bundle.putInt("todo_progress", 0);
             bundle.putInt("todo_destory", 0);
@@ -197,10 +207,10 @@ public class MainActivity extends BaseActivity
                 bundle.putInt("todo_time", 45);
             }
             if (time == Constants.SHORT_RADIO) {
-                bundle.putInt("todo_plan_time",bundle.getInt("todo_time")*10);//短期十个一组
+                bundle.putInt("todo_plan_time", bundle.getInt("todo_time") * 10);//短期十个一组
             }
             if (time == Constants.LONG_RADIO) {
-                bundle.putInt("todo_plan_time",bundle.getInt("todo_time")*100);//长期100个一组
+                bundle.putInt("todo_plan_time", bundle.getInt("todo_time") * 100);//长期100个一组
             }
             LogUtils.e(tag, plan + "===" + time + "===" + day + "---title" + bundle.getString("todo_title"));
             //发消息通知更改
@@ -243,12 +253,12 @@ public class MainActivity extends BaseActivity
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.setting) {
-            Intent intent = new Intent(this,SettingActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.about) {
-            Intent intent = new Intent(this,AboutActivity.class);
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
