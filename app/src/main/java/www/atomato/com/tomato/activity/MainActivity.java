@@ -167,6 +167,14 @@ public class MainActivity extends BaseActivity
             case Constants.REQUEST_CODE_ADD_GROUP:
 //                ToastUtils.show(this,"成功通信");
 //                ((MoreFragment)mFragmentList.get(1)).setGroupItem(data.getStringExtra("title"));
+                try {
+                    FileOutputStream outputStream = new FileOutputStream(getFilesDir() +"/"+ data.getStringExtra("title"));
+                    SaxXmlUtils.saveGroup(outputStream, data.getStringExtra("title"));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -231,6 +239,7 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

@@ -34,7 +34,17 @@ public class SaxXmlUtils {
      */
     private static GroupItem groupItem;
     private static int eventType;
-
+    public static int saveGroup(OutputStream outStream, String groupName) throws Exception{
+        XmlSerializer serializer = Xml.newSerializer();//获取XML写入信息的序列化对象
+        serializer.setOutput(outStream, "UTF-8");//设置要写入的OutputStream
+        serializer.startDocument("UTF-8", true);//设置文档标签
+        serializer.startTag(null, groupName);//设置开始标签，第一个参数为namespace
+        serializer.endTag(null, groupName);//设置开始标签，第一个参数为namespace
+        serializer.endDocument();
+        outStream.flush();
+        outStream.close();
+        return 0;
+    }
     public static void save(List<GroupItem> items, OutputStream outStream, String groupName)
             throws Exception, IllegalStateException, IOException {
         XmlSerializer serializer = Xml.newSerializer();//获取XML写入信息的序列化对象
@@ -64,8 +74,8 @@ public class SaxXmlUtils {
         outStream.close();
     }
 
-    public static List<GroupItem> parse(InputStream inputStream) throws Exception {
-        List<GroupItem> mList = new ArrayList<>();
+    public static ArrayList<GroupItem> parse(InputStream inputStream) throws Exception {
+        ArrayList<GroupItem> mList = new ArrayList<>();
         // 由android.util.Xml创建一个XmlPullParser实例
         XmlPullParser xpp = Xml.newPullParser();
         // 设置输入流 并指明编码方式

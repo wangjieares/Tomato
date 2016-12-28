@@ -79,14 +79,12 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             public void call(Subscriber<? super GroupItem> subscriber) {
                 try {
 //                    expandableLayoutHelper.addSection("默认", arrayList);
-                    FileInputStream fileInputStream = new FileInputStream(getContext().getFilesDir()+"/todo.xml");
-                    List<GroupItem> lists = SaxXmlUtils.parse(fileInputStream);
+                    FileInputStream fileInputStream = new FileInputStream(getContext().getFilesDir()+"/1.xml");
+                    ArrayList<GroupItem> lists = SaxXmlUtils.parse(fileInputStream);
                     for(GroupItem groupItem :lists){
                         arrayList.add(groupItem);
                         subscriber.onNext(groupItem);
                     }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
