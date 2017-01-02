@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (0 == mViewPager.getCurrentItem()) {
-            menu.getItem(0).setIcon(R.drawable.activity_main_add_one);
+            menu.getItem(0).setIcon(R.drawable.fragment_more_layout_section_add);
         }
         if (1 == mViewPager.getCurrentItem()) {
             menu.getItem(0).setIcon(R.drawable.activity_main_add_more);

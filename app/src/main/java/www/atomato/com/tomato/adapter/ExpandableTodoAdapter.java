@@ -81,11 +81,25 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
                         mItemClickListener.itemClicked(todoSection);
                     }
                 });
-                holder.sectionToggleButton.setChecked(todoSection.isExpanded);
-                holder.sectionToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                holder.expandToggleButton.setChecked(todoSection.isExpanded);
+                holder.addToggleButton.setChecked(todoSection.isExpanded);
+                holder.remindToggleButton.setChecked(todoSection.isExpanded);
+                holder.expandToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         mTodoStateChangeListener.onSectionStateChanged(todoSection, isChecked);
+                    }
+                });
+                holder.addToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        mTodoStateChangeListener.onRemindClick();
+                    }
+                });
+                holder.remindToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        mTodoStateChangeListener.onAddClick();
                     }
                 });
                 break;
@@ -104,7 +118,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
         else return VIEW_TYPE_ITEM;
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         //common
         View view;
@@ -112,7 +126,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
 
         //for section
         TextView sectionTextView;
-        ToggleButton sectionToggleButton;
+        ToggleButton expandToggleButton,addToggleButton,remindToggleButton;
 
         //for item
         TextView titleTextView;
@@ -128,7 +142,9 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
                 button = (Button)view.findViewById(R.id.fragment_more_layout_item_button);
             } else {
                 sectionTextView = (TextView) view.findViewById(R.id.text_section);
-                sectionToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_section);
+                expandToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_expand);
+                addToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_add);
+                remindToggleButton = (ToggleButton) view.findViewById(R.id.toggle_button_remind);
             }
         }
     }

@@ -96,4 +96,14 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
             notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void onAddClick() {
+
+    }
+
+    @Override
+    public void onRemindClick() {
+
+    }
 }
