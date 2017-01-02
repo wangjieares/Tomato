@@ -26,6 +26,10 @@ public class ButtomDialogUtils {
         Window window = mDialog.getWindow();
 //        window.setGravity(Gravity.CENTER);
         if (window != null) {
+            //这段代码是键盘遮挡住diglog
+//            mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//            mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+//                    WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             window.setWindowAnimations(R.style.pop_window_anim);
             View view = View.inflate(context, R.layout.activity_add_item_custrom_time, null);
             window.setContentView(view);

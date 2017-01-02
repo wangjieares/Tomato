@@ -5,6 +5,7 @@
               android:layout_gravity="center"
               android:gravity="center"
               android:orientation="vertical"
+              android:fitsSystemWindows="true"
               android:paddingBottom="@dimen/todo_margin_top_bottom"
               android:paddingLeft="@dimen/todo_margin_left_right"
               android:paddingRight="@dimen/todo_margin_left_right"

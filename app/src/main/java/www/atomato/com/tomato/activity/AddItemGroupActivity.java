@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -29,6 +30,7 @@ import www.atomato.com.tomato.utils.ToastUtils;
 public class AddItemGroupActivity extends Activity {
     EditText title;
     Button ok;
+    Intent intent ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +40,15 @@ public class AddItemGroupActivity extends Activity {
     }
 
     private void init() {
+        intent = new Intent();
         title = (EditText)findViewById(R.id.main_activity_add_item_title);
         ok = (Button)findViewById(R.id.main_activity_add_item_commit);
+        intent.putExtra("state",false);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!title.getText().toString().equals("")){
-                    Intent intent = new Intent();
+                    intent.putExtra("state",true);
                     intent.putExtra("title", title.getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();

@@ -8,10 +8,10 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
  * Created by wangjie on 16-11-17.
  */
 public class GroupItem {
-    private String mGroupName="默认";
+    private String mGroupId="0"; //不能为默认0
     private String mTitle;//标题
     private long mTime;//时间
-    private int mDrawBackColor;//绘制北京
+    private int mDrawBackColor;//绘制背景
     private float mProgress = 0f;//进度
     private int mState = 0;//完成状态
     private int mStickState = 0;//是否置顶
@@ -127,11 +127,11 @@ public class GroupItem {
     }
 
     public String getmGroupName() {
-        return mGroupName;
+        return mGroupId;
     }
 
     public void setmGroupName(String mGroupName) {
-        this.mGroupName = mGroupName;
+        this.mGroupId = mGroupName;
     }
 
     @Override

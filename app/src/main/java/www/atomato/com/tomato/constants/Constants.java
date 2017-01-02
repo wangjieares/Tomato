@@ -25,6 +25,7 @@ public class Constants {
     public static final String DATABASE_NAME = "todo";  //数据库名称
     public static final String TABLE_NAME = "item_info";
     public static final String TOTAL_NAME = "total_info";
+    public static final String GROUP_NAME = "group_info";
     //handler
     public static final int CREATE_TODO = 110;
     public static final int DELETE_TODO = 111;

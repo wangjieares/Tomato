@@ -1,6 +1,7 @@
 package www.atomato.com.tomato.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
@@ -16,27 +17,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
-import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
-import www.atomato.com.tomato.utils.SaxXmlUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
-import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.viewpager.MyViewPager;
 
 public class MainActivity extends BaseActivity
@@ -132,19 +123,6 @@ public class MainActivity extends BaseActivity
         if (1 == mViewPager.getCurrentItem()) {
             Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
             startActivityForResult(intent, Constants.REQUEST_CODE_ADD_GROUP);
-//            Toast.makeText(this, "正在开发中", Toast.LENGTH_SHORT).show();
-//            List<GroupItem> list = new ArrayList<>();
-//            list.add(new GroupItem("读书",32,1,1,1));
-//            list.add(new GroupItem("读书2",32,1,1,1));
-//            try {
-//                FileOutputStream fileOutputStream = new FileOutputStream(getFilesDir()+"/todo.xml");
-//                FileInputStream fileInputStream = new FileInputStream(getFilesDir()+"/todo.xml");
-//                SaxXmlUtils.save(list,fileOutputStream,"默认");
-//                SaxXmlUtils.parse(fileInputStream);
-////                LogUtils.e(tag,getPackageResourcePath());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -165,15 +143,14 @@ public class MainActivity extends BaseActivity
                 }
                 break;
             case Constants.REQUEST_CODE_ADD_GROUP:
-//                ToastUtils.show(this,"成功通信");
-//                ((MoreFragment)mFragmentList.get(1)).setGroupItem(data.getStringExtra("title"));
-                try {
-                    FileOutputStream outputStream = new FileOutputStream(getFilesDir() +"/"+ data.getStringExtra("title"));
-                    SaxXmlUtils.saveGroup(outputStream, data.getStringExtra("title"));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (data.getBooleanExtra("state", false)) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Group", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    int i = sharedPreferences.getInt("group_num", 0);
+                    editor.putInt("group_num", i + 1);
+                    editor.putString("group_name_" + (i + 1), data.getStringExtra("title"));
+//                LogUtils.e(tag,"group_name_"+i);
+                    editor.apply();
                 }
                 break;
         }

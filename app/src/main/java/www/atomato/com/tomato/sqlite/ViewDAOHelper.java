@@ -51,8 +51,23 @@ class ViewDAOHelper extends SQLiteOpenHelper {
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "total_num INTEGER,"+// 总 一共完成个数
                 "total_time INTEGER)"; // 总 一共完成时间
+        String sql2 = "create table " + Constants.GROUP_NAME + " (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "group_id TEXT NOT NULL UNIQUE," +// Id 对应组名
+                "title TEXT NOT NULL UNIQUE ," +// 标题
+                "todo_time INTEGER CHECK(todo_time > 0)," +
+                "todo_state INTEGER," +
+                "todo_progress INTEGER," +
+                "todo_color INTEGER," +
+                "todo_stick INTEGER," +
+                "todo_create INTEGER," +//创建时间
+                "todo_plan_num INTEGER," +//计划完成个数
+                "todo_plan_time INTEGER," +//计划完成时间
+                "todo_total_num INTEGER," +//执行总个数
+                "todo_total_time INTEGER)";//执行总时间
         db.execSQL(sql);
         db.execSQL(sql1);
+        db.execSQL(sql2);
     }
 
     @Override

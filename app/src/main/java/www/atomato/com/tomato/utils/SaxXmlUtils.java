@@ -46,7 +46,7 @@ public class SaxXmlUtils {
         return 0;
     }
     public static void save(List<GroupItem> items, OutputStream outStream, String groupName)
-            throws Exception, IllegalStateException, IOException {
+            throws IllegalStateException, IOException {
         XmlSerializer serializer = Xml.newSerializer();//获取XML写入信息的序列化对象
         serializer.setOutput(outStream, "UTF-8");//设置要写入的OutputStream
         serializer.startDocument("UTF-8", true);//设置文档标签
@@ -102,8 +102,11 @@ public class SaxXmlUtils {
                     } else if (xpp.getName().equals("progress")) {
                         eventType = xpp.next();
                         groupItem.setProgress(Float.valueOf(xpp.getText()));
-                        mList.add(groupItem);
                         LogUtils.e("START_TAG", groupItem.toString());
+                    } else {
+                        if (groupItem != null) {
+                            mList.add(groupItem);
+                        }
                     }
                     break;
 

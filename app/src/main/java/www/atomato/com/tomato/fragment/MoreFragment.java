@@ -1,6 +1,7 @@
 package www.atomato.com.tomato.fragment;
 
-import android.database.Cursor;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -20,12 +18,9 @@ import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
 import www.atomato.com.tomato.data.GroupItem;
-import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
-import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseFragment;
-import www.atomato.com.tomato.utils.SaxXmlUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -38,8 +33,8 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private RecyclerView mRecyclerView;
     private ArrayList<GroupItem> arrayList;
     private ExpandableLayoutHelper expandableLayoutHelper;
-    private Subscriber<GroupItem> mTodoDataObserver;
-    private Observable<GroupItem> mObservable;
+    private Subscriber<Integer> mTodoDataObserver;
+    private Observable<Integer> mObservable;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,10 +50,41 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,MoreFragment.this);
 //        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
 //                mRecyclerView, this, 3);
+//        SaxXmlUtils.save();
+//        arrayList.add(new GroupItem("abv",0,0,0,0));
+//        expandableLayoutHelper.addItem("test",new GroupItem("aa",0,0,0,0));
+
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
+//        for (int i = sharedPreferences.getInt("group_num", 0); i >= 0; i--) {//有默认的Group
+//            if (i==0){
+//                break;
+//            }
+//            String title = sharedPreferences.getString("group_name_" + i, "Error!");
+//            LogUtils.e(tag,"group_name_"+i);
+//            expandableLayoutHelper.addSection(title, arrayList);
+//            expandableLayoutHelper.notifyDataSetChanged();
+//        }
         initTodo();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
+        for (int i = sharedPreferences.getInt("group_num", 0); i >= 0; i--) {//有默认的Group
+            if (i==0){
+                break;
+            }
+            String title = sharedPreferences.getString("group_name_" + i, "Error!");
+            expandableLayoutHelper.removeSection(title);
+        }
+        expandableLayoutHelper.notifyDataSetChanged();
+        initTodo();
+    }
+
     private void initTodo() {
-        mTodoDataObserver = new Subscriber<GroupItem>() {
+        mTodoDataObserver = new Subscriber<Integer>() {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
             @Override
             public void onCompleted() {
             }
@@ -68,27 +94,24 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             }
 
             @Override
-            public void onNext(GroupItem groupItem) {
-//                arrayList.add(groupItem);
-                expandableLayoutHelper.addItem(groupItem.getmGroupName(),arrayList);
+            public void onNext(Integer integer) {
+//                LogUtils.e(tag, "group_name_" + integer);
+                String title = sharedPreferences.getString("group_name_" + integer, "Error!");
+                expandableLayoutHelper.addSection(title, arrayList);
                 expandableLayoutHelper.notifyDataSetChanged();
             }
         };
-        mObservable = Observable.create(new Observable.OnSubscribe<GroupItem>() {
+        mObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super GroupItem> subscriber) {
-                try {
-//                    expandableLayoutHelper.addSection("默认", arrayList);
-                    FileInputStream fileInputStream = new FileInputStream(getContext().getFilesDir()+"/1.xml");
-                    ArrayList<GroupItem> lists = SaxXmlUtils.parse(fileInputStream);
-                    for(GroupItem groupItem :lists){
-                        arrayList.add(groupItem);
-                        subscriber.onNext(groupItem);
+            public void call(Subscriber<? super Integer> subscriber) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
+                for (int i = sharedPreferences.getInt("group_num", 0); i >= 0; i--) {//有默认的Group
+                    if (i == 0) {
+                        break;
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    subscriber.onNext(i);
                 }
-//                subscriber.onCompleted();
+                subscriber.onCompleted();
             }
         });
         mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.ToDoData;
 import www.atomato.com.tomato.utils.ToastUtils;
 
@@ -64,20 +65,44 @@ public class ViewSQLite {
         }
     }
 
-    public void update(ToDoData toDoData) {
+    public void insert(GroupItem groupItem) {
         openDataBase();
         ContentValues values = new ContentValues();
-        values.put("todo_title", toDoData.getTitle());
-        values.put("todo_time", toDoData.getTime());
-        values.put("todo_state", toDoData.getState());
-        values.put("todo_progress", toDoData.getProgress());
-        values.put("todo_color", toDoData.getDrawBackColor());
+        values.put("todo_title", groupItem.getTitle());
+        values.put("todo_time", groupItem.getTime());
+        values.put("todo_state", groupItem.getState());
+        values.put("todo_progress", groupItem.getProgress());
+        values.put("todo_color", groupItem.getDrawBackColor());
+        values.put("todo_stick", groupItem.getStickState());
+        values.put("todo_stick_time", groupItem.getStickStateTime());
+        values.put("todo_create", groupItem.getCreate());
+        values.put("todo_destory", groupItem.getDestory());
+        values.put("todo_plan_time", groupItem.getPlanTime());
+        values.put("todo_plan_num", groupItem.getmPlanNum());
+        values.put("todo_total_num", groupItem.getTotalTime());
+        values.put("todo_total_time", groupItem.getTotalTime());
         try {
-            mSQLDatabase.update(Constants.TABLE_NAME, values, null, null);
+            mSQLDatabase.insert(Constants.TABLE_NAME, null, values);
+        } catch (SQLiteConstraintException e) {
+            ToastUtils.show(mContext, "标题名称重复！");
         } finally {
             closedb();
         }
     }
+//    public void update(ToDoData toDoData) {
+//        openDataBase();
+//        ContentValues values = new ContentValues();
+//        values.put("todo_title", toDoData.getTitle());
+//        values.put("todo_time", toDoData.getTime());
+//        values.put("todo_state", toDoData.getState());
+//        values.put("todo_progress", toDoData.getProgress());
+//        values.put("todo_color", toDoData.getDrawBackColor());
+//        try {
+//            mSQLDatabase.update(Constants.TABLE_NAME, values, null, null);
+//        } finally {
+//            closedb();
+//        }
+//    }
 
     public void update(String tableName, ContentValues contentValues, String whereClause, String[] whereArgs) {
         openDataBase();
