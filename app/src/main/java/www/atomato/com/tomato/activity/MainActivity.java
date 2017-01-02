@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity
                 }
                 break;
             case Constants.REQUEST_CODE_ADD_GROUP:
-                if (data.getBooleanExtra("state", false)) {
+                if (data!=null) {
                     SharedPreferences sharedPreferences = getSharedPreferences("Group", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     int i = sharedPreferences.getInt("group_num", 0);

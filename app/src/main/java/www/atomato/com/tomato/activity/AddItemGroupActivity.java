@@ -43,12 +43,10 @@ public class AddItemGroupActivity extends Activity {
         intent = new Intent();
         title = (EditText)findViewById(R.id.main_activity_add_item_title);
         ok = (Button)findViewById(R.id.main_activity_add_item_commit);
-        intent.putExtra("state",false);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!title.getText().toString().equals("")){
-                    intent.putExtra("state",true);
                     intent.putExtra("title", title.getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();
@@ -58,4 +56,5 @@ public class AddItemGroupActivity extends Activity {
             }
         });
     }
+
 }
