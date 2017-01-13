@@ -21,6 +21,8 @@ import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
+import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -31,7 +33,6 @@ import www.atomato.com.tomato.utils.BaseFragment;
 public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private View view = null;
     private RecyclerView mRecyclerView;
-    private ArrayList<GroupItem> arrayList;
     private ExpandableLayoutHelper expandableLayoutHelper;
     private Subscriber<Integer> mTodoDataObserver;
     private Observable<Integer> mObservable;
@@ -46,13 +47,12 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
     private void initView() {
         //setting the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
-        arrayList = new ArrayList<>();
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,MoreFragment.this);
-//        ExpandableLayoutHelper expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),
-//                mRecyclerView, this, 3);
-//        SaxXmlUtils.save();
+
+        expandableLayoutHelper.addSection("test",new ArrayList<GroupItem>());
 //        arrayList.add(new GroupItem("abv",0,0,0,0));
-//        expandableLayoutHelper.addItem("test",new GroupItem("aa",0,0,0,0));
+        expandableLayoutHelper.addItem("test",new GroupItem("aa",0,0,0,0));
+        expandableLayoutHelper.addItem("test",new GroupItem("bb",0,0,0,0));
 
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
 //        for (int i = sharedPreferences.getInt("group_num", 0); i >= 0; i--) {//有默认的Group
@@ -64,7 +64,7 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
 //            expandableLayoutHelper.addSection(title, arrayList);
 //            expandableLayoutHelper.notifyDataSetChanged();
 //        }
-        initTodo();
+//        initTodo();
     }
 
     @Override
@@ -87,6 +87,7 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
             @Override
             public void onCompleted() {
+                expandableLayoutHelper.addItem("8",new GroupItem("bb",0,0,0,0));
             }
 
             @Override
@@ -97,7 +98,7 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             public void onNext(Integer integer) {
 //                LogUtils.e(tag, "group_name_" + integer);
                 String title = sharedPreferences.getString("group_name_" + integer, "Error!");
-                expandableLayoutHelper.addSection(title, arrayList);
+                expandableLayoutHelper.addSection(title, new ArrayList<GroupItem>());
                 expandableLayoutHelper.notifyDataSetChanged();
             }
         };
@@ -120,10 +121,20 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
     }
     @Override
     public void itemClicked(View item) {
-
+        ToastUtils.show(getContext(),"itemClicked");
     }
     @Override
     public void itemClicked(TodoSection todoSection) {
+        ToastUtils.show(getContext(),todoSection.getName());
+    }
 
+    @Override
+    public void ItemAddClick(View view) {
+        ToastUtils.show(getContext(),"ItemAddClick");
+    }
+
+    @Override
+    public void ItemReminkClick(View view) {
+        ToastUtils.show(getContext(),"ItemReminkClick");
     }
 }

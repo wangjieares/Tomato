@@ -69,6 +69,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
                     @Override
                     public void onClick(View view) {
                         LogUtils.e("ExpandableTodo","onClick()");
+                        mItemClickListener.itemClicked(view);
                     }
                 });
                 break;
@@ -90,16 +91,16 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
                         mTodoStateChangeListener.onSectionStateChanged(todoSection, isChecked);
                     }
                 });
-                holder.addToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                holder.addToggleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        mTodoStateChangeListener.onRemindClick();
+                    public void onClick(View view) {
+                        mItemClickListener.ItemAddClick(view);
                     }
                 });
-                holder.remindToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                holder.remindToggleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        mTodoStateChangeListener.onAddClick();
+                    public void onClick(View view) {
+                        mItemClickListener.ItemReminkClick(view);
                     }
                 });
                 break;

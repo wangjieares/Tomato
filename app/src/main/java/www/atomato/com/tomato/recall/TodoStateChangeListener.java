@@ -11,6 +11,4 @@ import www.atomato.com.tomato.data.TodoSection;
  */
 public interface TodoStateChangeListener {
     void onSectionStateChanged(TodoSection todoSection, boolean isOpen);
-    void onAddClick();
-    void onRemindClick();
 }

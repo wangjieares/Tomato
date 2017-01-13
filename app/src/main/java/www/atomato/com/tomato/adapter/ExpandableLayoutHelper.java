@@ -13,7 +13,6 @@ import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
-import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by bpncool on 2/23/2016.
@@ -58,16 +57,10 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     }
 
     public void addItem(String section, GroupItem item) {
-        mSectionDataMap.get(mSectionMap.get(section)).add(item);
-    }
-    //自动创建section
-    public void addItem(String section,ArrayList<GroupItem> items) {
-        if(!mSectionMap.containsKey(section)){
-            LogUtils.e("addItem","空的");
-            TodoSection newTodoSection;
-            mSectionMap.put(section, (newTodoSection = new TodoSection(section)));//section
-            mSectionDataMap.put(newTodoSection, items);
-        }
+//        mSectionDataMap.get(mSectionMap.get(section)).add(item);
+        TodoSection todoSection = mSectionMap.get(section);
+        ArrayList<GroupItem> arrayList = mSectionDataMap.get(todoSection);
+        arrayList.add(item);
     }
 
     public void removeItem(String section, GroupItem item) {
@@ -95,15 +88,5 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
             todoSection.isExpanded = isOpen;
             notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onAddClick() {
-
-    }
-
-    @Override
-    public void onRemindClick() {
-
     }
 }
