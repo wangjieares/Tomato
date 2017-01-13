@@ -59,7 +59,7 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         switch (holder.viewType) {
             case VIEW_TYPE_ITEM :
                 final GroupItem item = (GroupItem) mDataArrayList.get(position);
@@ -88,19 +88,25 @@ public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAd
                 holder.expandToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        //更改图标icon状态
+                        if(isChecked){
+                            holder.expandToggleButton.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.fragment_more_layout_section_expand_bottom));
+                        }else {
+                            holder.expandToggleButton.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.fragment_more_layout_section_expand_right));
+                        }
                         mTodoStateChangeListener.onSectionStateChanged(todoSection, isChecked);
                     }
                 });
                 holder.addToggleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mItemClickListener.ItemAddClick(view);
+                        mItemClickListener.ItemAddClick(view,todoSection);
                     }
                 });
                 holder.remindToggleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mItemClickListener.ItemReminkClick(view);
+                        mItemClickListener.ItemReminkClick(view,todoSection);
                     }
                 });
                 break;

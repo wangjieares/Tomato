@@ -11,7 +11,7 @@ public class TodoSection {
 
     public TodoSection(String name) {
         this.name = name;
-        isExpanded = true;
+        isExpanded = false;//默认不展开
     }
 
     public String getName() {

@@ -119,22 +119,25 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
         mObservable.subscribe(mTodoDataObserver);
     }
+
     @Override
     public void itemClicked(View item) {
-        ToastUtils.show(getContext(),"itemClicked");
+
     }
+
     @Override
     public void itemClicked(TodoSection todoSection) {
         ToastUtils.show(getContext(),todoSection.getName());
     }
 
     @Override
-    public void ItemAddClick(View view) {
-        ToastUtils.show(getContext(),"ItemAddClick");
+    public void ItemAddClick(View view,TodoSection todoSection) {
+        expandableLayoutHelper.addItem(todoSection.getName(),new GroupItem("bb",0,0,0,0));
+        expandableLayoutHelper.notifyDataSetChanged();
     }
 
     @Override
-    public void ItemReminkClick(View view) {
+    public void ItemReminkClick(View view,TodoSection todoSection) {
         ToastUtils.show(getContext(),"ItemReminkClick");
     }
 }

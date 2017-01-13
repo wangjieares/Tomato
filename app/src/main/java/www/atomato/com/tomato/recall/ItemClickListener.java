@@ -10,6 +10,6 @@ import www.atomato.com.tomato.data.TodoSection;
 public interface ItemClickListener {
     void itemClicked(View item);
     void itemClicked(TodoSection todoSection);
-    void ItemAddClick(View item);
-    void ItemReminkClick(View item);
+    void ItemAddClick(View item,TodoSection todoSection);
+    void ItemReminkClick(View item,TodoSection todoSection);
 }

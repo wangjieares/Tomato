@@ -40,7 +40,7 @@
             android:layout_width="@dimen/fragment_more_layout_icon_expand"
             android:layout_height="@dimen/fragment_more_layout_icon_expand"
             android:layout_marginStart="10dp"
-            android:background="@drawable/fragment_more_layout_section_expand"
+            android:background="@drawable/fragment_more_layout_section_expand_right"
             android:padding="@dimen/fragment_more_section_padding"
             android:textOff=""
             android:textOn="" />
