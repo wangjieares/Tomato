@@ -234,6 +234,8 @@ public class MainActivity extends BaseActivity
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.future_plan) {
+            Intent intent = new Intent(MainActivity.this, FetureActivity.class);
+            startActivity(intent);
 //            item.setCheckable(true);
 //            item.setChecked(true);
         } else if (id == R.id.setting) {
