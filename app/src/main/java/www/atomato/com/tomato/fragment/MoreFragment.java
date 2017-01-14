@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import rx.schedulers.Schedulers;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.ExpandableLayoutHelper;
 import www.atomato.com.tomato.data.GroupItem;
+import www.atomato.com.tomato.data.SpaceItemDecoration;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
@@ -48,7 +50,6 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
         //setting the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(),mRecyclerView,MoreFragment.this);
-
         expandableLayoutHelper.addSection("test",new ArrayList<GroupItem>());
 //        arrayList.add(new GroupItem("abv",0,0,0,0));
         expandableLayoutHelper.addItem("test",new GroupItem("aa",0,0,0,0));
@@ -87,7 +88,6 @@ public class MoreFragment extends BaseFragment  implements ItemClickListener {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
             @Override
             public void onCompleted() {
-                expandableLayoutHelper.addItem("8",new GroupItem("bb",0,0,0,0));
             }
 
             @Override

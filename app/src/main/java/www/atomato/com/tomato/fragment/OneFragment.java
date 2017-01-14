@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +74,8 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mLinearLayoutManager.setStackFromEnd(true);//列表再底部开始展示，反转后由上面开始展示
         mLinearLayoutManager.setReverseLayout(true);//列表反转
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
+        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics());//转换成6dp
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(space));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerListener(getActivity(), this));

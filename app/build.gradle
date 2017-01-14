@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "www.atomato.com.tomato"
+        applicationId "www.atomato.com"
         minSdkVersion 19
         targetSdkVersion 25
         multiDexEnabled = true

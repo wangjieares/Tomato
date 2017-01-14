@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:gravity="center"
-              android:orientation="vertical"
               android:fitsSystemWindows="true"
-              android:paddingBottom="@dimen/todo_margin_top_bottom"
-              android:paddingLeft="@dimen/todo_margin_left_right"
-              android:paddingRight="@dimen/todo_margin_left_right"
-              android:paddingTop="@dimen/todo_margin_top_bottom">
+              android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_more_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:descendantFocusability="afterDescendants"
+        android:fitsSystemWindows="true"
+        android:focusable="false"/>
+
 </LinearLayout>
