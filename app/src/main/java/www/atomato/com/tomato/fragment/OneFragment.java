@@ -144,7 +144,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
     @Override
     public void onLongLeftItemClick(View view, int position) {
-//        LogUtils.e(tag, tag + "===onLongRightItenClick===>" + position);
+        LogUtils.e(tag, tag + "===onLongRightItenClick===>" + position);
         showPopFormBottom(view, position);
 //        ButtomAlertDialog.showDialog(getContext());
     }
@@ -230,9 +230,9 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
     @Override
     public void markClick(View view, int positon) {
+        ViewSQLite viewSQLite = new ViewSQLite(getContext());
         //待优化代码---------------------------------------------------
         try {
-            ViewSQLite viewSQLite = new ViewSQLite(getContext());
             ContentValues values = new ContentValues();
             values.put("todo_state", 1);
             Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{mAdapter.getTitle(positon)}, null, null, null);
@@ -246,7 +246,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             viewSQLite.update(Constants.TABLE_NAME, values, "todo_title=?", new String[]{mAdapter.getTitle(positon)});
             mAdapter.refresh(positon);
         } finally {
-
+            viewSQLite.closedb();
         }
     }
 

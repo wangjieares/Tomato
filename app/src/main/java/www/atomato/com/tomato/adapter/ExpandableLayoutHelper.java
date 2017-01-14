@@ -36,7 +36,6 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     RecyclerView mRecyclerView;
 
     public ExpandableLayoutHelper(Context context, RecyclerView recyclerView, ItemClickListener itemClickListener) {
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         //linearLayoutManager

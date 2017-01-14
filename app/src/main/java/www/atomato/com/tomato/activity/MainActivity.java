@@ -28,7 +28,6 @@ import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
-import www.atomato.com.tomato.viewpager.MyViewPager;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -38,8 +37,7 @@ public class MainActivity extends BaseActivity
     private ImageButton mOneButton, mMoreButton;//底部按钮
     private OneFragment mOneFragment;
     private MoreFragment mMoreFragment;
-    private MyViewPager mViewPager;
-
+    private ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +53,8 @@ public class MainActivity extends BaseActivity
         mMoreButton = (ImageButton) findViewById(R.id.moreButton);
         mOneButton.setOnClickListener(this);
         mMoreButton.setOnClickListener(this);
+        mOneButton.setImageResource(R.drawable.todo_one_selector);
+        mMoreButton.setImageResource(R.drawable.todo_more);
         //end按钮初始化
 
         //start fragment初始化
@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity
         mFragmentList = new ArrayList<>();
         mFragmentList.add(mOneFragment);
         mFragmentList.add(mMoreFragment);
-        mViewPager = (MyViewPager) findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
 //        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity
             bundle.putInt("todo_progress", 0);
             bundle.putInt("todo_drawColor", Color.parseColor("#1ABC9C"));
             bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
-            Message message = OneFragment.handler.obtainMessage();
+            Message message = OneFragment .handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);
@@ -266,11 +266,15 @@ public class MainActivity extends BaseActivity
             case R.id.oneButton:
 //                LogUtils.d(tag, tag + "===oneButton Click");
                 mViewPager.setCurrentItem(0);
+                mOneButton.setImageResource(R.drawable.todo_one_selector);
+                mMoreButton.setImageResource(R.drawable.todo_more);
                 invalidateOptionsMenu();
                 break;
             case R.id.moreButton:
 //                LogUtils.d(tag, tag + "===moreButton Click");
                 mViewPager.setCurrentItem(1);
+                mMoreButton.setImageResource(R.drawable.todo_more_selector);
+                mOneButton.setImageResource(R.drawable.todo_one);
                 invalidateOptionsMenu();
                 break;
         }
@@ -285,9 +289,13 @@ public class MainActivity extends BaseActivity
     public void onPageSelected(int position) {
         switch (position) {
             case 0:
+                mOneButton.setImageResource(R.drawable.todo_one_selector);
+                mMoreButton.setImageResource(R.drawable.todo_more);
                 invalidateOptionsMenu();
                 break;
             case 1:
+                mMoreButton.setImageResource(R.drawable.todo_more_selector);
+                mOneButton.setImageResource(R.drawable.todo_one);
                 invalidateOptionsMenu();
                 break;
         }

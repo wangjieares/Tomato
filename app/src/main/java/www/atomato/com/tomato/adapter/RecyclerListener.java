@@ -51,6 +51,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
         mLongPressRunnable = new Runnable() {
             @Override
             public void run() {
+                LogUtils.e(tag,"setLong Runnable running");
                 mCounter--;
                 // 计数器大于0，说明当前执行的Runnable不是最后一次down产生的。
                 if (mCounter > 0 || mReleased || mMoved) {
