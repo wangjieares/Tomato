@@ -28,8 +28,8 @@ import android.view.animation.LinearInterpolator;
 
 import java.util.Calendar;
 
-public class RotateView extends View {
-    private static final String TAG = RotateView.class.getSimpleName();
+public class MyView extends View {
+    private static final String TAG = MyView.class.getSimpleName();
     private static boolean DEBUG = true;
 
 //    private int colorBg = Color.BLUE;
@@ -123,12 +123,12 @@ public class RotateView extends View {
 
     private Camera camera = new Camera();
 
-    public RotateView(Context context) {
+    public MyView(Context context) {
         super(context);
         init();//初始化颜色
     }
 
-    public RotateView(Context context, AttributeSet attrs) {
+    public MyView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }

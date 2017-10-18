@@ -180,14 +180,14 @@ public class ToDoView extends View {
         //如果状态为假，说明该代办未完成
         if (ITEM_STATUS == 1) {
             mPaint.setColor(Color.rgb(255, 255, 255));
-            mPaint.setTextSize(sp2px(15));
+            mPaint.setTextSize(sp2px(16));
 //            canvas.drawText(mTodoStart, 480, 96, mPaint);
-            canvas.drawText(mTodoEnd, (float) (mScreenWidth / 1.34), (float) (mScreenHeight/14.8), mPaint);
+            canvas.drawText(mTodoEnd, (float) (mScreenWidth / 1.32), (float) (mScreenHeight/14.8), mPaint);
         } else {
             //默认该代办未完成
             mPaint.setColor(Color.rgb(255, 255, 255));
-            mPaint.setTextSize(sp2px(15));
-            canvas.drawText(mTodoStart, (float) (mScreenWidth / 1.34), (float) (mScreenHeight/14.8), mPaint);
+            mPaint.setTextSize(sp2px(16));
+            canvas.drawText(mTodoStart, (float) (mScreenWidth / 1.32), (float) (mScreenHeight/14.8), mPaint);
         }
     }
 

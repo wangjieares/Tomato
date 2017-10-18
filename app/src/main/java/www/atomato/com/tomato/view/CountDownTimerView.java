@@ -16,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
@@ -199,7 +200,6 @@ public class CountDownTimerView extends View {
         canvas.translate(getPaddingLeft(), getPaddingTop());
         //画默认圆
 //        canvas.drawCircle(defaultCircleRadius, defaultCircleRadius, defaultCircleRadius, defaultCriclePaint);
-
         //画进度圆弧
         //currentAngle = getProgress()*1.0f/getMax()*360;
         canvas.drawArc(mRectF, mStartSweepValue, 360 * currentAngle, false, progressPaint);
@@ -219,24 +219,19 @@ public class CountDownTimerView extends View {
         smallCircleY = (float) Math.abs(defaultCircleRadius - Math.cos(hudu) * defaultCircleRadius);
         canvas.drawCircle(smallCircleX, smallCircleY, smallCircleRadius, smallCirclePaint);
         canvas.drawCircle(smallCircleX, smallCircleY, smallCircleRadius - smallCircleStrokeWidth, smallCircleSolidePaint);//画小圆的实心
-
         canvas.restore();
-
     }
 
     /**
      * dp 2 px
-     *
      * @param dpVal
      */
     protected int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
     }
-
     /**
      * sp 2 px
-     *
      * @param spVal
      * @return
      */
@@ -251,8 +246,9 @@ public class CountDownTimerView extends View {
         this.countdownTime = countdownTime;
         mMintue = countdownTime / 1000 / 60;//分钟
         //2*60*1000=119000
-        mSecord = countdownTime / 1000  % 60;//秒
+        mSecord = countdownTime / 1000 % 60;
         textDesc = mMintue + ":" + mSecord;
+//        LogUtils.e("time",textDesc);
     }
 
     //属性动画
@@ -324,8 +320,12 @@ public class CountDownTimerView extends View {
                 //2*60*1000=120000
                 mMintue = countdownTime / 1000 / 60;//分钟
                 //2*60*1000=119000
-                mSecord = countdownTime / 1000  % 60;//秒
-                textDesc = mMintue + ":" + mSecord;
+                mSecord = countdownTime / 1000 % 60;//秒
+                if(mSecord<10){
+                    textDesc = mMintue + ":0" + mSecord;
+                }else {
+                    textDesc = mMintue + ":" + mSecord;
+                }
                 //countdownTime = countdownTime-1000;
 //                Log.e("time", countdownTime + "");
                 //刷新view

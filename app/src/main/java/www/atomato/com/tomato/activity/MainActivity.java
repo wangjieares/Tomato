@@ -157,9 +157,9 @@ public class MainActivity extends BaseActivity
 
     //该功能实现较为繁琐,应该修改 2016.12.25
     public void addToDo(Bundle bundle) {
-        int plan = bundle.getInt("plan");
-        int time = bundle.getInt("time");
-        int day = bundle.getInt("day");
+        int plan = bundle.getInt("todo_plan");
+        int time = bundle.getInt("todo_time");
+        int day = bundle.getInt("day");//没实现功能
         //默认情况创建Todo
         if (plan == 0 && time == 0 && day == 0) {
             LogUtils.e(tag, plan + "===" + time + "===" + day);
@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);
         } else {
-            bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
+            bundle.putInt("todo_plan_time", bundle.getInt("todo_time") * 10);//短期十个一组
             bundle.putInt("todo_state", 0);
             bundle.putInt("todo_progress", 0);
             bundle.putInt("todo_destory", 0);

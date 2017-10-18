@@ -74,40 +74,40 @@ public class AddItemActivity extends Activity implements RadioGroup.OnCheckedCha
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         int id = group.getId();
         switch (id) {
-            case R.id.planRadioGroup:
-                if (checkedId == R.id.longRadio) {
-                    bundle.putInt("plan", Constants.LONG_RADIO);
-//                    LogUtils.e(tag, "plan==" + Constants.LONG_RADIO);
-                    ButtomDialogUtils.showLongDialog(this, this);
-                    break;
-                } else if (checkedId == R.id.shortRadio) {
-                    bundle.putInt("long", 350);
-//                    LogUtils.e(tag, "plan==" + Constants.SHORT_RADIO);
-                    break;
-                }
-                break;
-            case R.id.timeRadioGroup:
-                if (checkedId == R.id.customRadio) {
-//                    bundle.putInt("todo_time", Constants.CUSTOM_RADIO);
-//                    LogUtils.e(tag, "time==" + Constants.CUSTOM_RADIO);
-                    ButtomDialogUtils.showCustromDialog(this, this);
-                    break;
-                } else if (checkedId == R.id.timeRadio) {
-                    bundle.putInt("todo_time", Constants.TIME_RADIO);
-//                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
-                    break;
-                } else if (checkedId == R.id.defaultDayRadio) {
-                    bundle.putInt("todo_time", Constants.DEFAULT_RADIO);
-//                    LogUtils.e(tag, "time==" + Constants.DEFAULT_RADIO);
-                    break;
-                }
-                break;
+            //每天，今天
             case R.id.dayRadioGroup:
                 if (checkedId == R.id.oneDayRadio) {
                     ToastUtils.show(this, "暂不支持功能切换!");
                     break;
                 } else if (checkedId == R.id.everyDayRadio) {
                     ToastUtils.show(this, "暂不支持功能切换!");
+                    break;
+                }
+                break;
+            //番茄钟时间
+            case R.id.timeRadioGroup:
+                if (checkedId == R.id.defaultDayRadio) {
+                    bundle.putInt("todo_time", Constants.DEFAULT_RADIO);
+                    break;
+                } else if (checkedId == R.id.timeRadio) {
+                    bundle.putInt("todo_time", Constants.TIME_RADIO);
+//                    LogUtils.e(tag, "time==" + Constants.TIME_RADIO);
+                    break;
+                } else if (checkedId == R.id.customRadio) {
+                    ButtomDialogUtils.showCustromDialog(this, this);
+                    break;
+                }
+                break;
+            //长期短期计划
+            case R.id.planRadioGroup:
+                if (checkedId == R.id.longRadio) {
+                    bundle.putInt("todo_plan", Constants.LONG_RADIO);
+//                    LogUtils.e(tag, "plan==" + Constants.LONG_RADIO);
+                    ButtomDialogUtils.showLongDialog(this, this);
+                    break;
+                } else if (checkedId == R.id.shortRadio) {
+                    bundle.putInt("todo_plan", 350);
+//                    LogUtils.e(tag, "plan==" + Constants.SHORT_RADIO);
                     break;
                 }
                 break;
