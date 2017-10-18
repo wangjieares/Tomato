@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="library-0.0.2">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.flavienlaurent.datetimepicker/library/0.0.2/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.flavienlaurent.datetimepicker/library/0.0.2/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/92e52d8dd8bbee9fe6c5e12a40e73b8d019f534b/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/92e52d8dd8bbee9fe6c5e12a40e73b8d019f534b/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

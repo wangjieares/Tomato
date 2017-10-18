@@ -46,4 +46,5 @@ dependencies {
     //有米SDK
     compile files('libs/YoumiSdk_v6.4.4_2016-09-08.jar')
     compile files('libs/miadtracker.jar')
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
