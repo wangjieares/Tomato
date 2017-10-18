@@ -123,6 +123,8 @@ public class ToDoView extends View {
         mPaint = new Paint();
         mPaint.setTypeface(Typeface.DEFAULT);
         mPaint.setAntiAlias(true);
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/zaozi.otf");
+        mPaint.setTypeface(font);
         //获取屏幕宽度高度
         mScreenWidth = ScreenUtils.getScreenWidth(context);
         mScreenHeight = ScreenUtils.getScreenHeight(context);
@@ -175,7 +177,6 @@ public class ToDoView extends View {
         //默认进度
         drawProgress(canvas);
     }
-
     private void drawTextState(Canvas canvas) {
         //如果状态为假，说明该代办未完成
         if (ITEM_STATUS == 1) {

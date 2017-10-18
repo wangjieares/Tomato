@@ -5,4 +5,4 @@
 #RecyclerView的初步使用
 #Toolbar的使用
 #ValueAnimations 动画
-#全局字体Calligraphy
+#全局字体Calligraphy插件，自定义view字体typeface

@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivity
         mOneButton.setImageResource(R.drawable.todo_one_selector);
         mMoreButton.setImageResource(R.drawable.todo_more);
         //end按钮初始化
-
         //start fragment初始化
         mOneFragment = new OneFragment();
         mMoreFragment = new MoreFragment();
@@ -67,7 +66,7 @@ public class MainActivity extends BaseActivity
         mFragmentList.add(mOneFragment);
         mFragmentList.add(mMoreFragment);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-//        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+//      adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(0);
