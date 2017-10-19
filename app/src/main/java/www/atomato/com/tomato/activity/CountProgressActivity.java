@@ -42,7 +42,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     @BindView(R.id.activity_count_timer_linear)
     LinearLayout activityCountTimerLinear;
     private String tag = getClass().getSimpleName();
-    private boolean mIsNext = true;
+    private boolean mIsNext = false;
     private boolean quit = false;
     long lastTime;
     private String todoTitle;
@@ -182,8 +182,8 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         if (mIsNext) {
             LogUtils.e(tag,isDesotry()+"");
             if (!isDesotry()) {
-                CountDownTimerView.onRestartAni(this,todoTime * 1000 * 60);
                 SoundUtils.playSounds(this,R.raw.minute,1,-1);
+                CountDownTimerView.onRestartAni(this,todoTime * 1000 * 60);
                 LogUtils.e(tag,"继续执行"+"");
             }else {
                 LogUtils.e(getClass().getName(),"停止执行"+"");
