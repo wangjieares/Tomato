@@ -42,8 +42,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     @BindView(R.id.activity_count_timer_linear)
     LinearLayout activityCountTimerLinear;
     private String tag = getClass().getSimpleName();
-    private boolean mIsNext = true
-            ;
+    private boolean mIsNext = true;
     private boolean quit = false;
     long lastTime;
     private String todoTitle;
@@ -165,10 +164,13 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     private boolean isDesotry() {
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
             cursor.moveToNext();
-            int todo_destory = cursor.getInt(cursor.getColumnIndex("todo_destory"));
-            int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
-            int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
-            return (todo_destory == 0) && (todo_plan_time == todo_total_time);//0是不销毁 执行个数等于总个数就销毁
+//            if(cursor.moveToFirst()){
+//                int todo_destory = cursor.getInt(cursor.getColumnIndex("todo_destory"));
+//                int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
+//                int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+//                return (todo_destory == 0) && (todo_plan_time == todo_total_time);//0是不销毁 执行个数等于总个数就销毁
+//            }
+            return false;
         }
     }
 
@@ -180,7 +182,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         if (mIsNext) {
             LogUtils.e(tag,isDesotry()+"");
             if (!isDesotry()) {
-                CountDownTimerView.onRestartAni(this);
+                CountDownTimerView.onRestartAni(this,todoTime * 1000 * 60);
                 LogUtils.e(tag,"继续执行"+"");
             }else {
                 LogUtils.e(getClass().getName(),"停止执行"+"");
@@ -195,9 +197,9 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
             contentValues.put("todo_total_time", totalTime + todoTime);//总时间 之前时间+当前完成时间
             contentValues.put("todo_total_num", totalNum + 1);//总时间 之前个数+1
             viewSQLite.update(Constants.TABLE_NAME, contentValues, "todo_title=?", new String[]{todoTitle});
-            if (isDesotry()) {
-                viewSQLite.delete(todoTitle);
-            }
+//            if (isDesotry()) {
+//                viewSQLite.delete(todoTitle);
+//            }
         } finally {
             viewSQLite.closedb();
         }

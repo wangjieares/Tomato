@@ -250,9 +250,13 @@ public class CountDownTimerView extends View {
         textDesc = mMintue + ":" + mSecord;
         LogUtils.e("time",textDesc);
     }
-    public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener){
+    public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener,long countdownTime){
+        this.countdownTime = countdownTime;
+        mMintue = countdownTime / 1000 / 60;//分钟
+        //2*60*1000=119000
+        mSecord = countdownTime / 1000 % 60;
+        textDesc = mMintue + ":" + mSecord;
         startCountDownTime(onCountdownFinishListener);
-        invalidate();
     }
     //属性动画
     public void startCountDownTime(final OnCountdownFinishListener countdownFinishListener) {
