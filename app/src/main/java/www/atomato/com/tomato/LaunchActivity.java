@@ -34,7 +34,7 @@ public class LaunchActivity extends Activity {
                     startActivity(intent);
                 }
             }
-    }, 3000);//3000微妙后跳转
+    }, 1000);//3000微妙后跳转
 
     }
 
