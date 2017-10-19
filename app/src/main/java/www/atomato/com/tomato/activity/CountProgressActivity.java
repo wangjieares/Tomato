@@ -204,7 +204,5 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         } finally {
             viewSQLite.closedb();
         }
-
-
     }
 }
