@@ -183,6 +183,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
             LogUtils.e(tag,isDesotry()+"");
             if (!isDesotry()) {
                 CountDownTimerView.onRestartAni(this,todoTime * 1000 * 60);
+                SoundUtils.playSounds(this,R.raw.minute,1,-1);
                 LogUtils.e(tag,"继续执行"+"");
             }else {
                 LogUtils.e(getClass().getName(),"停止执行"+"");
