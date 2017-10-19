@@ -179,7 +179,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         if (mIsNext) {
             LogUtils.e(tag,isDesotry()+"");
             if (!isDesotry()) {
-                CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
+                CountDownTimerView.onRestartAni(this);
                 LogUtils.e(tag,"继续执行"+"");
             }else {
                 LogUtils.e(getClass().getName(),"停止执行"+"");

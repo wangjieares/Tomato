@@ -41,7 +41,6 @@ public class CountDownTimerView extends View {
     //最里层的文字
     private int textColor = Constants.TEXT_COLOR;
     private int textSize = sp2px(Constants.TEXT_SIZE);
-
     //画笔
     private Paint defaultCriclePaint;
     private Paint progressPaint;
@@ -249,10 +248,11 @@ public class CountDownTimerView extends View {
         //2*60*1000=119000
         mSecord = countdownTime / 1000 % 60;
         textDesc = mMintue + ":" + mSecord;
-        invalidate();
         LogUtils.e("time",textDesc);
     }
-
+    public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener){
+        startCountDownTime(onCountdownFinishListener);
+    }
     //属性动画
     public void startCountDownTime(final OnCountdownFinishListener countdownFinishListener) {
         setClickable(false);//不能点击
