@@ -18,6 +18,7 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
+import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
  * 自定义圆形倒计时
@@ -248,7 +249,8 @@ public class CountDownTimerView extends View {
         //2*60*1000=119000
         mSecord = countdownTime / 1000 % 60;
         textDesc = mMintue + ":" + mSecord;
-//        LogUtils.e("time",textDesc);
+        invalidate();
+        LogUtils.e("time",textDesc);
     }
 
     //属性动画
@@ -276,12 +278,11 @@ public class CountDownTimerView extends View {
                 invalidate();//实时刷新view，这样我们的进度条弧度就动起来了
             }
         });
-        //开启动画
-        animator.start();
         //还需要另一个监听，监听动画状态的监听器
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                LogUtils.e(getClass().getName(),"start");
             }
 
             @Override
@@ -305,6 +306,7 @@ public class CountDownTimerView extends View {
             public void onAnimationRepeat(Animator animation) {
             }
         });
+        animator.start();
         //调用倒计时操作
         countdownMethod();
     }

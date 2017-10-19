@@ -160,29 +160,29 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         }
 
     }
-
+//判断是不是需要继续执行
     private boolean isDesotry() {
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
             cursor.moveToNext();
             int todo_destory = cursor.getInt(cursor.getColumnIndex("todo_destory"));
             int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
             int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
-            if (todo_destory == 1 && todo_plan_time == todo_total_time) {
-                return true;
-            } else {
-                return false;
-            }
+            return (todo_destory == 0) && (todo_plan_time == todo_total_time);//0是不销毁 执行个数等于总个数就销毁
         }
     }
 
     @Override
     public void performFinished() {
         SoundUtils.stopSound();
+        LogUtils.e(tag,"performFinished");
         viewSQLite = new ViewSQLite(this);
         if (mIsNext) {
+            LogUtils.e(tag,isDesotry()+"");
             if (!isDesotry()) {
                 CountDownTimerView.setCountdownTime(getIntent().getIntExtra("todo_time", 35) * 1000 * 60);
-            } else {
+                LogUtils.e(tag,"继续执行"+"");
+            }else {
+                LogUtils.e(getClass().getName(),"停止执行"+"");
                 viewSQLite.delete(todoTitle);
             }
         }
