@@ -42,7 +42,8 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     @BindView(R.id.activity_count_timer_linear)
     LinearLayout activityCountTimerLinear;
     private String tag = getClass().getSimpleName();
-    private boolean mIsNext = false;
+    private boolean mIsNext = true
+            ;
     private boolean quit = false;
     long lastTime;
     private String todoTitle;

@@ -252,6 +252,7 @@ public class CountDownTimerView extends View {
     }
     public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener){
         startCountDownTime(onCountdownFinishListener);
+        invalidate();
     }
     //属性动画
     public void startCountDownTime(final OnCountdownFinishListener countdownFinishListener) {
