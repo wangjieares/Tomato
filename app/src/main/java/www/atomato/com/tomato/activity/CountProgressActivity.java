@@ -2,10 +2,15 @@ package www.atomato.com.tomato.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.view.View;
@@ -19,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.service.CountProgressService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.SoundUtils;
@@ -48,7 +54,8 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     private String todoTitle;
     private int todoTime;
     private ViewSQLite viewSQLite;
-
+    private CountProgressService countProgressService;
+    private ServiceConnection connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -60,7 +67,24 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         CountDownTimerView.setCountdownTime(todoTime * 1000 * 60);
         activityCountTimerImageButtonRestart.setSelected(true);
         activityCountTimerImageButtonComputer.setSelected(true);
-        SoundUtils.playSounds(this,R.raw.minute,1,-1);
+        SoundUtils.playSounds(this, R.raw.minute, 1, -1);
+        Intent intent = new Intent(this, CountProgressService.class);
+        Bundle bundle = new Bundle();//数据
+        bundle.putInt("todo_time",todoTime);
+        intent.putExtras(bundle);
+        connection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                LogUtils.e(tag,"onServiceConnected success");
+                countProgressService = ((CountProgressService.MyBinder) service).getService();
+                countProgressService.setActivity(CountProgressActivity.this);
+            }
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                LogUtils.e(tag,"onServiceConnected error");
+            }
+        };
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
         //设置背景
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            activityCountTimerLinear.setBackground(getDrawable(R.drawable.activity_count_timer_background));
@@ -68,7 +92,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
 //            activityCountTimerLinear.setBackground(getResources().getDrawable(R.drawable.activity_count_timer_background));
 //        }
         //开始计时器
-        CountDownTimerView.startCountDownTime(this);
+//        CountDownTimerView.startCountDownTime(this);
     }
 
     @Override
@@ -81,6 +105,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
     protected void onDestroy() {
         super.onDestroy();
         SoundUtils.stopSound();
+        unbindService(connection);
     }
 
     @Override
@@ -160,7 +185,8 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         }
 
     }
-//判断是不是需要继续执行
+
+    //判断是不是需要继续执行
     private boolean isDesotry() {
         try (Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title=?", new String[]{todoTitle}, null, null, null)) {
             cursor.moveToNext();
@@ -173,20 +199,19 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
             return false;
         }
     }
-
     @Override
     public void performFinished() {
         SoundUtils.stopSound();
-        LogUtils.e(tag,"performFinished");
+        LogUtils.e(tag, "performFinished");
         viewSQLite = new ViewSQLite(this);
         if (mIsNext) {
-            LogUtils.e(tag,isDesotry()+"");
+            LogUtils.e(tag, isDesotry() + "");
             if (!isDesotry()) {
-                SoundUtils.playSounds(this,R.raw.minute,1,-1);
-                CountDownTimerView.onRestartAni(this,todoTime * 1000 * 60);
-                LogUtils.e(tag,"继续执行"+"");
-            }else {
-                LogUtils.e(getClass().getName(),"停止执行"+"");
+                SoundUtils.playSounds(this, R.raw.minute, 1, -1);
+                CountDownTimerView.onRestartAni(this, todoTime * 1000 * 60);
+                LogUtils.e(tag, "继续执行" + "");
+            } else {
+                LogUtils.e(getClass().getName(), "停止执行" + "");
                 viewSQLite.delete(todoTitle);
             }
         }
@@ -204,5 +229,9 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         } finally {
             viewSQLite.closedb();
         }
+    }
+
+    public www.atomato.com.tomato.view.CountDownTimerView getCountDownTimerView(){
+        return CountDownTimerView;
     }
 }

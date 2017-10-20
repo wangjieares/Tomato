@@ -18,8 +18,6 @@ import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
-import www.atomato.com.tomato.utils.SoundUtils;
-import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
  * 自定义圆形倒计时
@@ -55,6 +53,11 @@ public class CountDownTimerView extends View {
     private float currentAngle;
     //提供一个外界可以设置的倒计时数值，毫秒值
     private long countdownTime;
+
+    public void setTextDesc(String textDesc) {
+        this.textDesc = textDesc;
+    }
+
     //中间文字描述
     private String textDesc;
     //    private String textDesc;
@@ -64,10 +67,8 @@ public class CountDownTimerView extends View {
     private RectF mRectF;
     //额外距离
     private float extraDistance = 0.7F;
-
     private long mSecord;
     private long mMintue;
-
     public CountDownTimerView(Context context) {
         this(context, null);
     }
@@ -225,21 +226,23 @@ public class CountDownTimerView extends View {
 
     /**
      * dp 2 px
+     *
      * @param dpVal
      */
     protected int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
     }
+
     /**
      * sp 2 px
+     *
      * @param spVal
      * @return
      */
     protected int sp2px(int spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, getResources().getDisplayMetrics());
-
     }
 
     //提供一个外界可以设置的倒计时数值
@@ -249,9 +252,10 @@ public class CountDownTimerView extends View {
         //2*60*1000=119000
         mSecord = countdownTime / 1000 % 60;
         textDesc = mMintue + ":" + mSecord;
-        LogUtils.e("time",textDesc);
+        LogUtils.e("CountDownTimerView=time", textDesc);
     }
-    public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener,long countdownTime){
+
+    public void onRestartAni(OnCountdownFinishListener onCountdownFinishListener, long countdownTime) {
         this.countdownTime = countdownTime;
         mMintue = countdownTime / 1000 / 60;//分钟
         //2*60*1000=119000
@@ -259,6 +263,7 @@ public class CountDownTimerView extends View {
         textDesc = mMintue + ":" + mSecord;
         startCountDownTime(onCountdownFinishListener);
     }
+
     //属性动画
     public void startCountDownTime(final OnCountdownFinishListener countdownFinishListener) {
         setClickable(false);//不能点击
@@ -288,7 +293,7 @@ public class CountDownTimerView extends View {
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                LogUtils.e(getClass().getName(),"start");
+                LogUtils.e(getClass().getName(), "start");
             }
 
             @Override
@@ -329,13 +334,13 @@ public class CountDownTimerView extends View {
                 mMintue = countdownTime / 1000 / 60;//分钟
                 //2*60*1000=119000
                 mSecord = countdownTime / 1000 % 60;//秒
-                if(mSecord<10){
+                if (mSecord < 10) {
                     textDesc = mMintue + ":0" + mSecord;
-                }else {
+                } else {
                     textDesc = mMintue + ":" + mSecord;
                 }
                 //countdownTime = countdownTime-1000;
-//                Log.e("time", countdownTime + "");
+//                LogUtils.e("time", countdownTime + "");
                 //刷新view
                 invalidate();
             }
@@ -352,7 +357,9 @@ public class CountDownTimerView extends View {
             }
         }.start();
     }
-
+    public long getCountdownTime() {
+        return countdownTime;
+    }
     //通过自定义接口通知UI去处理其他业务逻辑
     public interface OnCountdownFinishListener {
         void performFinished();

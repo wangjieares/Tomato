@@ -136,6 +136,7 @@
             </intent-filter>
         </activity>
         <service android:name=".service.RemindService"/>
+        <service android:name=".service.CountProgressService"/>
         <receiver android:name=".broadcast.MyBroadCastReceiver"/>
         <!--ShareSdk分享集成activity-->
         <activity

@@ -11,18 +11,18 @@ import www.atomato.com.tomato.utils.LogUtils;
  * Created by wangj on 2016-11-29.
  */
 
-public class BaseService extends Service {
+public class BaseService extends Service{
     private String tag = getClass().getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.i(tag, "onCreate");
+        LogUtils.e(tag, "onCreate");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.i(tag, "onCreate");
+        LogUtils.e(tag, "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
 
     }
@@ -30,7 +30,7 @@ public class BaseService extends Service {
     @Override
     public void onRebind(Intent intent) {
         super.onRebind(intent);
-        LogUtils.i(tag, "onCreate");
+        LogUtils.i(tag, "onRebind");
     }
 
     @Override
