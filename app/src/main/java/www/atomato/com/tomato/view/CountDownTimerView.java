@@ -344,6 +344,7 @@ public class CountDownTimerView extends View {
     }
     public void resumeTime(){
         animator.resume();
+        countdownMethod();
     }
 
     //倒计时的方法
