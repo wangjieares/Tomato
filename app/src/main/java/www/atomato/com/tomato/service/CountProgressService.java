@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.activity.CountProgressActivity;
 import www.atomato.com.tomato.adapter.CountProgressHandle;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.SoundUtils;
 
 
 /**
@@ -24,6 +26,7 @@ public class CountProgressService extends BaseService{
     @Override
     public void onCreate() {
         super.onCreate();
+        SoundUtils.playSounds(this, R.raw.minute, 1, -1);
         LogUtils.e(tag,"onCreate()");
     }
     public void setActivity(CountProgressActivity activity) {
@@ -41,8 +44,14 @@ public class CountProgressService extends BaseService{
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public boolean onUnbind(Intent intent) {
         stopSelf();
+        SoundUtils.stopSound();
         return super.onUnbind(intent);
     }
 

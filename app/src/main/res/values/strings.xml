@@ -10,6 +10,9 @@
     <string name="activity_add_title">增加一个ToDo</string>
     <string name="activity_add_hint">请输入事件名称</string>
     <string name="activity_add_button">确定</string>
+    <string name="activity_count_timer_computer">屏幕常亮</string>
+    <string name="activity_count_timer_loop">循环</string>
+    <string name="activity_count_timer_exit">返回</string>
     <string name="activity_add_radio_everyday">每天</string>
     <string name="activity_add_radio_oneday">仅今天</string>
     <string name="activity_add_radio_time">45</string>

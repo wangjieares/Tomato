@@ -44,7 +44,8 @@
             android:layout_width="@dimen/activity_count_timer_image_button_size"
             android:layout_height="@dimen/activity_count_timer_image_button_size"
             android:background="@drawable/activity_count_timer_image_button_computer_selector"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/activity_count_timer_computer" />
 
         <ImageButton
             android:id="@+id/activity_count_timer_image_button_restart"
@@ -52,17 +53,16 @@
             android:layout_height="40dp"
             android:layout_marginStart="40dp"
             android:background="@drawable/activity_count_timer_image_button_restart_selector"
-            android:scaleType="centerCrop"
-            android:layout_marginLeft="40dp" />
+            android:contentDescription="@string/activity_count_timer_loop"
+            android:scaleType="centerCrop"/>
 
         <ImageButton
             android:id="@+id/activity_count_timer_image_button_stop"
             android:layout_width="@dimen/activity_count_timer_image_button_size"
             android:layout_height="@dimen/activity_count_timer_image_button_size"
             android:layout_marginStart="40dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/stop"
-            android:layout_marginLeft="40dp" />
+            android:background="@drawable/activity_count_timer_image_button_stop_selector"
+            android:contentDescription="@string/activity_count_timer_exit"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 </LinearLayout>

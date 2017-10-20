@@ -51,6 +51,11 @@ public class CountDownTimerView extends View {
     private float mStartSweepValue = -90;
     //当前的角度
     private float currentAngle;
+
+    public long getCountdownTime() {
+        return countdownTime;
+    }
+
     //提供一个外界可以设置的倒计时数值，毫秒值
     private long countdownTime;
 
@@ -58,6 +63,12 @@ public class CountDownTimerView extends View {
         this.textDesc = textDesc;
     }
 
+    public CountDownTimer getCountDownTimer() {
+        return countDownTimer;
+    }
+
+    private CountDownTimer countDownTimer;
+    private boolean isNext;
     //中间文字描述
     private String textDesc;
     //    private String textDesc;
@@ -69,6 +80,8 @@ public class CountDownTimerView extends View {
     private float extraDistance = 0.7F;
     private long mSecord;
     private long mMintue;
+    private ValueAnimator animator;
+
     public CountDownTimerView(Context context) {
         this(context, null);
     }
@@ -171,6 +184,10 @@ public class CountDownTimerView extends View {
         mRectF = new RectF(0, 0, defaultCircleRadius * 2, defaultCircleRadius * 2);//可能出错
     }
 
+    public void setNext(boolean next) {
+        isNext = next;
+    }
+
     /**
      * 如果该View布局的宽高开发者没有精确的告诉，则需要进行测量，如果给出了精确的宽高则我们就不管了
      *
@@ -267,7 +284,7 @@ public class CountDownTimerView extends View {
     //属性动画
     public void startCountDownTime(final OnCountdownFinishListener countdownFinishListener) {
         setClickable(false);//不能点击
-        ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0);
+        animator = ValueAnimator.ofFloat(1.0f, 0);
 //        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.0f);
         //动画时长，让进度条在CountDown时间内正好从0-360走完，这里由于用的是CountDownTimer定时器，倒计时要想减到0则总时长需要多加1000毫秒，所以这里时间也跟着+1000ms
         animator.setDuration(countdownTime);//不知道为什么 手机执行时间少一半
@@ -322,9 +339,16 @@ public class CountDownTimerView extends View {
         countdownMethod();
     }
 
+    public void stopTime() {
+        animator.pause();
+    }
+    public void resumeTime(){
+        animator.resume();
+    }
+
     //倒计时的方法
     private void countdownMethod() {
-        new CountDownTimer(countdownTime + 1000, 1000) {
+        countDownTimer = new CountDownTimer(countdownTime + 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //         Log.e("time",countdownTime+"");
@@ -347,19 +371,19 @@ public class CountDownTimerView extends View {
 
             @Override
             public void onFinish() {
-                //textDesc = 0 + "″";
-                textDesc = "时间到";
-                //同时隐藏小球
-                smallCirclePaint.setColor(getResources().getColor(android.R.color.transparent));
-                smallCircleSolidePaint.setColor(getResources().getColor(android.R.color.transparent));
-                //刷新view
-                invalidate();
+                if (!isNext) {
+                    //textDesc = 0 + "″";
+                    textDesc = "已完成";
+                    //同时隐藏小球
+                    smallCirclePaint.setColor(getResources().getColor(android.R.color.transparent));
+                    smallCircleSolidePaint.setColor(getResources().getColor(android.R.color.transparent));
+                    //刷新view
+                    invalidate();
+                }
             }
         }.start();
     }
-    public long getCountdownTime() {
-        return countdownTime;
-    }
+
     //通过自定义接口通知UI去处理其他业务逻辑
     public interface OnCountdownFinishListener {
         void performFinished();
