@@ -147,11 +147,11 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
                     CountDownTimerView.getCountDownTimer().cancel();
                     countdownTime=CountDownTimerView.getCountdownTime();
                     CountDownTimerView.stopTime();
-                    SoundUtils.stopSound();
+                    SoundUtils.pauseSound();
                     view.setSelected(false);
                 } else {
                     CountDownTimerView.resumeTime();
-                    SoundUtils.playSounds(this, R.raw.minute, 1, -1);
+                    SoundUtils.restartSound();
                     view.setSelected(true);
                 }
                 break;

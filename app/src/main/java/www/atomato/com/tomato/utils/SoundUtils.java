@@ -41,6 +41,16 @@ public class SoundUtils {
 
     }
 
+    public static void restartSound() {
+        sp.resume(1);
+    }
+
+    public static void pauseSound() {
+        if (sp != null) {
+            sp.stop(1);
+        }
+    }
+
     public static void stopSound() {
         if (sp != null) {
             sp.stop(1);
