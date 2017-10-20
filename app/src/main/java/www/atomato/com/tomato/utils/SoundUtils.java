@@ -42,12 +42,12 @@ public class SoundUtils {
     }
 
     public static void restartSound() {
-        sp.resume(1);
+        sp.autoResume();
     }
 
     public static void pauseSound() {
         if (sp != null) {
-            sp.stop(1);
+            sp.autoPause();
         }
     }
 
