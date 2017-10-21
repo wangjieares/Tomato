@@ -76,6 +76,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         Bundle bundle = new Bundle();//数据
         bundle.putInt("todo_time",todoTime);
         intent.putExtras(bundle);
+        SoundUtils.playSounds(this, R.raw.minute, 1, -1);
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {

@@ -26,7 +26,6 @@ public class CountProgressService extends BaseService{
     @Override
     public void onCreate() {
         super.onCreate();
-        SoundUtils.playSounds(this, R.raw.minute, 1, -1);
         LogUtils.e(tag,"onCreate()");
     }
     public void setActivity(CountProgressActivity activity) {
