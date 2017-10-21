@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.ColorConstants;
 import www.atomato.com.tomato.data.SettingController;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
@@ -66,15 +65,11 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
             contentStatisticsItemDayBackground.setBackgroundColor(ColorConstants.randomBackground());
         }
         //查找当天，总共番茄钟个数和时间
-        ViewSQLite viewSQLite = new ViewSQLite(this);
-        try {
-            Cursor cursor = viewSQLite.query();
-            if(cursor.moveToNext()){
+        try (Cursor cursor=new ViewSQLite(this).query()){
+            while(cursor.moveToNext()){
                 totalTime=totalTime+cursor.getInt(cursor.getColumnIndex("todo_total_time"));
                 totalNum=totalNum+cursor.getInt(cursor.getColumnIndex("todo_total_num"));
             }
-        }catch (Exception e){
-
         }
 //        int totalNum = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
 //        int totalTime = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
