@@ -50,20 +50,12 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
         //setting the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(), mRecyclerView, MoreFragment.this);
+        initTodo();
     }
 
     @Override
     public void onResume() {
         super.onResume();//
-        expandableLayoutHelper.removeAll();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
-        for (int i = sharedPreferences.getInt("group_num", 0); i >= 0; i--) {//有默认的Group
-            if (i == 0) {
-                break;
-            }
-//            expandableLayoutHelper.removeSection(title);
-        }
-        initTodo();
     }
 
     private void initTodo() {
@@ -124,15 +116,14 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
                     String title = data.getStringExtra("title");
                     addChildItem(group_name,title);
                     ToastUtils.show(getActivity(), group_name + title);
+                    expandableLayoutHelper.addSection(title, new ArrayList<GroupItem>());
+                    expandableLayoutHelper.notifyDataSetChanged();
                 }
                 break;
         }
     }
     public void addChildItem(String group_name,String title){
         expandableLayoutHelper.addItem(group_name, new GroupItem(title, 0, 0, 0, 0));
-        expandableLayoutHelper.notifyDataSetChanged();
-    }
-    public void notifyDataSetChanged(){
         expandableLayoutHelper.notifyDataSetChanged();
     }
     @Override

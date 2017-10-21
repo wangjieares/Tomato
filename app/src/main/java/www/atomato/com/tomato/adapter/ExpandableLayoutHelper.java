@@ -67,8 +67,8 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     public void removeItem(String section, GroupItem item) {
         mSectionDataMap.get(mSectionMap.get(section)).remove(item);
     }
-    public void removeAll(){
-        mRecyclerView.removeAllViews();
+    public boolean removeAll(){
+        return true;
     }
 
     public void removeSection(String section) {
