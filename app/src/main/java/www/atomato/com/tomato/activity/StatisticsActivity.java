@@ -1,5 +1,6 @@
 package www.atomato.com.tomato.activity;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,15 +39,16 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
     LinearLayout contentStatisticsItemDayBackground;
     @BindView(R.id.content_statistics_item_total_background)
     LinearLayout contentStatisticsItemTotalBackground;
-    @BindView(R.id.content_statistics_item_day_num)
+    @BindView(R.id.content_statistics_item_day_num)//当天的番茄个数
     TextView contentStatisticsItemDayNum;
-    @BindView(R.id.content_statistics_item_day_time)
+    @BindView(R.id.content_statistics_item_day_time)//当天的番茄时间
     TextView contentStatisticsItemDayTime;
-    @BindView(R.id.content_statistics_item_total_num)
+    @BindView(R.id.content_statistics_item_total_num)//总共的番茄个数
     TextView contentStatisticsItemTotalNum;
-    @BindView(R.id.content_statistics_item_total_time)
+    @BindView(R.id.content_statistics_item_total_time)//总共的番茄个数
     TextView contentStatisticsItemTotalTime;
-
+    private int totalTime;//番茄钟总时间
+    private int totalNum;//番茄钟总时间
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +65,19 @@ public class StatisticsActivity extends BaseActivity implements View.OnClickList
             contentStatisticsItemTotalBackground.setBackgroundColor(ColorConstants.randomBackground());
             contentStatisticsItemDayBackground.setBackgroundColor(ColorConstants.randomBackground());
         }
+        //查找当天，总共番茄钟个数和时间
         ViewSQLite viewSQLite = new ViewSQLite(this);
-        int totalNum = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
-        int totalTime = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
+        try {
+            Cursor cursor = viewSQLite.query();
+            if(cursor.moveToNext()){
+                totalTime=totalTime+cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+                totalNum=totalNum+cursor.getInt(cursor.getColumnIndex("todo_total_num"));
+            }
+        }catch (Exception e){
+
+        }
+//        int totalNum = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
+//        int totalTime = viewSQLite.sumColumn("total_time",Constants.TOTAL_NAME);
 //        contentStatisticsItemDayNum.setText();
 //        contentStatisticsItemDayTime.setText();
         contentStatisticsItemTotalNum.setText(String.valueOf(totalNum));
