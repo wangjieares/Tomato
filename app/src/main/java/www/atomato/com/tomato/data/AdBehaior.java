@@ -7,8 +7,8 @@ package www.atomato.com.tomato.data;
  */
 
 public class AdBehaior {
-    private static boolean OVERALL_BEHAIOR = true;//全部
-    private static boolean ABOUT_BEHAIOR = true;
+    private static boolean OVERALL_BEHAIOR = false;//全部
+    private static boolean ABOUT_BEHAIOR = false;
     private static boolean LAUNCH_BEHAIOR = false;
     public static void setOverallBehaior(boolean behaior){
         OVERALL_BEHAIOR = behaior;

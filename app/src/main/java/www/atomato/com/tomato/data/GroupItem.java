@@ -21,6 +21,16 @@ public class GroupItem {
     private int mPlanTime = 350;//计划完成时间
     private int mDestory = 0;//销毁时间
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+
     public int getmPlanNum() {
         return mPlanNum;
     }

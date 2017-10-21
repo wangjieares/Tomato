@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity
         }
         if (1 == mViewPager.getCurrentItem()) {
             Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
-            startActivityForResult(intent, Constants.REQUEST_CODE_ADD_GROUP);
+            startActivityForResult(intent,Constants.REQUEST_CODE_ADD_GROUP);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -14,7 +14,6 @@ import www.atomato.com.tomato.data.YouMiSdk;
 public class LaunchActivity extends Activity {
     LinearLayout mLinearLayout;
     private Handler mHandler = new Handler();
-    private Intent mIntent;
 
     //延时执行
 

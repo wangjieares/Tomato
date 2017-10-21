@@ -103,8 +103,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
             @Override
             public void call(Subscriber<? super ToDoData> subscriber) {
-                ViewSQLite viewSQLite = new ViewSQLite(getContext());
-                try (Cursor cursor = viewSQLite.query()) {
+                try (Cursor cursor = new ViewSQLite(getContext()).query()) {
                     while (cursor.moveToNext()) {
 //                        int id = cursor.getInt(cursor.getColumnIndex("_id"));
                         String title = cursor.getString(cursor.getColumnIndex("todo_title"));
@@ -153,22 +152,20 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     public void onLeftItemClick(View view, int position) {
 //        LogUtils.e(tag, tag + "===onRightItemClick===>" + position);
         String todo_title = ((ToDoView) view).getTodoTitle();
-        ViewSQLite viewSQLite = new ViewSQLite(getContext());
-        Cursor cursor = viewSQLite.query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null);
-        if (cursor.moveToNext()) {
-            int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
-            int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
-            int todo_current_time = cursor.getInt(cursor.getColumnIndex("todo_time"));
-            Intent intent = new Intent(getContext(), DetailActivity.class);
-            intent.putExtra("title", todo_title);//标题
-            intent.putExtra("total_time", todo_total_time);//总时间
-            intent.putExtra("todo_plan_time", todo_plan_time);//计划完成时间
-            intent.putExtra("todo_current_time", todo_current_time);//当前todo时间
-            startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
+        try (Cursor cursor = new ViewSQLite(getContext()).query(Constants.TABLE_NAME, null, "todo_title = ?", new String[]{todo_title}, null, null, null)) {
+            if (cursor.moveToNext()) {
+                int todo_total_time = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
+                int todo_plan_time = cursor.getInt(cursor.getColumnIndex("todo_plan_time"));
+                int todo_current_time = cursor.getInt(cursor.getColumnIndex("todo_time"));
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("title", todo_title);//标题
+                intent.putExtra("total_time", todo_total_time);//总时间
+                intent.putExtra("todo_plan_time", todo_plan_time);//计划完成时间
+                intent.putExtra("todo_current_time", todo_current_time);//当前todo时间
+                startActivityForResult(intent, Constants.REQUEST_CODE_PROGRESS);
+            }
         }
-
     }
-
     @Override
     public void onRightItemClick(View view, int position) {
 //        LogUtils.e(tag, tag + "===onLeftItemClick===>" + position);
@@ -266,34 +263,6 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
         }
         mAdapter.removeData(positon);
     }
-
-//    public void addItem() {
-//        mTodoDataObserver = new Subscriber<ToDoData>() {
-//            @Override
-//            public void onCompleted() {
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//            }
-//
-//            @Override
-//            public void onNext(ToDoData toDoData) {
-//                mAdapter.addData(toDoData);
-//            }
-//        };
-//
-//        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
-//            @Override
-//            public void call(Subscriber<? super ToDoData> subscriber) {
-//
-//            }
-//        });
-//        mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
-//        mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
-//        mObservable.subscribe(mTodoDataObserver);
-//    }
-
     @Override
     public void onScrollTop(int position) {
         mRecyclerView.smoothScrollToPosition(position);//添加Item之后自动滑动到顶端

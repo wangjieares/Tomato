@@ -3,7 +3,6 @@ package www.atomato.com.tomato.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import www.atomato.com.tomato.data.GroupItem;
-import www.atomato.com.tomato.data.SpaceItemDecoration;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
@@ -68,6 +66,9 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
     public void removeItem(String section, GroupItem item) {
         mSectionDataMap.get(mSectionMap.get(section)).remove(item);
+    }
+    public void removeAll(){
+        mRecyclerView.removeAllViews();
     }
 
     public void removeSection(String section) {

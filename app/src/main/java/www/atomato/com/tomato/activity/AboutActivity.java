@@ -24,8 +24,13 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ScreenUtils.setMainColor(this,getResources().getColor(R.color.colorPrimaryDark));
-
         initView();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        initAd();
     }
 
     private void initView() {
@@ -35,7 +40,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         toolbar.setNavigationOnClickListener(this);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_about_collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitle("关于番茄钟");
-        initAd();
     }
 
     private void initAd() {
