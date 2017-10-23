@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.activity.CountProgressActivity;
-import www.atomato.com.tomato.adapter.CountProgressHandle;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.SoundUtils;
 
@@ -18,7 +16,6 @@ import www.atomato.com.tomato.utils.SoundUtils;
  */
 
 public class CountProgressService extends BaseService{
-    private static CountProgressHandle mHandler;//CountDownTimer数据更新
     private CountProgressActivity activity;
     private Bundle bundle;
     private String tag = getClass().getSimpleName();
@@ -30,7 +27,6 @@ public class CountProgressService extends BaseService{
     }
     public void setActivity(CountProgressActivity activity) {
         this.activity = activity;
-        mHandler = new CountProgressHandle(activity);
         activity.getCountDownTimerView().startCountDownTime(activity);
         LogUtils.e(tag,"setActivity");
     }

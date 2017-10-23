@@ -24,7 +24,6 @@ import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
@@ -34,23 +33,21 @@ import www.atomato.com.tomato.utils.ToastUtils;
 
 public class MoreFragment extends BaseFragment implements ItemClickListener {
     private View view = null;
-    private RecyclerView mRecyclerView;
     private ExpandableLayoutHelper expandableLayoutHelper;
     private Subscriber<Integer> mTodoDataObserver;
-    private Observable<Integer> mObservable;
-
+    private ArrayList<GroupItem> arrayList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_more, container, false);
         initView();
-        LogUtils.e("ssss","ssss");
         return view;
     }
 
     private void initView() {
         //setting the recycler view
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
+        arrayList = new ArrayList<>();
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(), mRecyclerView, MoreFragment.this);
         initTodo();
     }
@@ -78,11 +75,11 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
             public void onNext(Integer integer) {
 //                LogUtils.e(tag, "group_name_" + integer);
                 String title = sharedPreferences.getString("group_name_" + integer, "Error!");
-                expandableLayoutHelper.addSection(title, new ArrayList<GroupItem>());
+                expandableLayoutHelper.addSection(title,arrayList);
 //                expandableLayoutHelper.notifyDataSetChanged();
             }
         };
-        mObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> mObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
@@ -98,9 +95,6 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
         mObservable.subscribeOn(Schedulers.io()); // 指定 subscribe() 发生在 IO 线程
         mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
         mObservable.subscribe(mTodoDataObserver);
-    }
-    private void initTodoItem(){
-
     }
     @Override
     public void itemClicked(View item) {
@@ -134,7 +128,6 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     }
     public void addChildItem(String group_name,String title){
         expandableLayoutHelper.addItem(group_name, new GroupItem(title, 0, 0, 0, 0));
-
     }
     @Override
     public void ItemAddClick(View view, TodoSection todoSection) {

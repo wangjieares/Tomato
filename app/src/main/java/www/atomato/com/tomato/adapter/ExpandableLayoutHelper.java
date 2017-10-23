@@ -27,7 +27,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     private HashMap<String, TodoSection> mSectionMap = new HashMap<>();
 
     //adapter
-    private ExpandableTodoAdapter mExpandableTodoAdapter;
+    private final ThreadLocal<ExpandableTodoAdapter> mExpandableTodoAdapter = new ThreadLocal<>();
 
     //recycler view
     private RecyclerView mRecyclerView;
@@ -36,18 +36,18 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         //linearLayoutManager
-        mExpandableTodoAdapter = new ExpandableTodoAdapter(context, mDataArrayList,
-                linearLayoutManager, itemClickListener, this);
-        recyclerView.setAdapter(mExpandableTodoAdapter);
+        mExpandableTodoAdapter.set(new ExpandableTodoAdapter(context, mDataArrayList,
+                linearLayoutManager, itemClickListener, this));
+        recyclerView.setAdapter(mExpandableTodoAdapter.get());
         mRecyclerView = recyclerView;
 //        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, context.getResources().getDisplayMetrics());//转换成6dp
 //        mRecyclerView.addItemDecoration(new SpaceItemDecoration(space));
     }
 
-    public void notifyDataSetChanged() {
+    private void notifyDataSetChanged() {
         //TODO : handle this condition such that these functions won't be called if the recycler view is on scroll
         generateDataList();
-        mExpandableTodoAdapter.notifyDataSetChanged();
+        mExpandableTodoAdapter.get().notifyDataSetChanged();
     }
 
     public void addSection(String section, ArrayList<GroupItem> items) {
@@ -73,20 +73,24 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     public void removeAll() {
 //        mSectionMap.clear();
         mSectionDataMap.clear();
+        notifyDataSetChanged();
     }
 
     public void removeSection(String section) {
         mSectionDataMap.remove(mSectionMap.get(section));
-        notifyDataSetChanged();
         mSectionMap.remove(section);
+        notifyDataSetChanged();
     }
 
     private void generateDataList() {
         mDataArrayList.clear();
+        //遍历mSectionDataMap
         for (Map.Entry<TodoSection, ArrayList<GroupItem>> entry : mSectionDataMap.entrySet()) {
             TodoSection key;
+            //集合组
             mDataArrayList.add((key = entry.getKey()));
             if (key.isExpanded)
+                //集合元素
                 mDataArrayList.addAll(entry.getValue());
         }
     }

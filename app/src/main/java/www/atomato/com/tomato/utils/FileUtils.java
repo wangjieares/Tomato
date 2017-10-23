@@ -9,11 +9,7 @@ import android.os.Environment;
 
 /**
  * @fileName FileUtils.java
- * @package com.immomo.momo.android.util
  * @description 文件工具类
- * @author 任东卫
- * @email 86930007@qq.com
- * @version 1.0
  */
 public class FileUtils {
 	/**

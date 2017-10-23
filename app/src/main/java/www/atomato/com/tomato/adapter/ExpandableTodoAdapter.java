@@ -20,10 +20,7 @@ import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
 import www.atomato.com.tomato.utils.LogUtils;
 
-/**
- * Created by lenovo on 2/23/2016.
- */
-public class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAdapter.ViewHolder> {
+class ExpandableTodoAdapter extends RecyclerView.Adapter<ExpandableTodoAdapter.ViewHolder> {
 
     //data array
     private ArrayList<Object> mDataArrayList;
