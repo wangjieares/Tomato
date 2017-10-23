@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.GroupItem;
-import www.atomato.com.tomato.data.ToDoData;
+import www.atomato.com.tomato.data.ToDoItem;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
@@ -40,7 +40,7 @@ public class ViewSQLite {
         }
     }
 
-    public void insert(ToDoData toDoData) {
+    public void insert(ToDoItem toDoData) {
         openDataBase();
         ContentValues values = new ContentValues();
         values.put("todo_title", toDoData.getTitle());

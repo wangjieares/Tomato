@@ -24,14 +24,13 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     private ArrayList<Object> mDataArrayList = new ArrayList<>();
 
     //section map
-    //TODO : look for a way to avoid this
     private HashMap<String, TodoSection> mSectionMap = new HashMap<>();
 
     //adapter
     private ExpandableTodoAdapter mExpandableTodoAdapter;
 
     //recycler view
-    RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     public ExpandableLayoutHelper(Context context, RecyclerView recyclerView, ItemClickListener itemClickListener) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -52,9 +51,10 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     }
 
     public void addSection(String section, ArrayList<GroupItem> items) {
-        TodoSection newTodoSection;
-        mSectionMap.put(section, (newTodoSection = new TodoSection(section)));//section
-        mSectionDataMap.put(newTodoSection, items);
+        TodoSection todoSection;
+        mSectionMap.put(section, (todoSection = new TodoSection(section)));//section
+        mSectionDataMap.put(todoSection, items);
+        notifyDataSetChanged();
     }
 
     public void addItem(String section, GroupItem item) {
@@ -62,21 +62,26 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         TodoSection todoSection = mSectionMap.get(section);
         ArrayList<GroupItem> arrayList = mSectionDataMap.get(todoSection);
         arrayList.add(item);
+        notifyDataSetChanged();
     }
 
     public void removeItem(String section, GroupItem item) {
         mSectionDataMap.get(mSectionMap.get(section)).remove(item);
+        notifyDataSetChanged();
     }
-    public boolean removeAll(){
-        return true;
+
+    public void removeAll() {
+//        mSectionMap.clear();
+        mSectionDataMap.clear();
     }
 
     public void removeSection(String section) {
         mSectionDataMap.remove(mSectionMap.get(section));
+        notifyDataSetChanged();
         mSectionMap.remove(section);
     }
 
-    private void generateDataList () {
+    private void generateDataList() {
         mDataArrayList.clear();
         for (Map.Entry<TodoSection, ArrayList<GroupItem>> entry : mSectionDataMap.entrySet()) {
             TodoSection key;
@@ -86,6 +91,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         }
     }
 
+    //回掉接口，用来监听更改向下按钮
     @Override
     public void onSectionStateChanged(TodoSection todoSection, boolean isOpen) {
         if (!mRecyclerView.isComputingLayout()) {

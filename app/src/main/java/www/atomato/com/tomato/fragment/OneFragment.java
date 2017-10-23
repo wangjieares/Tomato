@@ -30,7 +30,7 @@ import www.atomato.com.tomato.adapter.RecyclerListener;
 import www.atomato.com.tomato.adapter.TodoRecyclerViewAdapter;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.SpaceItemDecoration;
-import www.atomato.com.tomato.data.ToDoData;
+import www.atomato.com.tomato.data.ToDoItem;
 import www.atomato.com.tomato.pop.ButtomWindow;
 import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.recall.OnStickListener;
@@ -47,12 +47,12 @@ import www.atomato.com.tomato.view.ToDoView;
 public class OneFragment extends BaseFragment implements RecyclerListener.OnItemClickListener, BottomWindowListener, OnStickListener {
     private View mView = null;
     private RecyclerView mRecyclerView;
-    private List<ToDoData> mList;
+    private List<ToDoItem> mList;
     private TodoRecyclerViewAdapter mAdapter;
     public static ViewHandler handler;
     //    public static  Handler handler;
-    private Subscriber<ToDoData> mTodoDataObserver;
-    private Observable<ToDoData> mObservable;
+    private Subscriber<ToDoItem> mTodoDataObserver;
+    private Observable<ToDoItem> mObservable;
     private LinearLayoutManager mLinearLayoutManager;
 
     @Nullable
@@ -85,7 +85,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     private void initTodo() {
-        mTodoDataObserver = new Subscriber<ToDoData>() {
+        mTodoDataObserver = new Subscriber<ToDoItem>() {
             @Override
             public void onCompleted() {
             }
@@ -95,14 +95,14 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
             }
 
             @Override
-            public void onNext(ToDoData toDoData) {
+            public void onNext(ToDoItem toDoData) {
                 mAdapter.addData(toDoData);
             }
         };
 
-        mObservable = Observable.create(new Observable.OnSubscribe<ToDoData>() {
+        mObservable = Observable.create(new Observable.OnSubscribe<ToDoItem>() {
             @Override
-            public void call(Subscriber<? super ToDoData> subscriber) {
+            public void call(Subscriber<? super ToDoItem> subscriber) {
                 try (Cursor cursor = new ViewSQLite(getContext()).query()) {
                     while (cursor.moveToNext()) {
 //                        int id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -111,7 +111,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                         int state = cursor.getInt(cursor.getColumnIndex("todo_state"));
                         int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
                         int color = cursor.getInt(cursor.getColumnIndex("todo_color"));
-                        subscriber.onNext(new ToDoData(title, time, state, progress, color));
+                        subscriber.onNext(new ToDoItem(title, time, state, progress, color));
                     }
                 }
                 subscriber.onCompleted();
@@ -282,7 +282,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
                     int progress = bundle.getInt("todo_progress");
                     int drawColor = bundle.getInt("todo_drawColor");
                     int longPlan = bundle.getInt("todo_plan_time");
-                    ToDoData todoData = new ToDoData(getContext(), title, time, state, progress, drawColor, longPlan);
+                    ToDoItem todoData = new ToDoItem(getContext(), title, time, state, progress, drawColor, longPlan);
                     mAdapter.addDataOnScroll(todoData);
                     break;
                 case Constants.DELETE_TODO:

@@ -13,7 +13,7 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
 /**
  * Created by wangjie on 16-11-17.
  */
-public class ToDoData implements Serializable, Comparable {
+public class ToDoItem implements Serializable, Comparable {
     private String mTitle;//标题
     private int mTime;//时间
     private int mDrawBackColor;//绘制北京
@@ -47,7 +47,7 @@ public class ToDoData implements Serializable, Comparable {
     private Context mContext;
     private ViewSQLite viewSQLite;
 
-    public ToDoData(String title, int time, int mState, float mProgress, int drawBackColor) {
+    public ToDoItem(String title, int time, int mState, float mProgress, int drawBackColor) {
         this.mTitle = title;
         this.mTime = time;
         this.mDrawBackColor = drawBackColor;
@@ -55,7 +55,7 @@ public class ToDoData implements Serializable, Comparable {
         this.mState = mState;
     }
 
-    public ToDoData(Context context, String title, int time, int state, float progress, int drawColor, int longPlan) {
+    public ToDoItem(Context context, String title, int time, int state, float progress, int drawColor, int longPlan) {
         mContext = context;
         this.mTitle = title;
         this.mTime = time;
@@ -160,7 +160,7 @@ public class ToDoData implements Serializable, Comparable {
 
     @Override
     public int compareTo(@NonNull Object another) {
-        if (!(another instanceof ToDoData)) {
+        if (!(another instanceof ToDoItem)) {
             return -1;
         }
 //        ToDoData toDoData = (ToDoData) another;
@@ -171,7 +171,7 @@ public class ToDoData implements Serializable, Comparable {
          *  同样，当前是置顶的，则当前toDoData是非置顶的，应该在toDoData上面，所以返回-1
          * */
         ViewSQLite viewSQLite = new ViewSQLite(mContext);
-        Cursor cursor1 = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_stick_time"}, "todo_title=?", new String[]{((ToDoData) another).getTitle()}, null, null, null);
+        Cursor cursor1 = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_stick_time"}, "todo_title=?", new String[]{((ToDoItem) another).getTitle()}, null, null, null);
         Cursor cursor2 = viewSQLite.query(Constants.TABLE_NAME, new String[]{"todo_stick_time"}, "todo_title=?", new String[]{mTitle}, null, null, null);
         cursor1.moveToNext();
         cursor2.moveToNext();
@@ -181,7 +181,7 @@ public class ToDoData implements Serializable, Comparable {
 //        LogUtils.e("TodoData", "oldTitleNum1 ===" + num1 + "----" + "currentTitleNum2===" + num2);
 //        LogUtils.e("TodoData", "oldTitleState ===" + toDoData.getStickState() + "----" + "currentTitleState===" + mStickState);
 //        LogUtils.e("ToDoDate", "===num1===" + num1 + "===num2===" + num2);
-        int result = 0 - (((ToDoData) another).getStickState() - mStickState);
+        int result = 0 - (((ToDoItem) another).getStickState() - mStickState);
         if (result == 0) {
             result = compareToTime(num1, num2);
         }

@@ -24,6 +24,7 @@ import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
+import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
@@ -43,6 +44,7 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_more, container, false);
         initView();
+        LogUtils.e("ssss","ssss");
         return view;
     }
 
@@ -56,6 +58,8 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     @Override
     public void onResume() {
         super.onResume();//
+//        expandableLayoutHelper.removeAll();
+//        initTodo();
     }
 
     private void initTodo() {
@@ -75,7 +79,7 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
 //                LogUtils.e(tag, "group_name_" + integer);
                 String title = sharedPreferences.getString("group_name_" + integer, "Error!");
                 expandableLayoutHelper.addSection(title, new ArrayList<GroupItem>());
-                expandableLayoutHelper.notifyDataSetChanged();
+//                expandableLayoutHelper.notifyDataSetChanged();
             }
         };
         mObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -95,15 +99,23 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
         mObservable.observeOn(AndroidSchedulers.mainThread());// 指定 Subscriber 的回调发生在主线程
         mObservable.subscribe(mTodoDataObserver);
     }
+    private void initTodoItem(){
 
+    }
     @Override
     public void itemClicked(View item) {
-
+        ToastUtils.show(getContext(), view.getId());
     }
 
     @Override
     public void itemClicked(TodoSection todoSection) {
         ToastUtils.show(getContext(), todoSection.getName());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mTodoDataObserver.unsubscribe();//不释放容易内存泄露
     }
 
     @Override
@@ -115,16 +127,14 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
                     String group_name = data.getStringExtra("group_name");
                     String title = data.getStringExtra("title");
                     addChildItem(group_name,title);
-                    ToastUtils.show(getActivity(), group_name + title);
-                    expandableLayoutHelper.addSection(title, new ArrayList<GroupItem>());
-                    expandableLayoutHelper.notifyDataSetChanged();
+                    ToastUtils.show(getActivity(),"MoreFragment"+ group_name + title);
                 }
                 break;
         }
     }
     public void addChildItem(String group_name,String title){
         expandableLayoutHelper.addItem(group_name, new GroupItem(title, 0, 0, 0, 0));
-        expandableLayoutHelper.notifyDataSetChanged();
+
     }
     @Override
     public void ItemAddClick(View view, TodoSection todoSection) {

@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity
     private OneFragment mOneFragment;
     private MoreFragment mMoreFragment;
     private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +121,7 @@ public class MainActivity extends BaseActivity
         }
         if (1 == mViewPager.getCurrentItem()) {
             Intent intent = new Intent(MainActivity.this, AddItemGroupActivity.class);
-            startActivityForResult(intent,Constants.REQUEST_CODE_ADD_GROUP);
+            startActivityForResult(intent, Constants.REQUEST_CODE_ADD_GROUP);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,16 +133,16 @@ public class MainActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case Constants.REQUEST_CODE_ADD://和startActivityForResult的对应 判断哪个Activity
-                if (resultCode == RESULT_OK) {//setResult返回
-                    Bundle bundle = data.getBundleExtra("data");
+                // if (resultCode == RESULT_OK) {//setResult返回
+                // }
+                Bundle bundle = data.getBundleExtra("data");
 //                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        addToDo(bundle);
-                    }
+                if (bundle != null) {
+                    addToDo(bundle);
                 }
                 break;
             case Constants.REQUEST_CODE_ADD_GROUP:
-                if (data!=null) {
+                if (data != null) {
                     SharedPreferences sharedPreferences = getSharedPreferences("Group", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     int i = sharedPreferences.getInt("group_num", 0);
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity
             bundle.putInt("todo_progress", 0);
             bundle.putInt("todo_drawColor", Color.parseColor("#1ABC9C"));
             bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
-            Message message = OneFragment .handler.obtainMessage();
+            Message message = OneFragment.handler.obtainMessage();
             message.what = Constants.CREATE_TODO;
             message.setData(bundle);
             OneFragment.handler.handleMessage(message);

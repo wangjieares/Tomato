@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import www.atomato.com.tomato.constants.Constants;
-import www.atomato.com.tomato.data.ToDoData;
+import www.atomato.com.tomato.data.ToDoItem;
 import www.atomato.com.tomato.recall.OnStickListener;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
@@ -21,11 +21,11 @@ import www.atomato.com.tomato.view.ToDoView;
  */
 
 public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder> {
-    private List<ToDoData> mList;
+    private List<ToDoItem> mList;
     private Context mContext;
     private OnStickListener mOnStickListener;
 
-    public TodoRecyclerViewAdapter(Context context, List<ToDoData> list) {
+    public TodoRecyclerViewAdapter(Context context, List<ToDoItem> list) {
         this.mList = list;
         this.mContext = context;
     }
@@ -62,7 +62,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         this.mOnStickListener = onStickListener;
     }
 
-    private void addData(int position, ToDoData toDoData) {
+    private void addData(int position, ToDoItem toDoData) {
         mList.remove(position);
         mList.add(position, toDoData);
 //        notifyItemInserted(position);
@@ -72,7 +72,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         }
     }
 
-    public void addInsert(int positon, ToDoData toDoData) {
+    public void addInsert(int positon, ToDoItem toDoData) {
         mList.add(positon, toDoData);
         notifyItemInserted(positon);
         if (mOnStickListener != null) {
@@ -85,7 +85,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
         return mList.get(position).getTitle();
     }
 
-    public void addData(ToDoData toDoData) {
+    public void addData(ToDoItem toDoData) {
         mList.add(toDoData);
         notifyItemInserted(getItemCount());
 //        if (mOnStickListener != null) {
@@ -93,7 +93,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
 //        }
     }
 
-    public void addDataOnScroll(ToDoData toDoData) {
+    public void addDataOnScroll(ToDoItem toDoData) {
         mList.add(toDoData);
         notifyItemInserted(getItemCount());
         if (mOnStickListener != null) {
@@ -129,7 +129,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
             int state = cursor.getInt(cursor.getColumnIndex("todo_state"));
             int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
             int color = cursor.getInt(cursor.getColumnIndex("todo_color"));
-            addData(position, new ToDoData(title, time, state, progress, color));
+            addData(position, new ToDoItem(title, time, state, progress, color));
         }
     }
 }
