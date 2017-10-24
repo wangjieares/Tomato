@@ -137,6 +137,7 @@
         </activity>
         <service android:name=".service.RemindService"/>
         <service android:name=".service.CountProgressService"/>
+        <service android:name=".service.MessageService" android:process=":remote"/>
         <receiver android:name=".broadcast.MyBroadCastReceiver"/>
         <!--ShareSdk分享集成activity-->
         <activity

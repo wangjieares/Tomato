@@ -22,7 +22,6 @@ public class AppUtils
     {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
-
     }
 
     /**

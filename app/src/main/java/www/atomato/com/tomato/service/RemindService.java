@@ -3,6 +3,7 @@ package www.atomato.com.tomato.service;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
@@ -30,6 +31,12 @@ public class RemindService extends BaseService {
     public IBinder onBind(Intent intent) {
         int time = intent.getIntExtra("time", 0) * 1000 * 6;//提醒时间
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, time, mPendingIntent);
-        return null;
+        return new MyBinder();
+    }
+
+    private class MyBinder extends Binder{
+        public RemindService getService() {
+            return RemindService.this;
+        }
     }
 }

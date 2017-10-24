@@ -3,6 +3,7 @@ package www.atomato.com.tomato.pop;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.recall.BottomWindowListener;
+import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.view.ToDoView;
 
@@ -157,6 +159,8 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
             case R.id.pop_remind:
                 if (mBottomWindowListener != null && mItemView != null) {
                     mBottomWindowListener.remindClick(view, mItemPosition);
+                    Intent intent = new Intent(mContext, RemindService.class);
+                    mContext.startService(intent);
                 }
                 dismiss();
                 break;

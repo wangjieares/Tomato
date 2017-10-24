@@ -1,9 +1,12 @@
 package www.atomato.com.tomato.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,11 +23,13 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import www.atomato.com.MessageBean;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.fragment.MoreFragment;
 import www.atomato.com.tomato.fragment.OneFragment;
+import www.atomato.com.tomato.service.MessageService;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
@@ -35,7 +40,8 @@ public class MainActivity extends BaseActivity
     private ImageButton mOneButton, mMoreButton;//底部按钮
     private ViewPager mViewPager;
     private MoreFragment mMoreFragment;
-
+    private ServiceConnection connection;
+    private MessageBean messageBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +87,21 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.MenuTextStyle);
+        Intent intent = new Intent(MainActivity.this, MessageService.class);
+        connection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                messageBean=MessageBean.Stub.asInterface(service);
+                LogUtils.e(tag,"连接成功");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                LogUtils.e(tag,"连接断开");
+            }
+        };
+        bindService(intent, connection, BIND_AUTO_CREATE);
+
     }
 
     @Override

@@ -68,7 +68,7 @@ public class AppManager {
 	/**
 	 * 结束�?��Activity
 	 */
-	public void finishAllActivity(){
+	private void finishAllActivity(){
 		for (int i = 0, size = activityStack.size(); i < size; i++){
             if (null != activityStack.get(i)){
             	activityStack.get(i).finish();
@@ -86,6 +86,6 @@ public class AppManager {
 			activityMgr.restartPackage(context.getPackageName());
 			System.exit(0);
 			android.os.Process.killProcess(android.os.Process.myPid());
-		} catch (Exception e) {	}
+		} catch (Exception ignored) {	}
 	}
 }

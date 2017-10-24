@@ -27,7 +27,7 @@ import www.atomato.com.tomato.utils.ScreenUtils;
 public class ToDoView extends View {
     private String tag = getClass().getSimpleName();
     // 移动的阈值
-    public int TOUCH_SLOP = 10;
+    public int TOUCH_SLOP = 20;
     //有背景
     private boolean ITEM_BACKGROUND = false;
     //item状态 完成未完成
@@ -41,10 +41,8 @@ public class ToDoView extends View {
     private float mScreenWidth;
     //todo大标题
     private String mTodoTitle = "default";
-
     private int mDrawWidth;
     private String mTodoStart = "开始";
-    private String mTodoEnd = "完成";
     //todo time
     private int mTodoTime;
     //绘制背景颜色
@@ -57,8 +55,6 @@ public class ToDoView extends View {
     private boolean isReleased;
     //Item背景图片
     private Bitmap bitmap;
-    private int mViewWidth;
-    private int mViewHeith;
     private int mItemClickColor;
     //绘制图片背景范围
     private Rect dst;
@@ -69,16 +65,8 @@ public class ToDoView extends View {
     int mProgressBarFrameHeight = this.dp2px(0);
     private int mProgressBarHeight = this.dp2px(4);//进度条总高度
     int mRectWidth = 2;
-    private int mStartAngle_LeftArc = 90;
-    private int mStartAngle_RightArc_One = -90;//右边半圆或弧度上面的那部分的初始角度
-    private int mStartAngle_RightArc_Two = 0;//右边半圆或弧度下面的那部分的初始角度
-    private int mProgressBarWidthWithoutFrame;
-    private int mProgressBarHeightWithoutFrame;
     private float mRadius = 5;//进度条内左右两个半圆的最大半径
-    private int mProgressBarWidth = Constants.PROGRESSBAR_WIDTH;//进度条总长度
     private float mOneArcProgress;//半圆占用的最大的进度
-    private float mProgressXPositon = 170;
-    private float mProgressYPositon = 120;
     private int mProgressColor;//进度条颜色 默认白色
     private float mTouchXPostion;
     private boolean mStickState = false;
@@ -113,8 +101,8 @@ public class ToDoView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //设置宽度
-        mViewHeith = measureHeight(heightMeasureSpec);
-        mViewWidth = measureWidth(widthMeasureSpec);
+        int mViewHeith = measureHeight(heightMeasureSpec);
+        int mViewWidth = measureWidth(widthMeasureSpec);
         setMeasuredDimension(mViewWidth, mViewHeith);
 //        LogUtils.e(tag, "widthMeasureSpec=>" + measureWidth(widthMeasureSpec) + "---heightMeasureSpec=>" + measureHeight(heightMeasureSpec));
     }
@@ -183,6 +171,7 @@ public class ToDoView extends View {
             mPaint.setColor(Color.rgb(255, 255, 255));
             mPaint.setTextSize(sp2px(16));
 //            canvas.drawText(mTodoStart, 480, 96, mPaint);
+            String mTodoEnd = "完成";
             canvas.drawText(mTodoEnd, (float) (mScreenWidth / 1.32), (float) (mScreenHeight/14.8), mPaint);
         } else {
             //默认该代办未完成
@@ -289,8 +278,9 @@ public class ToDoView extends View {
         /**
          * 处理笔触的大小
          */
-        mProgressBarWidthWithoutFrame = mProgressBarWidth - mProgressBarFrameHeight * 2;//不包含边框的进度条宽
-        mProgressBarHeightWithoutFrame = mProgressBarHeight - mProgressBarFrameHeight * 2;//不包含边框的进度条高
+        int mProgressBarWidth = Constants.PROGRESSBAR_WIDTH;
+        int mProgressBarWidthWithoutFrame = mProgressBarWidth - mProgressBarFrameHeight * 2;
+        int mProgressBarHeightWithoutFrame = mProgressBarHeight - mProgressBarFrameHeight * 2;
         //
         mRadius = mProgressBarHeightWithoutFrame / 2;
         //
@@ -310,9 +300,10 @@ public class ToDoView extends View {
 
     private void drawLeftArc(Canvas canvas) {
         canvas.save();
+        float mProgressXPositon = 170;
+        float mProgressYPositon = 120;
         canvas.translate(mProgressXPositon, mProgressYPositon);
-        float progressBarWidthNowTemp = mProgressLoadingWidth < mRadius ? mProgressLoadingWidth : mRadius;//当前进度条不能超过左边圆的半径
-        float leftArcWidth = progressBarWidthNowTemp;
+        float leftArcWidth = mProgressLoadingWidth < mRadius ? mProgressLoadingWidth : mRadius;//当前进度条不能超过左边圆的半径
         RectF rectF = new RectF(-mRadius, -mRadius, mRadius, mRadius);
         /**
          * ∠A 指的是  x轴和竖直切线的夹角  demo图见 https://code.aliyun.com/hi31588535/outside_chain/raw/master/blog_custom_view_show_pic.png
@@ -324,6 +315,7 @@ public class ToDoView extends View {
         // 用角度表示的角
         double angle = Math.toDegrees(radian);//转化角度
 
+        int mStartAngle_LeftArc = 90;
         float startAngle = (float) (mStartAngle_LeftArc + (90 - angle));
         float sweepAngle = (float) angle * 2;
 
@@ -353,8 +345,7 @@ public class ToDoView extends View {
 
         RectF rectF = new RectF(-mRadius, -mRadius, mRadius, mRadius);
 
-        double LinBian = rightArcWidth;//直角三角形∠B邻边
-        double cosValue = LinBian / mRadius;//cosB=邻边/斜边
+        double cosValue = (double) rightArcWidth / mRadius;//cosB=邻边/斜边
 
         double radian = Math.acos(cosValue);//反余弦   返回值单位是弧度
         // 用角度表示的角
@@ -362,7 +353,9 @@ public class ToDoView extends View {
 
         float sweepAngle = (float) (90 - angle);
 
+        int mStartAngle_RightArc_One = -90;
         float startAngleOne = (float) mStartAngle_RightArc_One;
+        int mStartAngle_RightArc_Two = 0;
         float startAngleTwo = (float) (mStartAngle_RightArc_Two + angle);
 
 
@@ -371,10 +364,10 @@ public class ToDoView extends View {
 
         //画三角形
         Path pathTriangle = new Path();
-        double DuiBian = Math.sqrt((mRadius * mRadius - LinBian * LinBian));//开平方   邻边的平方加上对边的平方的斜边的平方
+        double DuiBian = Math.sqrt((mRadius * mRadius - (double) rightArcWidth * (double) rightArcWidth));//开平方   邻边的平方加上对边的平方的斜边的平方
         pathTriangle.moveTo(0, 0);
-        pathTriangle.lineTo((float) LinBian, (float) DuiBian);
-        pathTriangle.lineTo((float) LinBian, -(float) DuiBian);
+        pathTriangle.lineTo((float) (double) rightArcWidth, (float) DuiBian);
+        pathTriangle.lineTo((float) (double) rightArcWidth, -(float) DuiBian);
         pathTriangle.close();
         canvas.drawPath(pathTriangle, mPaint);
 

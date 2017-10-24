@@ -34,8 +34,6 @@ public class LoadingCustom extends View {
     private int mStartAngle_LeftArc = 90;//左边半圆或弧度的初始角度
     private int mStartAngle_RightArc_One = -90;//右边半圆或弧度上面的那部分的初始角度
     private int mStartAngle_RightArc_Two = 0;//右边半圆或弧度下面的那部分的初始角度
-
-
     private int mProgressBankgroundColor = Color.parseColor("#FA8900");
     private int mProgressColor = Color.parseColor("#98C73B");
     private float mProgressTest;//当前的进度
@@ -43,10 +41,7 @@ public class LoadingCustom extends View {
     private int mProgressBarBankgroundStyle = SOLID;//默认实心
     private int mProgressBarHeight = this.dp2px(20);//进度条总高度
     private int mProgressBarWidth = PROGRESSBAR_WIDTH;//进度条总长度
-    //
     private boolean mHasCoordinate = false;//是否绘制参考坐标系
-
-    /***/
     private Paint mPaint;
     private int mViewWidth, mViewHeight;
     private int mScreenWidth, mScreenHeight;

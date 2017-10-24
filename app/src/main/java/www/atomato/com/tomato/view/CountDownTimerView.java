@@ -59,10 +59,6 @@ public class CountDownTimerView extends View {
     //提供一个外界可以设置的倒计时数值，毫秒值
     private long countdownTime;
 
-    public void setTextDesc(String textDesc) {
-        this.textDesc = textDesc;
-    }
-
     public CountDownTimer getCountDownTimer() {
         return countDownTimer;
     }
@@ -139,7 +135,7 @@ public class CountDownTimerView extends View {
         //回收typedArray对象
         typedArray.recycle();
         //设置画笔
-        defaultCircleRadius = (int) (ScreenUtils.getScreenWidth(context) / 3);
+        defaultCircleRadius = ScreenUtils.getScreenWidth(context) / 3;
         setPaint();
     }
 
@@ -232,10 +228,10 @@ public class CountDownTimerView extends View {
         }
         //画小圆
         float currentDegreeFlag = 360 * currentAngle + extraDistance;
-        float smallCircleX = 0, smallCircleY = 0;
-        float hudu = (float) Math.abs(Math.PI * currentDegreeFlag / 180);//Math.abs：绝对值 ，Math.PI：表示π ， 弧度 = 度*π / 180
-        smallCircleX = (float) Math.abs(Math.sin(hudu) * defaultCircleRadius + defaultCircleRadius);
-        smallCircleY = (float) Math.abs(defaultCircleRadius - Math.cos(hudu) * defaultCircleRadius);
+        float smallCircleX, smallCircleY;
+        float radian = (float) Math.abs(Math.PI * currentDegreeFlag / 180);//Math.abs：绝对值 ，Math.PI：表示π ， 弧度 = 度*π / 180
+        smallCircleX = (float) Math.abs(Math.sin(radian) * defaultCircleRadius + defaultCircleRadius);
+        smallCircleY = (float) Math.abs(defaultCircleRadius - Math.cos(radian) * defaultCircleRadius);
         canvas.drawCircle(smallCircleX, smallCircleY, smallCircleRadius, smallCirclePaint);
         canvas.drawCircle(smallCircleX, smallCircleY, smallCircleRadius - smallCircleStrokeWidth, smallCircleSolidePaint);//画小圆的实心
         canvas.restore();

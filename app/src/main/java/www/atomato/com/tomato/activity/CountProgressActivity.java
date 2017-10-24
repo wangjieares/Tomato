@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
+import www.atomato.com.tomato.data.TextConstants;
 import www.atomato.com.tomato.service.CountProgressService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
@@ -72,6 +73,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
         activityCountTimerImageButtonRestart.setSelected(true);
         activityCountTimerImageButtonComputer.setSelected(true);
         activityCountTimerImageButtonStop.setSelected(true);
+        activityCountTimerShow.setText(TextConstants.randomString());
         Intent intent = new Intent(this, CountProgressService.class);
         Bundle bundle = new Bundle();//数据
         bundle.putInt("todo_time",todoTime);
