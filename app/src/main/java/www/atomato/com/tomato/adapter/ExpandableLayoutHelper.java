@@ -15,7 +15,7 @@ import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.recall.TodoStateChangeListener;
 
 /**
- * Created by bpncool on 2/23/2016.
+ * Created by wangjie on 2/23/2016.
  */
 public class ExpandableLayoutHelper implements TodoStateChangeListener {
 
@@ -27,7 +27,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     private HashMap<String, TodoSection> mSectionMap = new HashMap<>();
 
     //adapter
-    private final ThreadLocal<ExpandableTodoAdapter> mExpandableTodoAdapter = new ThreadLocal<>();
+    private ExpandableTodoAdapter mExpandableTodoAdapter;
 
     //recycler view
     private RecyclerView mRecyclerView;
@@ -36,9 +36,9 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         //linearLayoutManager
-        mExpandableTodoAdapter.set(new ExpandableTodoAdapter(context, mDataArrayList,
-                linearLayoutManager, itemClickListener, this));
-        recyclerView.setAdapter(mExpandableTodoAdapter.get());
+        mExpandableTodoAdapter = new ExpandableTodoAdapter(context, mDataArrayList,
+                linearLayoutManager, itemClickListener, this);
+        recyclerView.setAdapter(mExpandableTodoAdapter);
         mRecyclerView = recyclerView;
 //        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, context.getResources().getDisplayMetrics());//转换成6dp
 //        mRecyclerView.addItemDecoration(new SpaceItemDecoration(space));
@@ -47,7 +47,7 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     private void notifyDataSetChanged() {
         //TODO : handle this condition such that these functions won't be called if the recycler view is on scroll
         generateDataList();
-        mExpandableTodoAdapter.get().notifyDataSetChanged();
+        mExpandableTodoAdapter.notifyDataSetChanged();
     }
 
     public void addSection(String section, ArrayList<GroupItem> items) {
@@ -73,24 +73,20 @@ public class ExpandableLayoutHelper implements TodoStateChangeListener {
     public void removeAll() {
 //        mSectionMap.clear();
         mSectionDataMap.clear();
-        notifyDataSetChanged();
     }
 
     public void removeSection(String section) {
         mSectionDataMap.remove(mSectionMap.get(section));
-        mSectionMap.remove(section);
         notifyDataSetChanged();
+        mSectionMap.remove(section);
     }
 
     private void generateDataList() {
         mDataArrayList.clear();
-        //遍历mSectionDataMap
         for (Map.Entry<TodoSection, ArrayList<GroupItem>> entry : mSectionDataMap.entrySet()) {
             TodoSection key;
-            //集合组
             mDataArrayList.add((key = entry.getKey()));
             if (key.isExpanded)
-                //集合元素
                 mDataArrayList.addAll(entry.getValue());
         }
     }

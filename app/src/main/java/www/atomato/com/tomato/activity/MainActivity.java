@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity
     private String tag = getClass().getSimpleName();
     private ImageButton mOneButton, mMoreButton;//底部按钮
     private ViewPager mViewPager;
+    private MoreFragment mMoreFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends BaseActivity
         //end按钮初始化
         //start fragment初始化
         OneFragment mOneFragment = new OneFragment();
-        MoreFragment mMoreFragment = new MoreFragment();
+        mMoreFragment = new MoreFragment();
         //end fragment初始化
 
         //start VIewPager初始化
@@ -146,6 +147,7 @@ public class MainActivity extends BaseActivity
                     editor.putString("group_name_" + (i + 1), data.getStringExtra("title"));
 //                LogUtils.e(tag,"group_name_"+i);
                     editor.apply();
+                    mMoreFragment.addGroup(data.getStringExtra("title"));
                 }
                 break;
         }

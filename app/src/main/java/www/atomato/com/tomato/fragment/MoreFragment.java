@@ -35,7 +35,6 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     private View view = null;
     private ExpandableLayoutHelper expandableLayoutHelper;
     private Subscriber<Integer> mTodoDataObserver;
-    private ArrayList<GroupItem> arrayList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
 
     private void initView() {
         //setting the recycler view
-        arrayList = new ArrayList<>();
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(), mRecyclerView, MoreFragment.this);
         initTodo();
@@ -62,7 +60,6 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     private void initTodo() {
         mTodoDataObserver = new Subscriber<Integer>() {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Group", Context.MODE_PRIVATE);
-
             @Override
             public void onCompleted() {
             }
@@ -75,8 +72,7 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
             public void onNext(Integer integer) {
 //                LogUtils.e(tag, "group_name_" + integer);
                 String title = sharedPreferences.getString("group_name_" + integer, "Error!");
-                expandableLayoutHelper.addSection(title,arrayList);
-//                expandableLayoutHelper.notifyDataSetChanged();
+                expandableLayoutHelper.addSection(title,new ArrayList<GroupItem>());
             }
         };
         Observable<Integer> mObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -129,6 +125,9 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     public void addChildItem(String group_name,String title){
         expandableLayoutHelper.addItem(group_name, new GroupItem(title, 0, 0, 0, 0));
     }
+    public void addGroup(String title){
+        expandableLayoutHelper.addSection(title,new ArrayList<GroupItem>());
+    }
     @Override
     public void ItemAddClick(View view, TodoSection todoSection) {
         Intent intent = new Intent(getActivity(), AddItemGroupActivity.class);
@@ -140,6 +139,5 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
     @Override
     public void ItemReminkClick(View view, TodoSection todoSection) {
         ToastUtils.show(getContext(), "ItemReminkClick");
-        addChildItem(todoSection.getName(),"hh");
     }
 }
