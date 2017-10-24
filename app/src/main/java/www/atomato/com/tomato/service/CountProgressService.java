@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import www.atomato.com.tomato.activity.CountProgressActivity;
+import www.atomato.com.tomato.utils.BaseService;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.SoundUtils;
 
@@ -15,7 +16,7 @@ import www.atomato.com.tomato.utils.SoundUtils;
  * Created by admin on 2017/10/20.
  */
 
-public class CountProgressService extends BaseService{
+public class CountProgressService extends BaseService {
     private CountProgressActivity activity;
     private Bundle bundle;
     private String tag = getClass().getSimpleName();

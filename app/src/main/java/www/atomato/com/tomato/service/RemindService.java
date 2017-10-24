@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import www.atomato.com.tomato.activity.AddItemActivity;
+import www.atomato.com.tomato.utils.BaseService;
 
 /**
  * Created by wangj on 2016-11-29.

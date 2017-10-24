@@ -1,4 +1,4 @@
-package www.atomato.com.tomato.service;
+package www.atomato.com.tomato.utils;
 
 import android.app.Service;
 import android.content.Intent;

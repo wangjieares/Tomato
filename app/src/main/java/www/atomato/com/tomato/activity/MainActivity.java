@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity
     private ViewPager mViewPager;
     private MoreFragment mMoreFragment;
     private ServiceConnection connection;
+    private boolean mBound = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,21 +87,27 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.MenuTextStyle);
+
+
+    }
+
+    private void setConnection() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
 //                messageBean=MessageItem.Stub.asInterface(service);
-                LogUtils.e(tag,"连接成功");
+                mBound = true;
+                LogUtils.e(tag, "连接成功");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                LogUtils.e(tag,"连接断开");
+                mBound = false;
+                LogUtils.e(tag, "连接断开");
             }
         };
         bindService(intent, connection, BIND_AUTO_CREATE);
-
     }
 
     @Override
@@ -329,5 +337,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void onStop() {
         super.onStop();
+        unbindService(connection);
     }
 }

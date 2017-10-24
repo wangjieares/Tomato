@@ -120,13 +120,14 @@ public class HttpUtils {
             try {
                 if (is != null)
                     is.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
             try {
                 if (baos != null)
                     baos.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
+            assert conn != null;
             conn.disconnect();
         }
 
