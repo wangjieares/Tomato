@@ -96,6 +96,10 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
 
             @Override
             public void onNext(ToDoItem toDoData) {
+                //开启If则过滤完成Todo
+//                if(toDoData.getState()!=1){
+//                    mAdapter.addData(toDoData);
+//                }
                 mAdapter.addData(toDoData);
             }
         };
@@ -136,9 +140,6 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
      * 不再使用的时候尽快在合适的地方（例如 onPause() onStop() 等方法中）调用 unsubscribe() 来解
      * 除引用关系，以避免内存泄露的发生。
      */
-    public TodoRecyclerViewAdapter getAdapter() {
-        return mAdapter;
-    }
 
 
     @Override

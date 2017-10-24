@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import www.atomato.com.tomato.R;
@@ -87,8 +88,14 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.MenuTextStyle);
+        setConnection();
+    }
 
-
+    //获取时间
+    private int getTime() {
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return day;
     }
 
     private void setConnection() {
@@ -107,7 +114,7 @@ public class MainActivity extends BaseActivity
                 LogUtils.e(tag, "连接断开");
             }
         };
-        bindService(intent, connection, BIND_AUTO_CREATE);
+        this.bindService(intent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -245,7 +252,6 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        LogUtils.e(tag, "getItemId");
         if (id == R.id.statistics) {
 //            item.setCheckable(true);
 //            item.setChecked(true);
@@ -335,8 +341,10 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        unbindService(connection);
+    protected void onDestroy() {
+        super.onDestroy();
+        if (connection != null) {
+            unbindService(connection);
+        }
     }
 }

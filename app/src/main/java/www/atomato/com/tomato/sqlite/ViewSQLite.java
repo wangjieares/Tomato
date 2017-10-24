@@ -133,8 +133,8 @@ public class ViewSQLite {
     }
     public Cursor query() {
         openDataBase();
+        //        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc");
         return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick asc ,todo_stick_time desc");
-//        return mSQLDatabase.query(Constants.TABLE_NAME, null, null, null, null, null, "todo_stick  asc");
     }
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
