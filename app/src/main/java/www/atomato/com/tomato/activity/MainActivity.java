@@ -23,7 +23,6 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import www.atomato.com.MessageBean;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.adapter.FragmentViewPagerAdapter;
 import www.atomato.com.tomato.constants.Constants;
@@ -41,7 +40,6 @@ public class MainActivity extends BaseActivity
     private ViewPager mViewPager;
     private MoreFragment mMoreFragment;
     private ServiceConnection connection;
-    private MessageBean messageBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +89,7 @@ public class MainActivity extends BaseActivity
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                messageBean=MessageBean.Stub.asInterface(service);
+//                messageBean=MessageItem.Stub.asInterface(service);
                 LogUtils.e(tag,"连接成功");
             }
 

@@ -30,7 +30,6 @@ import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.SoundUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
-import www.atomato.com.tomato.view.CountDownTimerView;
 
 /**
  * Created by wangj on 2016-11-25.

@@ -1,9 +1,9 @@
-// MessageBean.aidl
+// MessageAidlInterface.aidl
 package www.atomato.com;
-
+import www.atomato.com.MessageManager;
 // Declare any non-default types here with import statements
 
-interface MessageBean {
+interface MessageAidlInterface {
     /**
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
