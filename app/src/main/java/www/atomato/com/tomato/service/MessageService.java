@@ -18,7 +18,23 @@ import www.atomato.com.MessageManager;
 public class MessageService extends BaseService {
     MessageAidlInterface.Stub myBinder = new MessageAidlInterface.Stub() {
         @Override
-        public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
+        public MessageManager getDemand() throws RemoteException {
+            MessageManager demand=new MessageManager("xiaoxi",1);
+            return demand;
+        }
+
+        @Override
+        public void setDemandIn(MessageManager msg) throws RemoteException {
+
+        }
+
+        @Override
+        public void setDemandOut(MessageManager msg) throws RemoteException {
+
+        }
+
+        @Override
+        public void setDemandInOut(MessageManager msg) throws RemoteException {
 
         }
     };

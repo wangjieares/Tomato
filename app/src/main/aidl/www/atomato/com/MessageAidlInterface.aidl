@@ -8,6 +8,8 @@ interface MessageAidlInterface {
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
      */
-    void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat,
-            double aDouble, String aString);
+    MessageManager getDemand();
+    void setDemandIn(in MessageManager msg);//客户端->服务端
+    void setDemandOut(in MessageManager msg);//服务端->客户端
+    void setDemandInOut(in MessageManager msg);//服务端<->客户端
 }

@@ -8,9 +8,12 @@ import android.os.Parcelable;
  */
 
 public class MessageManager implements Parcelable {
+    private String content;//需求内容
+    private int level;//需求级别
 
-    protected MessageManager(Parcel in) {
-
+    public MessageManager(Parcel in) {
+        this.content = in.readString();
+        this.level = in.readInt();
     }
 
     public static final Creator<MessageManager> CREATOR = new Creator<MessageManager>() {
@@ -25,6 +28,11 @@ public class MessageManager implements Parcelable {
         }
     };
 
+    public MessageManager(String string, int i) {
+        this.content = string;
+        this.level = i;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -32,5 +40,7 @@ public class MessageManager implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.level);
+        dest.writeString(this.content);
     }
 }
