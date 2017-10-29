@@ -9,16 +9,13 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,6 +35,7 @@ import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.view.MyRecyclerView;
 import www.atomato.com.tomato.view.ToDoView;
 
 /**
@@ -46,7 +44,7 @@ import www.atomato.com.tomato.view.ToDoView;
 
 public class OneFragment extends BaseFragment implements RecyclerListener.OnItemClickListener, BottomWindowListener, OnStickListener {
     private View mView = null;
-    private RecyclerView mRecyclerView;
+    private MyRecyclerView mRecyclerView;
     private List<ToDoItem> mList;
     private TodoRecyclerViewAdapter mAdapter;
     public static ViewHandler handler;
@@ -66,7 +64,8 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     private void init() {
         handler = new ViewHandler();
         //start RecyclerView
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.fragment_recyclerView);
+        mRecyclerView = (MyRecyclerView) mView.findViewById(R.id.fragment_recyclerView);
+        mRecyclerView.setEmpty(mView.findViewById(R.id.toDoOneEmptyView));
         mList = new ArrayList<>();
         mAdapter = new TodoRecyclerViewAdapter(getActivity(), mList);
         //设置布局管理器

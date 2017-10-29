@@ -20,6 +20,7 @@
     <string name="activity_add_radio_custrom_time">自定义</string>
     <string name="activity_add_radio_short_plan">短期计划</string>
     <string name="activity_add_radio_long_plan">长期计划</string>
+    <string name="fragment_more_todo_empty">还未添加办事项哦！</string>
     <!--popwindows-->
     <string name="pop_cancle">取消</string>
     <string name="pop_stick">置顶</string>

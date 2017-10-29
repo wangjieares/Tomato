@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ import www.atomato.com.tomato.data.TodoSection;
 import www.atomato.com.tomato.recall.ItemClickListener;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.utils.ToastUtils;
+import www.atomato.com.tomato.view.MyRecyclerView;
 
 /**
  * Created by wangjie on 16-11-17.
@@ -45,7 +45,8 @@ public class MoreFragment extends BaseFragment implements ItemClickListener {
 
     private void initView() {
         //setting the recycler view
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
+        MyRecyclerView mRecyclerView = (MyRecyclerView) view.findViewById(R.id.fragment_more_recycler_view);
+        mRecyclerView.setEmpty(view.findViewById(R.id.toDoMoreEmptyView));
         expandableLayoutHelper = new ExpandableLayoutHelper(getContext(), mRecyclerView, MoreFragment.this);
         initTodo();
     }
