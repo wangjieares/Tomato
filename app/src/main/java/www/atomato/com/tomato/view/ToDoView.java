@@ -27,7 +27,7 @@ import www.atomato.com.tomato.utils.ScreenUtils;
 public class ToDoView extends View {
     private String tag = getClass().getSimpleName();
     // 移动的阈值
-    public int TOUCH_SLOP = 20;
+    public int TOUCH_SLOP = 100;
     //有背景
     private boolean ITEM_BACKGROUND = false;
     //item状态 完成未完成

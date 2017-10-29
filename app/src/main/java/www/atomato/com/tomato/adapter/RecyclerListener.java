@@ -15,8 +15,6 @@ import www.atomato.com.tomato.utils.LogUtils;
 public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private String tag = getClass().getSimpleName();
     private int mLastDownX, mLastDownY;
-    //该值记录了最小滑动距离
-    private int touchSlop = 8;
     private OnItemClickListener mListener;
     //是否是单击事件
     private boolean isSingleTapUp = false;
@@ -25,12 +23,10 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     private boolean mReleased;
     private boolean mMoved;
     private Handler mHandler;
-    private final long mLongDownTime = 1000;
     //是否是长按事件
 //    private boolean isLongPressUp = false;
     //    private boolean isLongPress;//一次Down只能一次长按执行
     private long mDownTime;
-    private Runnable mLongPressRunnable; //
 
     //内部接口，定义点击方法以及长按方法
     public interface OnItemClickListener {
@@ -48,10 +44,10 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
     }
 
     private void setLong(final View view, final int position) {
-        mLongPressRunnable = new Runnable() {
+        Runnable mLongPressRunnable = new Runnable() {
             @Override
             public void run() {
-                LogUtils.e(tag,"setLong Runnable running");
+                LogUtils.e(tag, "setLong Runnable running");
                 mCounter--;
                 // 计数器大于0，说明当前执行的Runnable不是最后一次down产生的。
                 if (mCounter > 0 || mReleased || mMoved) {
@@ -85,6 +81,7 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
 //                LogUtils.e(tag,"x=="+Math.abs(x - mLastDownX)+"\ny=="+Math.abs(y - mLastDownY));
                 if (mMoved)
                     break;
+                int touchSlop = 20;//最小滑动举例
                 if (Math.abs(x - mLastDownX) > touchSlop || Math.abs(y - mLastDownY) > touchSlop) {
                     mMoved = true;
                 }
@@ -95,6 +92,8 @@ public class RecyclerListener implements RecyclerView.OnItemTouchListener {
                     break;
                 }
                 mReleased = true;
+                long mLongDownTime = 1000;
+                //是否为长按事件
                 if (System.currentTimeMillis() - mDownTime < mLongDownTime) {
                     isSingleTapUp = true;
                 }//else {
