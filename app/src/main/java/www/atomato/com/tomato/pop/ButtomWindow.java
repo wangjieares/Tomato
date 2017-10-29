@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -14,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,6 +27,7 @@ import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
+import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.view.ToDoView;
 
 /**
@@ -31,7 +37,7 @@ import www.atomato.com.tomato.view.ToDoView;
  * 终于完成了排序 满脑子浆糊一样的晕
  */
 
-public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
+public class ButtomWindow extends PopupWindow implements View.OnTouchListener , com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     private BottomWindowListener mBottomWindowListener;
     @BindView(R.id.pop_stick)
     Button popStick;
@@ -47,7 +53,7 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
     Button popCancel;
     @BindView(R.id.pop_layout)
     LinearLayout popLayout;
-    private Context mContext;
+    private Activity mContext;
     private View mView;
     private ToDoView mItemView;
     private int mItemPosition;
@@ -100,10 +106,8 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
         // 设置弹出窗体的宽和高
         this.setHeight(RelativeLayout.LayoutParams.MATCH_PARENT);
         this.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
-
         // 设置弹出窗体可点击
         this.setFocusable(true);
-
         // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0xb0000000);
         // 设置弹出窗体的背景
@@ -159,8 +163,36 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
             case R.id.pop_remind:
                 if (mBottomWindowListener != null && mItemView != null) {
                     mBottomWindowListener.remindClick(view, mItemPosition);
-                    Intent intent = new Intent(mContext, RemindService.class);
-                    mContext.startService(intent);
+                    if (mContext.getSharedPreferences("remind",Context.MODE_PRIVATE).getBoolean("isRemind",true)){
+                        popRemind.setText("提醒");
+                    }else {
+                        popRemind.setText("取消提醒");
+                    }
+                    //如果提醒执行
+                    if (mContext.getSharedPreferences("remind",Context.MODE_PRIVATE).getBoolean("isRemind",false)){
+                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("remind", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor sharePrefrenceHelper = sharedPreferences.edit();
+                        sharePrefrenceHelper.putBoolean("isRemind",false);//不执行提示
+                        sharePrefrenceHelper.apply();
+                        Calendar now = Calendar.getInstance();
+                        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                                this,
+                                now.get(Calendar.HOUR_OF_DAY),
+                                now.get(Calendar.MINUTE),
+                                false
+                        );
+                        tpd.show(mContext.getFragmentManager(), "Timepickerdialog");
+                        Intent intent = new Intent(mContext, RemindService.class);
+                        mContext.startService(intent);
+                    }else {
+                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("remind", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor sharePrefrenceHelper = sharedPreferences.edit();
+                        sharePrefrenceHelper.putBoolean("isRemind",true);//执行提示
+                        sharePrefrenceHelper.apply();
+                        sharePrefrenceHelper.commit();
+                        ToastUtils.show(mContext,"已经取消！");
+                    }
+
                 }
                 dismiss();
                 break;
@@ -203,4 +235,15 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener {
         }
         return true;
     }
+
+    @Override
+    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+    }
+
+    @Override
+    public void onTimeSet(com.wdullaer.materialdatetimepicker.time.RadialPickerLayout view, int hourOfDay, int minute) {
+
+    }
 }
+

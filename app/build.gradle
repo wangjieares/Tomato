@@ -32,7 +32,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:design:25.4.0'
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
@@ -45,7 +45,7 @@ dependencies {
     //系统状态栏4.4
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //google广告
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     //日历 应用有限制
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     //有米SDK

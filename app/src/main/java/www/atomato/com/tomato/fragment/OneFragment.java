@@ -1,6 +1,7 @@
 package www.atomato.com.tomato.fragment;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,8 +15,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,6 +65,13 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     private void init() {
+        //初始化提醒DATA选择器
+        getActivity().getSharedPreferences("remind",Context.MODE_PRIVATE).edit().putBoolean("isRemind",true).apply();
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("remind", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor sharePrefrenceHelper = sharedPreferences.edit();
+//        sharePrefrenceHelper.putBoolean("isRemind",true);//执行提示
+//        sharePrefrenceHelper.apply();
+//        sharePrefrenceHelper.commit();
         handler = new ViewHandler();
         //start RecyclerView
         mRecyclerView = (MyRecyclerView) mView.findViewById(R.id.fragment_recyclerView);
@@ -187,6 +197,7 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     }
 
     public void showPopFormBottom(View view, int position) {
+        //创建DIALOG
         ButtomWindow buttomWindow = ButtomWindow.getInstance(getActivity());
         //showAtLocation(View parent, int gravity, int x, int y)
         buttomWindow.setBottomWindowListener(this);
