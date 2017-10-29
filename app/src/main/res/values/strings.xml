@@ -6,6 +6,7 @@
     <string name="activity_main_drawer_relax">休息</string>
     <string name="activity_main_drawer_menu">菜单</string>
     <string name="activity_main_drawer_future">为来计划表</string>
+    <string name="activity_main_drawer_card">季度卡</string>
     <string name="main_activity_add_item">Add</string>
     <string name="activity_add_title">增加一个ToDo</string>
     <string name="activity_add_hint">请输入事件名称</string>

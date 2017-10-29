@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.mob.tools.gui.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,12 +37,13 @@ import www.atomato.com.tomato.service.MessageService;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
+import www.atomato.com.tomato.view.FragmentViewPager;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private String tag = getClass().getSimpleName();
     private ImageButton mOneButton, mMoreButton;//底部按钮
-    private ViewPager mViewPager;
+    private FragmentViewPager mViewPager;
     private MoreFragment mMoreFragment;
     private ServiceConnection connection;
     private boolean mBound = false;
@@ -65,12 +70,11 @@ public class MainActivity extends BaseActivity
         OneFragment mOneFragment = new OneFragment();
         mMoreFragment = new MoreFragment();
         //end fragment初始化
-
         //start VIewPager初始化
-        List<Fragment> mFragmentList = new ArrayList<>();
+        final List<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(mOneFragment);
         mFragmentList.add(mMoreFragment);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager = (FragmentViewPager)findViewById(R.id.viewPager);
 //      adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         FragmentViewPagerAdapter mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
@@ -237,7 +241,7 @@ public class MainActivity extends BaseActivity
         }
 
     }
-
+    //返回键 返回DrawerLayout
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
@@ -247,7 +251,7 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
-
+    //菜单跳转相应的Activity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -334,12 +338,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void onPageScrollStateChanged(int state) {
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
