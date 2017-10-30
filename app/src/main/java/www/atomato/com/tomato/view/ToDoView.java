@@ -18,7 +18,6 @@ import android.view.View;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.utils.ImageUtils;
-import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
