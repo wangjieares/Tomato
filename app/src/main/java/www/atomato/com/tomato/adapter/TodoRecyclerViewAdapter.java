@@ -39,6 +39,7 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.toDoView.setTodoTitle(mList.get(position).getTitle());
         holder.toDoView.setTodoTime(mList.get(position).getTime());
+
         holder.toDoView.setProgress(mList.get(position).getProgress());
         holder.toDoView.setItemState(mList.get(position).getState());
         holder.toDoView.setDrawColor(mList.get(position).getDrawBackColor());

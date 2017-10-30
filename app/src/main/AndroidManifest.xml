@@ -161,7 +161,7 @@
             android:name=".service.MessageService"
             android:process=":remote" />
 
-        <receiver android:name=".broadcast.MyBroadCastReceiver" />
+        <receiver android:name=".broadcast.AlarmReceiver" />
         <!--ShareSdk分享集成activity-->
         <activity
             android:name="com.mob.tools.MobUIShell"

@@ -17,7 +17,7 @@ public class ToDoItem implements Serializable, Comparable {
     private String mTitle;//标题
     private int mTime;//时间
     private int mDrawBackColor;//绘制北京
-    private float mProgress = 0f;//进度
+    private int mProgress = 1;//进度
     private int mState = 0;//完成状态
     private int mStickState = 0;//是否置顶
     private long mCreate;//创建时间
@@ -47,7 +47,7 @@ public class ToDoItem implements Serializable, Comparable {
     private Context mContext;
     private ViewSQLite viewSQLite;
 
-    public ToDoItem(String title, int time, int mState, float mProgress, int drawBackColor) {
+    public ToDoItem(String title, int time, int mState, int mProgress, int drawBackColor) {
         this.mTitle = title;
         this.mTime = time;
         this.mDrawBackColor = drawBackColor;
@@ -55,7 +55,7 @@ public class ToDoItem implements Serializable, Comparable {
         this.mState = mState;
     }
 
-    public ToDoItem(Context context, String title, int time, int state, float progress, int drawColor, int longPlan) {
+    public ToDoItem(Context context, String title, int time, int state, int progress, int drawColor, int longPlan) {
         mContext = context;
         this.mTitle = title;
         this.mTime = time;
@@ -118,7 +118,7 @@ public class ToDoItem implements Serializable, Comparable {
         return mState;
     }
 
-    public float getProgress() {
+    public int getProgress() {
         return mProgress;
     }
 

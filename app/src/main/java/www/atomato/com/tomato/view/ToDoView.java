@@ -18,6 +18,7 @@ import android.view.View;
 import www.atomato.com.tomato.R;
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.utils.ImageUtils;
+import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ScreenUtils;
 
 /**
@@ -32,6 +33,8 @@ public class ToDoView extends View {
     private boolean ITEM_BACKGROUND = false;
     //item状态 完成未完成
     private int ITEM_STATUS = 1;
+    //是否提醒
+    private int ISREMIND=0;
     //有边按键被按下 出现点击效果
     private boolean mKeyPress = false;
     //画笔
@@ -62,7 +65,7 @@ public class ToDoView extends View {
     private float mProgress = 0.01f;//当前的进度
     private float mProgressLoadingWidth;//当前进度条宽度
     private float mProgressMaxWidth;//进度最大宽度
-    int mProgressBarFrameHeight = this.dp2px(0);
+    int mProgressBarFrameHeight = this.dp2px(2);
     private int mProgressBarHeight = this.dp2px(4);//进度条总高度
     int mRectWidth = 2;
     private float mRadius = 5;//进度条内左右两个半圆的最大半径
@@ -70,14 +73,8 @@ public class ToDoView extends View {
     private int mProgressColor;//进度条颜色 默认白色
     private float mTouchXPostion;
     private boolean mStickState = false;
+    private String mRemindTime ="20:00";
 
-    public boolean getStickState() {
-        return mStickState;
-    }
-
-    public void setStickState(boolean stickState) {
-        mStickState = stickState;
-    }
 
     public ToDoView(Context context) {
         super(context);
@@ -162,9 +159,24 @@ public class ToDoView extends View {
         }
         //绘制文字状态
         drawTextState(canvas);
+        //初始化进度
+        initProgress();
         //默认进度
         drawProgress(canvas);
+        //绘制提醒时间
+        drawRemindTime(canvas);
     }
+    private void drawRemindTime(Canvas canvas){
+        //如果提醒，绘制时间
+        if (ISREMIND == 1) {
+            mPaint.setColor(Color.rgb(255, 255, 255));
+            mPaint.setTextSize(sp2px(16));
+//            canvas.drawText(mTodoStart, 480, 96, mPaint);
+            String mTodoEnd = mRemindTime;
+            canvas.drawText(mTodoEnd, mScreenWidth / 2, mScreenHeight/10, mPaint);
+        }
+    }
+
     private void drawTextState(Canvas canvas) {
         //如果状态为假，说明该代办未完成
         if (ITEM_STATUS == 1) {
@@ -287,17 +299,30 @@ public class ToDoView extends View {
         mRectWidth = (int) (mProgressBarWidthWithoutFrame - 2 * mRadius);//矩形的宽度
         mProgressMaxWidth = mProgressBarWidthWithoutFrame;
         mOneArcProgress = mRadius / mProgressBarWidth;//半圆最大的 进度
-
         mProgressLoadingWidth = mProgressMaxWidth * mProgress;
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mProgressColor);
     }
-
-    public void setProgress(float progress) {
+    public void setProgress(int progress) {
         mProgress = progress / 100;
         invalidate();
     }
-
+    private void drawProgress(Canvas canvas) {
+        if (mProgress <= 0) {
+            return;
+        }
+        if (mProgress <= mOneArcProgress) {
+            drawLeftArc(canvas);
+        } else if (mProgress > mOneArcProgress && mProgress <= (1 - mOneArcProgress)) {
+            drawLeftArc(canvas);
+            drawCenterRect(canvas);
+        } else {
+            drawLeftArc(canvas);
+            drawCenterRect(canvas);
+            drawRightArc(canvas);
+        }
+        canvas.restore();
+    }
     private void drawLeftArc(Canvas canvas) {
         canvas.save();
         float mProgressXPositon = 170;
@@ -322,7 +347,6 @@ public class ToDoView extends View {
         // Log.d(TAG, "onDraw: angle" + angle);//直角三角形 锐角A （∠A的） sinA=对边/斜边  cosA=邻边/斜边  tanA=对边/邻边
         canvas.drawArc(rectF, startAngle, sweepAngle, false, mPaint);
     }
-
     private void drawCenterRect(Canvas canvas) {
         float rectAndLeftArcMaxWidth = mProgressMaxWidth - mRadius;//所有进度条减去右边 就是左边和矩形
         float progressBarWidthNowTemp = mProgressLoadingWidth < rectAndLeftArcMaxWidth ? mProgressLoadingWidth : rectAndLeftArcMaxWidth;
@@ -331,7 +355,6 @@ public class ToDoView extends View {
         RectF rectFCenter = new RectF(0, -mRadius, rectWidth, mRadius);
         canvas.drawRect(rectFCenter, mPaint);
     }
-
     private void drawRightArc(Canvas canvas) {
         float rectAndLeftArcMaxWidth = mProgressMaxWidth - mRadius;//所有进度条减去右边 就是左边和矩形
 
@@ -372,65 +395,46 @@ public class ToDoView extends View {
         canvas.drawPath(pathTriangle, mPaint);
 
     }
-
-    private void drawProgress(Canvas canvas) {
-        if (mProgress <= 0) {
-            return;
-        }
-        if (mProgress <= mOneArcProgress) {
-            drawLeftArc(canvas);
-
-        } else if (mProgress > mOneArcProgress && mProgress <= (1 - mOneArcProgress)) {
-            drawLeftArc(canvas);
-            drawCenterRect(canvas);
-
-        } else {
-            drawLeftArc(canvas);
-            drawCenterRect(canvas);
-            drawRightArc(canvas);
-        }
-        canvas.restore();
+    public int dp2px(int dpValue) {
+        //转化标准尺寸
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
     }
-
+    public int sp2px(int spValue) {
+        //转化标准尺寸
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, getResources().getDisplayMetrics());
+    }
+    public String getTodoTitle() {
+        return mTodoTitle;
+    }
+    public void setItemState(int itemState) {
+        this.ITEM_STATUS = itemState;
+    }
+    //设置背景色
     public void setProgressColor(int progressColor) {
         mProgressColor = progressColor;
         invalidate();
     }
-
-    public int dp2px(int dpValue) {
-        //转化标准尺寸
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, getResources().getDisplayMetrics());
-        return px;
-    }
-    public int sp2px(int spValue) {
-        //转化标准尺寸
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, getResources().getDisplayMetrics());
-        return px;
-    }
     public int getTodoTime() {
         return mTodoTime;
     }
-
     public String getTodoStart() {
         return mTodoStart;
     }
-
     public void setTodoStart(String mTodoStart) {
         this.mTodoStart = mTodoStart;
     }
-
-    public String getTodoTitle() {
-        return mTodoTitle;
-    }
-
     public int getDrawColor() {
         return mDrawColor;
     }
-
-    public void setItemState(int itemState) {
-        this.ITEM_STATUS = itemState;
+    public boolean getStickState() {
+        return mStickState;
     }
-
+    public void setStickState(boolean stickState) {
+        mStickState = stickState;
+    }
+    public void setmRemindTime(String mRemindTime) {
+        this.mRemindTime = mRemindTime;
+    }
     public void setItemBackground(boolean ITEM_BACKGROUND) {
         this.ITEM_BACKGROUND = ITEM_BACKGROUND;
     }

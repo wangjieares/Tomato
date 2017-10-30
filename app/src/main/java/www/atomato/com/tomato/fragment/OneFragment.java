@@ -34,7 +34,6 @@ import www.atomato.com.tomato.data.ToDoItem;
 import www.atomato.com.tomato.pop.ButtomWindow;
 import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.recall.OnStickListener;
-import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
 import www.atomato.com.tomato.utils.BaseFragment;
 import www.atomato.com.tomato.utils.LogUtils;
@@ -231,9 +230,9 @@ public class OneFragment extends BaseFragment implements RecyclerListener.OnItem
     @Override
     public void remindClick(View view, int positon) {
 //        LogUtils.e(tag, (view.getParent().getClass().getSimpleName()) + "===position" + positon);
-        Intent intent = new Intent(getContext(), RemindService.class);
-        intent.putExtra("time", 35);
-        getContext().startService(intent);
+//        Intent intent = new Intent(getContext(), RemindService.class);
+//        intent.putExtra("time", 35);
+//        getContext().startService(intent);
     }
 
     @Override

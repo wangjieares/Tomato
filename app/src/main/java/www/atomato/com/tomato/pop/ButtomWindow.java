@@ -27,6 +27,7 @@ import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.recall.BottomWindowListener;
 import www.atomato.com.tomato.service.RemindService;
 import www.atomato.com.tomato.sqlite.ViewSQLite;
+import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.view.ToDoView;
 
@@ -37,7 +38,7 @@ import www.atomato.com.tomato.view.ToDoView;
  * 终于完成了排序 满脑子浆糊一样的晕
  */
 
-public class ButtomWindow extends PopupWindow implements View.OnTouchListener , com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
+public class ButtomWindow extends PopupWindow implements View.OnTouchListener ,TimePickerDialog.OnTimeSetListener {
     private BottomWindowListener mBottomWindowListener;
     @BindView(R.id.pop_stick)
     Button popStick;
@@ -58,6 +59,8 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
     private ToDoView mItemView;
     private int mItemPosition;
     private String mTitle;
+    private static ButtomWindow mInstance;
+    private Intent intent;
 
     public void setItemView(ToDoView itemView) {
         mItemView = itemView;
@@ -84,8 +87,6 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
             viewSQLite.closedb();
         }
     }
-
-    private static ButtomWindow mInstance;
 
     public static ButtomWindow getInstance(Activity context) {
         if (mInstance == null) {
@@ -163,6 +164,7 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
             case R.id.pop_remind:
                 if (mBottomWindowListener != null && mItemView != null) {
                     mBottomWindowListener.remindClick(view, mItemPosition);
+                    intent = new Intent(mContext, RemindService.class);
                     //如果提醒执行
                     if (mContext.getSharedPreferences("remind",Context.MODE_PRIVATE).getBoolean("isRemind",false)){
                         popRemind.setText("取消提醒");
@@ -178,8 +180,6 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
                                 false
                         );
                         tpd.show(mContext.getFragmentManager(), "Timepickerdialog");
-                        Intent intent = new Intent(mContext, RemindService.class);
-                        mContext.startService(intent);
                     }else {
                         popRemind.setText("提醒");
                         SharedPreferences sharedPreferences = mContext.getSharedPreferences("remind", Context.MODE_PRIVATE);
@@ -188,6 +188,7 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
                         sharePrefrenceHelper.apply();
                         sharePrefrenceHelper.commit();
                         ToastUtils.show(mContext,"已经取消！");
+                        mContext.stopService(intent);
                     }
 
                 }
@@ -233,14 +234,13 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
         return true;
     }
 
-    @Override
-    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-
-    }
 
     @Override
-    public void onTimeSet(com.wdullaer.materialdatetimepicker.time.RadialPickerLayout view, int hourOfDay, int minute) {
-
+    public void onTimeSet(com.wdullaer.materialdatetimepicker.time.RadialPickerLayout view, int hour, int minute) {
+        LogUtils.e("ButtomWindow",hour+"=="+minute+"");
+        intent.putExtra("Hour",hour);
+        intent.putExtra("Minute",minute);
+        mContext.startService(intent);
     }
 }
 
