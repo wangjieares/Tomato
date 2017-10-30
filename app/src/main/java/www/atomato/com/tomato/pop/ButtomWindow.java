@@ -163,13 +163,9 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
             case R.id.pop_remind:
                 if (mBottomWindowListener != null && mItemView != null) {
                     mBottomWindowListener.remindClick(view, mItemPosition);
-                    if (mContext.getSharedPreferences("remind",Context.MODE_PRIVATE).getBoolean("isRemind",true)){
-                        popRemind.setText("提醒");
-                    }else {
-                        popRemind.setText("取消提醒");
-                    }
                     //如果提醒执行
                     if (mContext.getSharedPreferences("remind",Context.MODE_PRIVATE).getBoolean("isRemind",false)){
+                        popRemind.setText("取消提醒");
                         SharedPreferences sharedPreferences = mContext.getSharedPreferences("remind", Context.MODE_PRIVATE);
                         SharedPreferences.Editor sharePrefrenceHelper = sharedPreferences.edit();
                         sharePrefrenceHelper.putBoolean("isRemind",false);//不执行提示
@@ -185,6 +181,7 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener , 
                         Intent intent = new Intent(mContext, RemindService.class);
                         mContext.startService(intent);
                     }else {
+                        popRemind.setText("提醒");
                         SharedPreferences sharedPreferences = mContext.getSharedPreferences("remind", Context.MODE_PRIVATE);
                         SharedPreferences.Editor sharePrefrenceHelper = sharedPreferences.edit();
                         sharePrefrenceHelper.putBoolean("isRemind",true);//执行提示
