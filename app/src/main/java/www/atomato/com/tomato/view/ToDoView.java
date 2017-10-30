@@ -303,10 +303,6 @@ public class ToDoView extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(mProgressColor);
     }
-    public void setProgress(int progress) {
-        mProgress = progress / 100;
-        invalidate();
-    }
     private void drawProgress(Canvas canvas) {
         if (mProgress <= 0) {
             return;
@@ -325,8 +321,11 @@ public class ToDoView extends View {
     }
     private void drawLeftArc(Canvas canvas) {
         canvas.save();
-        float mProgressXPositon = 170;
-        float mProgressYPositon = 120;
+        float mProgressXPositon = mScreenWidth / 2;
+        float mProgressYPositon = mScreenHeight/10;
+
+//        float mProgressXPositon = 170;
+//        float mProgressYPositon = 120;
         canvas.translate(mProgressXPositon, mProgressYPositon);
         float leftArcWidth = mProgressLoadingWidth < mRadius ? mProgressLoadingWidth : mRadius;//当前进度条不能超过左边圆的半径
         RectF rectF = new RectF(-mRadius, -mRadius, mRadius, mRadius);
@@ -394,6 +393,10 @@ public class ToDoView extends View {
         pathTriangle.close();
         canvas.drawPath(pathTriangle, mPaint);
 
+    }
+    public void setProgress(int progress) {
+        mProgress = progress / 100;
+        invalidate();
     }
     public int dp2px(int dpValue) {
         //转化标准尺寸
