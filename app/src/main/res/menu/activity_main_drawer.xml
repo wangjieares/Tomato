@@ -18,11 +18,11 @@
                     android:title="@string/activity_main_drawer_future"/>
                 <item
                     android:id="@+id/card"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/activity_card_view"
                     android:title="@string/activity_main_drawer_card"/>
                 <item
                     android:id="@+id/setting"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/activity_menu_manage"
                     android:title="@string/activity_main_drawer_setting"/>
             </menu>
         </item>

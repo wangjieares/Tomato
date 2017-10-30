@@ -26,7 +26,7 @@ public class MyRecyclerView extends RecyclerView {
     }
 
     public void setEmpty(View v) {
-        LogUtils.e("ssss", "setEmtpy");
+//        LogUtils.e("ssss", "setEmtpy");
         emptyView = v;
     }
 
