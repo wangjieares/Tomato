@@ -31,6 +31,7 @@
     <color name="activity_setting_content_background">#ffffff</color>
     <color name="fragment_more_layout_item_button_selected_false">#00000000</color>
     <color name="fragment_more_layout_item_button_selected_true">@color/itemClick</color>
+    <color name="activity_card_content_card_background">#099A8C</color>
     <!--网站寻找APP配色方案-->
 
     <!--网站寻找APP配色方案-->
