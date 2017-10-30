@@ -35,7 +35,7 @@
     <string name="content_statistics_item_total">累计数据</string>
     <string name="content_statistics_item_chrild_num">番茄个数</string>
     <string name="content_statistics_item_chrild_time">总计时间</string>
-    <string name="activity_main_drawer_setting">设置</string>
+    <string name="activity_main_drawer_setting">更多设置</string>
     <string name="activity_main_drawer_about">关于帮助</string>
     <string name="activity_main_drawer_feedback">反馈建议</string>
     <string name="activity_detail_button">确定</string>
