@@ -12,7 +12,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         app:cardBackgroundColor="@color/activity_card_content_card_background"
         app:cardCornerRadius="10dp"
-        app:contentPadding="25dp"
+        app:contentPadding="20dp"
         app:cardElevation="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,17 +63,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/card_view"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="190dp"
         android:background="@drawable/activity_card_view_button"
-        android:text="未购买"
+        android:text="购买"
         android:textColor="#FFFF" />
 
     <www.atomato.com.tomato.view.MyRecyclerView
         android:id="@+id/activity_card_content_recycleList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_alignTop="@+id/activity_card_view_button"
         android:layout_marginTop="80dp" />
 </RelativeLayout>

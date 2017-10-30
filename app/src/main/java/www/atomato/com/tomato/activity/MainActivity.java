@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,10 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-
-import com.mob.tools.gui.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -283,10 +279,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
-//            item.setCheckable(true);
-//            item.setChecked(true);
         }else if(id==R.id.feedback){
-
+            Intent intent = new Intent(this, FeedbackActivirty.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);

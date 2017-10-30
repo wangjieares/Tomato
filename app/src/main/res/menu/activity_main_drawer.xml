@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group>
         <item android:title="@string/activity_main_drawer_menu">
             <menu>
                 <item
                     android:id="@+id/statistics"
                     android:icon="@mipmap/activity_main_drawer_statistics"
-                    android:title="@string/activity_main_drawer_statistice"/>
+                    android:title="@string/activity_main_drawer_statistice" />
                 <item
                     android:id="@+id/relax"
                     android:icon="@mipmap/activity_main_drawer_relax"
-                    android:title="@string/activity_main_drawer_relax"/>
+                    android:title="@string/activity_main_drawer_relax" />
                 <item
                     android:id="@+id/future_plan"
                     android:icon="@mipmap/activity_main_drawer_future"
-                    android:title="@string/activity_main_drawer_future"/>
-                <item
-                    android:id="@+id/card"
-                    android:icon="@drawable/activity_card_view"
-                    android:title="@string/activity_main_drawer_card"/>
+                    android:title="@string/activity_main_drawer_future" />
                 <item
                     android:id="@+id/setting"
                     android:icon="@drawable/activity_menu_manage"
-                    android:title="@string/activity_main_drawer_setting"/>
+                    android:title="@string/activity_main_drawer_setting" />
             </menu>
         </item>
     </group>
     <group>
         <item
+            android:id="@+id/card"
+            android:icon="@drawable/activity_card_view"
+            android:title="@string/activity_main_drawer_card" />
+        <item
             android:id="@+id/about"
-            android:title="@string/activity_main_drawer_about"/>
+            android:title="@string/activity_main_drawer_about" />
         <item
             android:id="@+id/feedback"
-            android:title="@string/activity_main_drawer_feedback"/>
+            android:title="@string/activity_main_drawer_feedback" />
     </group>
 </menu>
