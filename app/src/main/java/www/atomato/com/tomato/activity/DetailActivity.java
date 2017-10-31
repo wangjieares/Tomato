@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.utils.LogUtils;
 
 /**
  * Created by wangj on 2016-11-28.
@@ -28,7 +31,7 @@ public class DetailActivity extends Activity {
     TextView activityDetailPercent;
     @BindView(R.id.activity_detail_button)
     Button activityDetailButton;
-    double percent;
+    String percent;
     int num;
 
     @Override
@@ -42,11 +45,12 @@ public class DetailActivity extends Activity {
         int todo_plan_time = intent.getIntExtra("todo_plan_time", 350);//计划时间
         int todo_current_time = intent.getIntExtra("todo_current_time", 35);//当前时间
         try {
+            DecimalFormat df=new DecimalFormat("0.00");
             if (total_time != 0) {
-                percent = todo_plan_time / total_time;
+                percent= df.format((float)total_time / todo_plan_time*100);
             }
         } catch (ArithmeticException e) {
-            percent = 0f;
+            percent = "0";
         }
         if (todo_current_time != 0) {
             num = total_time / todo_current_time;

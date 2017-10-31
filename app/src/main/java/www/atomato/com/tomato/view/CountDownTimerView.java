@@ -283,7 +283,8 @@ public class CountDownTimerView extends View {
         animator = ValueAnimator.ofFloat(1.0f, 0);
 //        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.0f);
         //动画时长，让进度条在CountDown时间内正好从0-360走完，这里由于用的是CountDownTimer定时器，倒计时要想减到0则总时长需要多加1000毫秒，所以这里时间也跟着+1000ms
-        animator.setDuration(countdownTime);//不知道为什么 手机执行时间少一半
+        animator.setDuration(countdownTime*2);//不知道为什么 手机执行时间少一半
+//        animator.setDuration(countdownTime);//不知道为什么 手机执行时间少一半
 //        animator.setDuration(countdownTime + 1000);
         animator.setInterpolator(new LinearInterpolator());//匀速
         animator.setRepeatCount(0);//表示不循环，-1表示无限循环

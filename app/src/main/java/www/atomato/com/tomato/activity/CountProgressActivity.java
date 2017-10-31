@@ -171,7 +171,7 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
                 if (view.isSelected()) {
                     view.setSelected(false);
                     mWakeLock.setReferenceCounted(false);
-                    mWakeLock.acquire();
+                    mWakeLock.acquire(10*60*1000L /*10 minutes*/);
                     ToastUtils.show(this, "开启屏幕常亮！");
                 } else {
                     if (mWakeLock.isHeld()) {
@@ -221,8 +221,10 @@ public class CountProgressActivity extends Activity implements www.atomato.com.t
             cursor.moveToNext();
             int totalTime = cursor.getInt(cursor.getColumnIndex("todo_total_time"));
             int totalNum = cursor.getInt(cursor.getColumnIndex("todo_total_num"));
+            int progress = cursor.getInt(cursor.getColumnIndex("todo_progress"));
             contentValues.put("todo_total_time", totalTime + todoTime);//总时间 之前时间+当前完成时间
             contentValues.put("todo_total_num", totalNum + 1);//总时间 之前个数+1
+            contentValues.put("todo_progress", progress + 10);//总时间 之前个数+1
             viewSQLite.update(Constants.TABLE_NAME, contentValues, "todo_title=?", new String[]{todoTitle});
 //            if (isDesotry()) {
 //                viewSQLite.delete(todoTitle);
