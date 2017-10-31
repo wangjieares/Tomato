@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.RelativeLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,7 +125,6 @@ public class ButtomWindow extends PopupWindow implements View.OnTouchListener ,T
     public void setBottomWindowListener(BottomWindowListener bottomWindowListener) {
         this.mBottomWindowListener = bottomWindowListener;
     }
-
     @OnClick({R.id.pop_stick, R.id.pop_remind, R.id.pop_mark, R.id.pop_edit, R.id.pop_delete, R.id.pop_cancel, R.id.pop_layout})
     public void onClick(View view) {
         switch (view.getId()) {
