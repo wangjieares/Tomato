@@ -45,9 +45,11 @@ public class DetailActivity extends Activity {
         int todo_plan_time = intent.getIntExtra("todo_plan_time", 350);//计划时间
         int todo_current_time = intent.getIntExtra("todo_current_time", 35);//当前时间
         try {
-            DecimalFormat df=new DecimalFormat("0.00");
+            DecimalFormat df = new DecimalFormat("0.00");
             if (total_time != 0) {
-                percent= df.format((float)total_time / todo_plan_time*100);
+                percent = df.format((float) total_time / todo_plan_time * 100);
+            } else {
+                percent = "0";
             }
         } catch (ArithmeticException e) {
             percent = "0";
