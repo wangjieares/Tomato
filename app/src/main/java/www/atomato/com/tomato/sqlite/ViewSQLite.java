@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import www.atomato.com.tomato.constants.Constants;
 import www.atomato.com.tomato.data.GroupItem;
 import www.atomato.com.tomato.data.ToDoItem;
+import www.atomato.com.tomato.utils.LogUtils;
 import www.atomato.com.tomato.utils.ToastUtils;
 
 /**
@@ -47,6 +49,7 @@ public class ViewSQLite {
         values.put("todo_time", toDoData.getTime());
         values.put("todo_state", toDoData.getState());
         values.put("todo_progress", toDoData.getProgress());
+        LogUtils.e("Viewsql",toDoData.getProgress()+"");
         values.put("todo_color", toDoData.getDrawBackColor());
         values.put("todo_stick", toDoData.getStickState());
         values.put("todo_stick_time", toDoData.getStickStateTime());

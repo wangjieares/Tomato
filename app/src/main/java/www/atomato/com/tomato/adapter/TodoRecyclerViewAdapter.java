@@ -39,7 +39,6 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.toDoView.setTodoTitle(mList.get(position).getTitle());
         holder.toDoView.setTodoTime(mList.get(position).getTime());
-
         holder.toDoView.setProgress(mList.get(position).getProgress());
         holder.toDoView.setItemState(mList.get(position).getState());
         holder.toDoView.setDrawColor(mList.get(position).getDrawBackColor());
@@ -109,13 +108,13 @@ public class TodoRecyclerViewAdapter extends RecyclerView.Adapter<TodoRecyclerVi
 
     public void refreshAll(int positon, int state) {
         if (state == 0) {
-            LogUtils.e("RecyclerView", "--------------------------true");
+//            LogUtils.e("RecyclerView", "--------------------------true");
             mList.get(positon).setStickState(1);
             Collections.sort(mList);
             notifyDataSetChanged();
         }
         if (state == 1) {
-            LogUtils.e("RecyclerView", "--------------------------false");
+//            LogUtils.e("RecyclerView", "--------------------------false");
             mList.get(positon).setStickState(0);
         }
     }

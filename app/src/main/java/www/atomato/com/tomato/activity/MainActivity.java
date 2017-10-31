@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity
             //发消息通知更改
             bundle.putInt("todo_time", 35);
             bundle.putInt("todo_state", 0);
-            bundle.putInt("todo_progress", 0);
+            bundle.putInt("todo_progress", 2);
             bundle.putInt("todo_drawColor", Color.parseColor("#1ABC9C"));
             bundle.putInt("todo_plan_time", bundle.getInt("time") * 10);//短期十个一组
             Message message = OneFragment.handler.obtainMessage();

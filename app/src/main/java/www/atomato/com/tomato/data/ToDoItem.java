@@ -17,7 +17,7 @@ public class ToDoItem implements Serializable, Comparable {
     private String mTitle;//标题
     private int mTime;//时间
     private int mDrawBackColor;//绘制北京
-    private int mProgress = 1;//进度
+    private int mProgress = 3;//进度
     private int mState = 0;//完成状态
     private int mStickState = 0;//是否置顶
     private long mCreate;//创建时间
