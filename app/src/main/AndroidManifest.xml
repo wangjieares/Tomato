@@ -161,7 +161,14 @@
             android:name=".service.MessageService"
             android:process=":remote" />
 
-        <receiver android:name=".broadcast.AlarmReceiver" />
+        <receiver android:name=".broadcast.AlarmReceiver"
+            android:permission=""
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.atomato.www.AlarmReceiver"/>
+            </intent-filter>
+        </receiver>
+
         <!--ShareSdk分享集成activity-->
         <activity
             android:name="com.mob.tools.MobUIShell"
