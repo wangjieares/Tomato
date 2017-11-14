@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">番茄工作法</string>
-    <string name="username">番茄工作法</string>
+    <string name="username">点击登录</string>
     <string name="dictum">A fall into th pit, a gain in your wit.</string>
     <string name="activity_main_drawer_statistice">统计数据</string>
     <string name="activity_main_drawer_relax">休息</string>
@@ -44,4 +44,8 @@
     <string name="activity_setting_content_ad_banner">关闭关于页面的广告</string>
     <string name="content_statistics_item_day">今日数据</string>
     <string name="fragment_more_layout_item_button_text">开始</string>
+    <string name="activity_login_login">登录</string>
+    <string name="activity_login_sign">没有账号？点击注册</string>
+    <string name="activity_login_password">输入密码</string>
+    <string name="activity_login_email">邮件</string>
 </resources>

@@ -154,6 +154,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SignupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".service.RemindService" />
         <service android:name=".service.CountProgressService" />
@@ -161,11 +179,12 @@
             android:name=".service.MessageService"
             android:process=":remote" />
 
-        <receiver android:name=".broadcast.AlarmReceiver"
+        <receiver
+            android:name=".broadcast.AlarmReceiver"
             android:permission=""
             tools:ignore="ExportedReceiver">
             <intent-filter>
-                <action android:name="com.atomato.www.AlarmReceiver"/>
+                <action android:name="com.atomato.www.AlarmReceiver" />
             </intent-filter>
         </receiver>
 

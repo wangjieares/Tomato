@@ -19,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +34,9 @@ import www.atomato.com.tomato.fragment.OneFragment;
 import www.atomato.com.tomato.service.MessageService;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.utils.LogUtils;
+import www.atomato.com.tomato.utils.RoundImageView;
 import www.atomato.com.tomato.utils.ScreenUtils;
+import www.atomato.com.tomato.utils.ToastUtils;
 import www.atomato.com.tomato.view.FragmentViewPager;
 
 public class MainActivity extends BaseActivity
@@ -70,7 +74,7 @@ public class MainActivity extends BaseActivity
         final List<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(mOneFragment);
         mFragmentList.add(mMoreFragment);
-        mViewPager = (FragmentViewPager)findViewById(R.id.viewPager);
+        mViewPager = (FragmentViewPager) findViewById(R.id.viewPager);
 //      adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         FragmentViewPagerAdapter mAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mAdapter);
@@ -86,8 +90,19 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemTextAppearance(R.style.MenuTextStyle);
+        View headerView = navigationView.getHeaderView(0);
+        //drawer 头部部件初始化
+        TextView title = (TextView) headerView.findViewById(R.id.main_nav_header_textView_title);
+        TextView content = (TextView) headerView.findViewById(R.id.main_nav_header_textView_content);
+        RoundImageView roundImageView = (RoundImageView) headerView.findViewById(R.id.nav_header_roundImageView);
+        LinearLayout linearLayout = (LinearLayout) headerView.findViewById(R.id.nav_header_linear_layout_buttton);
+        roundImageView.setOnClickListener(this);
+        linearLayout.setOnClickListener(this);
+        title.setOnClickListener(this);
+        content.setOnClickListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
+        //drawer 头部部件初始化
         setConnection();
     }
 
@@ -237,6 +252,7 @@ public class MainActivity extends BaseActivity
         }
 
     }
+
     //返回键 返回DrawerLayout
     @Override
     public void onBackPressed() {
@@ -247,6 +263,7 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
+
     //菜单跳转相应的Activity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -279,7 +296,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
-        }else if(id==R.id.feedback){
+        } else if (id == R.id.feedback) {
             Intent intent = new Intent(this, FeedbackActivirty.class);
             startActivity(intent);
         }
@@ -308,6 +325,28 @@ public class MainActivity extends BaseActivity
                 mOneButton.setImageResource(R.drawable.todo_one);
                 invalidateOptionsMenu();
                 break;
+            case R.id.main_nav_header_textView_title:
+                ToastUtils.show(this, tag + "title");
+                Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.main_nav_header_textView_content:
+                ToastUtils.show(this, tag + "content");
+                Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.nav_header_linear_layout_buttton:
+                ToastUtils.show(this, tag + "nav_header_linear_layout_buttton");
+                break;
+            case R.id.nav_header_roundImageView:
+                ToastUtils.show(this, tag + "nav_header_roundImageView");
+                Intent intent3 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent3);
+                break;
+            default:
+                ToastUtils.show(this, tag + "closeDrawers");
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+                drawer.closeDrawers();
         }
     }
 
@@ -335,6 +374,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void onPageScrollStateChanged(int state) {
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
