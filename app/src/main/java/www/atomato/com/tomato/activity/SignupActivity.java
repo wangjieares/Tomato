@@ -14,6 +14,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import www.atomato.com.tomato.R;
+import www.atomato.com.tomato.data.User;
 import www.atomato.com.tomato.web.LoginServlet;
 
 public class SignupActivity extends AppCompatActivity {
@@ -68,10 +69,10 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String username = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
+        final String username = _nameText.getText().toString();
+        final String email = _emailText.getText().toString();
+        final String mobile = _mobileText.getText().toString();
+        final String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
@@ -81,6 +82,8 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
+                        LoginServlet servlet = new LoginServlet();
+                        servlet.regiterUser(new User(username,email,mobile,password));
                         onSignupSuccess();
                         // onSignupFailed();
                         progressDialog.dismiss();
@@ -144,8 +147,6 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _reEnterPasswordText.setError(null);
         }
-        LoginServlet servlet = new LoginServlet();
-        servlet.regiterUser();
         return valid;
     }
 }

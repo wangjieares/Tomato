@@ -35,17 +35,14 @@ public class LoginServlet {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         IUserBiz userBiz = retrofit.create(IUserBiz.class);
-        Map<String,String> maps=new HashMap<>();
-
-        Call<ResponseBody> call = userBiz.addUser(maps);
+        Call<ResponseBody> call = userBiz.addUser(user.getMaps());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                LogUtils.i(TAG, "onResponse");
-                LogUtils.i(TAG,  response.code()+"");
+                LogUtils.e(TAG, "onResponse");
+                LogUtils.e(TAG,  response.code()+"");
                 try {
-                    LogUtils.i(TAG,  response.body().string());
-                    LogUtils.e(TAG,new User("wangjie","tsss","saa","156").toString());
+                    LogUtils.e(TAG,  response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

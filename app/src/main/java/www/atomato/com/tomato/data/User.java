@@ -20,11 +20,13 @@ public class User {
         this.mobile = mobile;
         this.password = password;
         maps.put("username", username);
-        maps.put("email", username);
-        maps.put("mobile", username);
-        maps.put("password", username);
+        maps.put("email", email);
+        maps.put("mobile", mobile);
+        maps.put("password", password);
     }
-
+    public Map<String,String> getMaps(){
+        return maps;
+    }
     @Override
     public String toString() {
         return
