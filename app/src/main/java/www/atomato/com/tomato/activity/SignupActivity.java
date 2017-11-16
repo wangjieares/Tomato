@@ -82,8 +82,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        LoginServlet servlet = new LoginServlet();
-                        servlet.regiterUser(new User(username,email,mobile,password));
+                        LoginServlet.regiterUser(new User(username,email,mobile,password));
                         onSignupSuccess();
                         // onSignupFailed();
                         progressDialog.dismiss();

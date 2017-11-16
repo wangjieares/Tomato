@@ -13,7 +13,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import www.atomato.com.tomato.R;
-import www.atomato.com.tomato.data.User;
 import www.atomato.com.tomato.utils.BaseActivity;
 import www.atomato.com.tomato.web.LoginServlet;
 
@@ -81,6 +80,7 @@ public class LoginActivity extends BaseActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
+                        LoginServlet.loginUser("wangjie","521nimama");
                         onLoginSuccess();
                         // onLoginFailed();
                         progressDialog.dismiss();
